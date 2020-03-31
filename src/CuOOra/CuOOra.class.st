@@ -15,10 +15,19 @@ Class {
 { #category : #'as yet unclassified' }
 CuOOra >> agregarPregunta:unTitulo Descrip:unaDescripcion usu:unUsuario topics:unosTopicos [ 
 	|preg|
-	preg := Pregunta nuevoTitulo: unTitulo Descrip:unaDescripcion  usu:unUsuario  top:unosTopicos.
-	unUsuario agregarPregunta:preg.
-	unosTopicos do:[:top|top agregarPregunta:preg].
+	preg := Pregunta nuevoTitulo: unTitulo Descrip:unaDescripcion  usu:unUsuario  top:unosTopicos. "La creación es realizada por la clase 																																Pregunta"
+	unUsuario agregarPublicacion:preg.  "La pregunta creada se agrega a la coleccion de preguntas del usuario"
+	unosTopicos do:[:top|top agregarPregunta:preg]. "La pregunta creada se agrega a la coleccion de preguntas de un/os topico/s"
 	^ preg.
+]
+
+{ #category : #'as yet unclassified' }
+CuOOra >> agregarRespuesta:unTexto de:unaPregunta usu:unUsuario [ 
+	|resp|
+	resp := Respuesta nuevoRespuesta:unTexto de:unaPregunta usu:unUsuario. "La creación es realizada por la clase Respuesta"
+	unUsuario agregarPublicacion:resp.  "La respuesta creada se agrega a la coleccion de publicaciones(respuestas) del usuario"
+	unaPregunta agregarRespuesta:resp. "La respuesta creada se agrega a la coleccion de respuestas de la pregunta"
+	^ resp.
 ]
 
 { #category : #'as yet unclassified' }

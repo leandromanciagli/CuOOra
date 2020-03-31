@@ -17,18 +17,23 @@ Pregunta class >> nuevoTitulo:unTitulo Descrip:unaDescripcion usu:unUsuario top:
 ]
 
 { #category : #'as yet unclassified' }
+Pregunta >> agregarRespuesta:resp [
+	respuestas add:resp.
+]
+
+{ #category : #'as yet unclassified' }
 Pregunta >> nuevaPregunta:unTitulo Descrip:unaDescripcion usu:unUsuario topics:unosTopicos [
 
 	titulo :=unTitulo.
 	descripcion :=unaDescripcion.
 	usuario := unUsuario.
 	topicos :=unosTopicos.
-	
+	respuestas := OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }
 Pregunta >> obtenerRespuestas [
- ^ respuestas.
+ ^ respuestas. "hacerlo con asSortedCollection: []"
 ]
 
 { #category : #accessing }

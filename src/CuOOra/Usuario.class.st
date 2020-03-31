@@ -25,8 +25,8 @@ Usuario class >> nuevo:nombre y:contrasena [
 ]
 
 { #category : #'as yet unclassified' }
-Usuario >> agregarPregunta:unaPregunta [
-    publicaciones add:unaPregunta. 
+Usuario >> agregarPublicacion:unaPublicacion [
+    publicaciones add:unaPublicacion. 
 ]
 
 { #category : #'as yet unclassified' }
