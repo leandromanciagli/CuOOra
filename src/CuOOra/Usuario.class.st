@@ -25,8 +25,19 @@ Usuario class >> nuevo:nombre y:contrasena [
 ]
 
 { #category : #'as yet unclassified' }
+Usuario >> agregarPregunta:unaPregunta [
+    publicaciones add:unaPregunta. 
+]
+
+{ #category : #'as yet unclassified' }
 Usuario >> agregarSeguidor:unSeguidor [
 	seguidores add:unSeguidor.
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> agregarTopicoInteres:unTopi [
+	intereses add:unTopi.
+	
 ]
 
 { #category : #accessing }
@@ -40,6 +51,7 @@ Usuario >> initialize [
 	intereses:= OrderedCollection new.
 	seguidores:= OrderedCollection new.
 	seguidos:= OrderedCollection new.
+	publicaciones := OrderedCollection new.
 ]
 
 { #category : #accessing }

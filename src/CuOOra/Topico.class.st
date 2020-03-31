@@ -14,6 +14,11 @@ Topico class >> crearTopico:nom descripcion:descrip [
 		^ self new nombre:nom descripcion:descrip. 
 ]
 
+{ #category : #'as yet unclassified' }
+Topico >> agregarPregunta:unaPregunta [ 
+	preguntas add:unaPregunta.
+]
+
 { #category : #accessing }
 Topico >> descripcion [
 	^ descripcion
@@ -44,4 +49,9 @@ Topico >> preguntas [
 { #category : #accessing }
 Topico >> preguntas: anObject [
 	preguntas := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Topico >> todasLasPreguntas [
+	^ preguntas.
 ]
