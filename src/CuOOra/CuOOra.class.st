@@ -13,11 +13,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-CuOOra >> agregarTopico:unTopico [
-	topicos add: unTopico.
-]
-
-{ #category : #'as yet unclassified' }
 CuOOra >> agregarTopico:nom descripcion:descrip [ 
 |top|
 	top:=Topico crearTopico: nom descripcion:descrip.
