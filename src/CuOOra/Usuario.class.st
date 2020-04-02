@@ -40,6 +40,14 @@ Usuario >> agregarTopicoInteres:unTopi [
 	
 ]
 
+{ #category : #'as yet unclassified' }
+Usuario >> borrarPregunta:unaPregunta [
+	"(publicaciones includes: unaPregunta) => Es necesario hacer esta pregunta o esta de mas?"
+	publicaciones remove: unaPregunta.
+	
+	
+]
+
 { #category : #accessing }
 Usuario >> contrasena [
 		^contrasena.

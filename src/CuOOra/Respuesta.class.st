@@ -14,6 +14,11 @@ Respuesta class >> nuevoRespuesta:unTexto de:unaPregunta usu:unUsuario [
 ]
 
 { #category : #'as yet unclassified' }
+Respuesta >> borrarRefAlUsuario [
+        usuario borrarPregunta: self.
+]
+
+{ #category : #'as yet unclassified' }
 Respuesta >> esRespuesta [
  	^ true.
 ]

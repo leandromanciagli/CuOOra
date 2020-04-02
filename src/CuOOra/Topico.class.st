@@ -19,6 +19,14 @@ Topico >> agregarPregunta:unaPregunta [
 	preguntas add:unaPregunta.
 ]
 
+{ #category : #'as yet unclassified' }
+Topico >> borrarPregunta:unaPregunta [
+	"(preguntas includes: unaPregunta) es necesario"
+	 preguntas remove:unaPregunta.
+
+	
+]
+
 { #category : #accessing }
 Topico >> descripcion [
 	^ descripcion

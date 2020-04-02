@@ -24,6 +24,11 @@ Publicacion >> buscarReaccionDe: unUsuario [
 	^ reaccion
 ]
 
+{ #category : #'submorphs-add/remove' }
+Publicacion >> delete [ 
+	self subclassResponsibility.
+]
+
 { #category : #'as yet unclassified' }
 Publicacion >> esPregunta [
 
