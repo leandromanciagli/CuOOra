@@ -25,3 +25,12 @@ Respuesta >> nuevaRespuesta:unTexto de:unaPregunta usu:unUsuario [
 	texto := unTexto.
 	
 ]
+
+{ #category : #'as yet unclassified' }
+Respuesta >> puntaje [
+	(self reacciones isEmpty)
+	ifTrue: [ ^ 0 ] "por si esa publicacion no tiene ninguna reaccion"
+	ifFalse:[
+		self reacciones
+		]. "aca habria que obtener el puntaje"
+]

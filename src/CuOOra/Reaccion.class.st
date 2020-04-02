@@ -4,14 +4,25 @@ Class {
 	#instVars : [
 		'usuario',
 		'publicacion',
-		'fechaHora'
+		'fechaHora',
+		'estado'
 	],
 	#category : #CuOOra
 }
 
 { #category : #initialization }
-Reaccion class >> newConUsuario: unUsuario yPublicacion: unaPublicacion [
-	^ self new nuevaReaccionUsuario: unUsuario yPublicacion: unaPublicacion
+Reaccion class >> newConUsuario: unUsuario publicacion: unaPublicacion yVoto: unVoto [
+	^ self new nuevaReaccionUsuario: unUsuario publicacion: unaPublicacion yVoto: unVoto
+]
+
+{ #category : #accessing }
+Reaccion >> estado [
+	^estado
+]
+
+{ #category : #accessing }
+Reaccion >> estado: unEstado [
+	estado := unEstado
 ]
 
 { #category : #initialization }
@@ -20,9 +31,10 @@ Reaccion >> initialize [
 ]
 
 { #category : #initialization }
-Reaccion >> nuevaReaccionUsuario: unUsuario yPublicacion: unaPublicacion [
+Reaccion >> nuevaReaccionUsuario: unUsuario publicacion: unaPublicacion yVoto: unVoto [
 	usuario := unUsuario.
-	publicacion := unaPublicacion
+	publicacion := unaPublicacion.
+	estado := unVoto
 ]
 
 { #category : #accessing }

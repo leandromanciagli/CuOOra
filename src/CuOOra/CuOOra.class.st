@@ -54,22 +54,18 @@ CuOOra >> initialize [
 	
 ]
 
-{ #category : #'as yet unclassified' }
-CuOOra >> registrarDislikeDe: unUsuario a: unaPublicacion [
-	| dislike |
-	dislike := Dislike newConUsuario: unUsuario yPublicacion: unaPublicacion.
-	unaPublicacion eliminarReaccionDe: unUsuario.
-	unaPublicacion agregarReaccion: dislike.
-	^ dislike
-]
-
-{ #category : #'as yet unclassified' }
-CuOOra >> registrarLikeDe: unUsuario a: unaPublicacion [
-	| like |
-	like := Like newConUsuario: unUsuario yPublicacion: unaPublicacion.
-	unaPublicacion eliminarReaccionDe: unUsuario.
-	unaPublicacion agregarReaccion: like.
-	^ like.
+{ #category : #accessing }
+CuOOra >> registrarReaccionDe: unUsuario a: unaPublicacion conVoto: unVoto [
+	| reaccion |
+	reaccion := unaPublicacion buscarReaccionDe: unUsuario.
+	reaccion
+		ifNil: [ reaccion := Reaccion
+				newConUsuario: unUsuario
+				publicacion: unaPublicacion
+				yVoto: unVoto.
+			unaPublicacion agregarReaccion: reaccion ]
+		ifNotNil: [ reaccion estado: unVoto ].
+	^ reaccion
 ]
 
 { #category : #'as yet unclassified' }

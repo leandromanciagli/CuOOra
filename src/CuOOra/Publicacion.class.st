@@ -15,15 +15,13 @@ Publicacion >> agregarReaccion: unaReaccion [
 ]
 
 { #category : #'as yet unclassified' }
-Publicacion >> eliminarReaccion: unaReaccion [
-	reacciones remove: unaReaccion.
-]
-
-{ #category : #'as yet unclassified' }
-Publicacion >> eliminarReaccionDe: unUsuario [
-
-	reacciones do: [ :r | (r usuario = unUsuario) ifTrue: [ self eliminarReaccion: r ] ].
-	"Buscar corte de control para que cuando encuentre la reaccion del usuario no siga buscando".
+Publicacion >> buscarReaccionDe: unUsuario [
+	| reaccion |
+	reacciones
+		do: [ :r | 
+			r usuario = unUsuario
+				ifTrue: [ reaccion := r ] ].
+	^ reaccion
 ]
 
 { #category : #'as yet unclassified' }
@@ -43,9 +41,7 @@ Publicacion >> initialize [
 	reacciones := OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
-Publicacion >> puntaje [
-	(reacciones isEmpty)
-	ifTrue: [ ^ 0 ] "por si esa publicacion no tiene ninguna reaccion"
-	ifFalse:[]. "aca habria que obtener el puntaje"
+{ #category : #accessing }
+Publicacion >> reacciones [
+	^ reacciones
 ]
