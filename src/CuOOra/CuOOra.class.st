@@ -60,6 +60,24 @@ CuOOra >> obtenerRespuestasA:unaPregunta [
 ]
 
 { #category : #'as yet unclassified' }
+CuOOra >> registrarDislikeDe: unUsuario a: unaPublicacion [
+	| dislike |
+	dislike := Dislike newConUsuario: unUsuario yPublicacion: unaPublicacion.
+	unaPublicacion eliminarReaccionDe: unUsuario.
+	unaPublicacion agregarReaccion: dislike.
+	^ dislike
+]
+
+{ #category : #'as yet unclassified' }
+CuOOra >> registrarLikeDe: unUsuario a: unaPublicacion [
+	| like |
+	like := Like newConUsuario: unUsuario yPublicacion: unaPublicacion.
+	unaPublicacion eliminarReaccionDe: unUsuario.
+	unaPublicacion agregarReaccion: like.
+	^ like
+]
+
+{ #category : #'as yet unclassified' }
 CuOOra >> registrarTopInteres:unTopico a:unUsuario [ 
 	unUsuario agregarTopicoInteres: unTopico.
 ]
