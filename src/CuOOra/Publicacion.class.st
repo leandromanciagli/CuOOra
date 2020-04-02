@@ -31,3 +31,10 @@ Publicacion >> initialize [
 	fechaHora := DateAndTime now.
 	reacciones := OrderedCollection new
 ]
+
+{ #category : #'as yet unclassified' }
+Publicacion >> puntaje [
+	(reacciones isEmpty)
+	ifTrue: [ ^ 0 ]
+	ifFalse:[]. "aca habria que obtener el puntaje"
+]

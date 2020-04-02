@@ -33,7 +33,7 @@ Pregunta >> nuevaPregunta:unTitulo Descrip:unaDescripcion usu:unUsuario topics:u
 
 { #category : #'as yet unclassified' }
 Pregunta >> obtenerRespuestas [
- ^ respuestas. "hacerlo con asSortedCollection: []"
+ ^ respuestas asSortedCollection: [:r1 :r2 | r1 puntaje  > r2 puntaje]. 
 ]
 
 { #category : #accessing }

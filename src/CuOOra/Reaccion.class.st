@@ -11,7 +11,7 @@ Class {
 
 { #category : #initialization }
 Reaccion class >> newConUsuario: unUsuario yPublicacion: unaPublicacion [
-	^ self newConUsuario: unUsuario yPublicacion: unaPublicacion
+	^ self new nuevaReaccionUsuario: unUsuario yPublicacion: unaPublicacion
 ]
 
 { #category : #initialization }
@@ -20,7 +20,7 @@ Reaccion >> initialize [
 ]
 
 { #category : #initialization }
-Reaccion >> newConUsuario: unUsuario yPublicacion: unaPublicacion [
+Reaccion >> nuevaReaccionUsuario: unUsuario yPublicacion: unaPublicacion [
 	usuario := unUsuario.
 	publicacion := unaPublicacion
 ]
