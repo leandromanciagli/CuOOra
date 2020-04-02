@@ -14,6 +14,11 @@ Publicacion >> agregarReaccion: unaReaccion [
 	reacciones add: unaReaccion
 ]
 
+{ #category : #'submorphs-add/remove' }
+Publicacion >> delete [ 
+	self subclassResponsibility.
+]
+
 { #category : #'as yet unclassified' }
 Publicacion >> eliminarReaccion: unaReaccion [
 	reacciones remove: unaReaccion.

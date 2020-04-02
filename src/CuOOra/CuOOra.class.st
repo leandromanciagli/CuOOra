@@ -39,6 +39,11 @@ CuOOra >> agregarTopico:nom descripcion:descrip [
 ]
 
 { #category : #'as yet unclassified' }
+CuOOra >> borrarUnaPregunta:unaPregunta [
+	unaPregunta delete.
+]
+
+{ #category : #'as yet unclassified' }
 CuOOra >> crearNuevoUsuario:nombre cont:contrasena [
 |usuario|
 usuario:= Usuario nuevo: nombre y:contrasena.
