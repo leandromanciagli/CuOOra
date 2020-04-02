@@ -14,6 +14,11 @@ Respuesta class >> nuevoRespuesta:unTexto de:unaPregunta usu:unUsuario [
 ]
 
 { #category : #'as yet unclassified' }
+Respuesta >> esRespuesta [
+ 	^ true.
+]
+
+{ #category : #'as yet unclassified' }
 Respuesta >> nuevaRespuesta:unTexto de:unaPregunta usu:unUsuario [
 	pregunta := unaPregunta.
 	usuario := unUsuario.

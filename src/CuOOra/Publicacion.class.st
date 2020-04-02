@@ -26,6 +26,17 @@ Publicacion >> eliminarReaccionDe: unUsuario [
 	"Buscar corte de control para que cuando encuentre la reaccion del usuario no siga buscando".
 ]
 
+{ #category : #'as yet unclassified' }
+Publicacion >> esPregunta [
+
+	^ false.
+]
+
+{ #category : #'as yet unclassified' }
+Publicacion >> esRespuesta [
+ 	^ false.
+]
+
 { #category : #initialization }
 Publicacion >> initialize [
 	fechaHora := DateAndTime now.
@@ -35,6 +46,6 @@ Publicacion >> initialize [
 { #category : #'as yet unclassified' }
 Publicacion >> puntaje [
 	(reacciones isEmpty)
-	ifTrue: [ ^ 0 ]
+	ifTrue: [ ^ 0 ] "por si esa publicacion no tiene ninguna reaccion"
 	ifFalse:[]. "aca habria que obtener el puntaje"
 ]

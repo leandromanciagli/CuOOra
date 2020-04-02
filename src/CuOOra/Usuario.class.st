@@ -75,6 +75,12 @@ Usuario >> nombre [
 	^nombre.
 ]
 
+{ #category : #'as yet unclassified' }
+Usuario >> preguntasRealizadas [
+	^ publicaciones select: [ :p | p esPregunta ].
+
+]
+
 { #category : #accessing }
 Usuario >> publicaciones [
 	^ publicaciones
@@ -83,6 +89,12 @@ Usuario >> publicaciones [
 { #category : #accessing }
 Usuario >> publicaciones: anObject [
 	publicaciones := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Usuario >> respuestasRealizadas [
+	^ publicaciones select: [ :p | p esRespuesta ].
+
 ]
 
 { #category : #accessing }

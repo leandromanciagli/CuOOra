@@ -22,6 +22,12 @@ Pregunta >> agregarRespuesta:resp [
 ]
 
 { #category : #'as yet unclassified' }
+Pregunta >> esPregunta [
+
+	^ true.
+]
+
+{ #category : #'as yet unclassified' }
 Pregunta >> nuevaPregunta:unTitulo Descrip:unaDescripcion usu:unUsuario topics:unosTopicos [
 
 	titulo :=unTitulo.
