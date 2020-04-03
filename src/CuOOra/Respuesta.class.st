@@ -24,6 +24,11 @@ Respuesta >> esRespuesta [
 ]
 
 { #category : #'as yet unclassified' }
+Respuesta >> likes [
+	^ self reacciones select: [ :each | each estado ]
+]
+
+{ #category : #'as yet unclassified' }
 Respuesta >> nuevaRespuesta:unTexto de:unaPregunta usu:unUsuario [
 	pregunta := unaPregunta.
 	usuario := unUsuario.
@@ -33,9 +38,10 @@ Respuesta >> nuevaRespuesta:unTexto de:unaPregunta usu:unUsuario [
 
 { #category : #'as yet unclassified' }
 Respuesta >> puntaje [
-	(self reacciones isEmpty)
-	ifTrue: [ ^ 0 ] "por si esa publicacion no tiene ninguna reaccion"
-	ifFalse:[
-		self reacciones
-		]. "aca habria que obtener el puntaje"
+	| cantLikes cantDislikes |
+	self reacciones isEmpty
+		ifTrue: [ ^ 0 ] "Por si esa publicacion no tiene ninguna reaccion"
+		ifFalse: [ cantLikes := self likes size.
+			cantDislikes := self reacciones size - cantLikes.
+			^ cantLikes - cantDislikes ]
 ]
