@@ -25,7 +25,7 @@ Pregunta >> agregarRespuesta:resp [
 Pregunta >> delete [ 
 	usuario borrarPregunta:self. "Como la clase pregunta ya conoce al usuario que la hizo ya tenemos el dato usuario como topico"
 	topicos do:[:top | top borrarPregunta:self].
-	respuestas do:[:resp | resp borrarRefAlUsuario].
+	respuestas do:[:resp | resp delete].
 ]
 
 { #category : #'as yet unclassified' }
