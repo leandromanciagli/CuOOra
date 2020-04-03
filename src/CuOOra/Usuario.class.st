@@ -48,6 +48,14 @@ Usuario >> borrarPregunta:unaPregunta [
 	
 ]
 
+{ #category : #'as yet unclassified' }
+Usuario >> borrarPublicacion:unaPregunta [
+	"(publicaciones includes: unaPregunta) => Es necesario hacer esta pregunta o esta de mas?"
+	publicaciones remove: unaPregunta.
+	
+	
+]
+
 { #category : #accessing }
 Usuario >> contrasena [
 		^contrasena.
