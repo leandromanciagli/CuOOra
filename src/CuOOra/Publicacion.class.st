@@ -46,6 +46,21 @@ Publicacion >> initialize [
 	reacciones := OrderedCollection new
 ]
 
+{ #category : #'as yet unclassified' }
+Publicacion >> likes [
+	^ self reacciones select: [ :each | each estado ]
+]
+
+{ #category : #'as yet unclassified' }
+Publicacion >> puntaje [
+	| cantLikes cantDislikes |
+	self reacciones isEmpty
+		ifTrue: [ ^ 0 ] "Por si esa publicacion no tiene ninguna reaccion"
+		ifFalse: [ cantLikes := self likes size.
+			cantDislikes := self reacciones size - cantLikes.
+			^ cantLikes - cantDislikes ]
+]
+
 { #category : #accessing }
 Publicacion >> reacciones [
 	^ reacciones

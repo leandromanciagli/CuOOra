@@ -44,6 +44,17 @@ CuOOra >> borrarUnaPregunta:unaPregunta [
 ]
 
 { #category : #'as yet unclassified' }
+CuOOra >> calcularPuntajeDelUsuario: unUsuario [
+	| puntajePorPreguntas puntajePorRespuestas puntajePorVotacion |
+	puntajePorPreguntas := unUsuario preguntasRealizadas size * 20.
+	puntajePorRespuestas := unUsuario respuestasRealizadas size * 50.
+	puntajePorVotacion := 0.
+	unUsuario publicaciones
+		do: [ :each | puntajePorVotacion := puntajePorVotacion + each puntaje ].
+	^ puntajePorPreguntas + puntajePorRespuestas + puntajePorVotacion
+]
+
+{ #category : #'as yet unclassified' }
 CuOOra >> crearNuevoUsuario:nombre cont:contrasena [
 |usuario|
 usuario:= Usuario nuevo: nombre y:contrasena.
