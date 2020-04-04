@@ -96,7 +96,7 @@ Usuario >> obtenerPreguntasRelevantes [
 	| preguntasRelevantes |
 
 	preguntasRelevantes := (self preguntasDeInteres , self preguntasDeSeguidos) asSet .
-	^ preguntasRelevantes asSortedCollection: [ :p1 :p2 | p1 puntaje > p2 puntaje ]
+	^ preguntasRelevantes 
 	
 
 
@@ -104,12 +104,12 @@ Usuario >> obtenerPreguntasRelevantes [
 
 { #category : #'as yet unclassified' }
 Usuario >> preguntasDeInteres [
-	^ self intereses collect: [ :each | each todasLasPreguntas ]
+	^ self intereses flatCollect: [ :each | each todasLasPreguntas ]
 ]
 
 { #category : #'as yet unclassified' }
 Usuario >> preguntasDeSeguidos [
-	^ self seguidos collect: [ :each | each preguntasRealizadas ]
+	^ self seguidos flatCollect: [ :each | each preguntasRealizadas ]
 ]
 
 { #category : #'as yet unclassified' }
