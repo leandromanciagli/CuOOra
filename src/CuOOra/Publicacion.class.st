@@ -40,6 +40,11 @@ Publicacion >> esRespuesta [
  	^ false.
 ]
 
+{ #category : #accessing }
+Publicacion >> fechaHora [
+	^ fechaHora
+]
+
 { #category : #initialization }
 Publicacion >> initialize [
 	fechaHora := DateAndTime now.
@@ -48,7 +53,7 @@ Publicacion >> initialize [
 
 { #category : #'as yet unclassified' }
 Publicacion >> likes [
-	^ self reacciones select: [ :each | each estado ]
+	^ self reacciones select: [ :each | each estado ] "select devuelve todos los true"
 ]
 
 { #category : #'as yet unclassified' }
@@ -64,4 +69,9 @@ Publicacion >> puntaje [
 { #category : #accessing }
 Publicacion >> reacciones [
 	^ reacciones
+]
+
+{ #category : #accessing }
+Publicacion >> usuario [
+	^ usuario
 ]

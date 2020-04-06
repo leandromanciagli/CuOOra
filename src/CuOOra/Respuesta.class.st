@@ -30,3 +30,13 @@ Respuesta >> nuevaRespuesta:unTexto de:unaPregunta usu:unUsuario [
 	texto := unTexto.
 	
 ]
+
+{ #category : #accessing }
+Respuesta >> texto [
+	^ texto
+]
+
+{ #category : #accessing }
+Respuesta >> texto: anObject [
+	texto := anObject
+]

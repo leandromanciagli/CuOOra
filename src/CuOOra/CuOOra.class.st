@@ -6,11 +6,22 @@ Class {
 		'topicos'
 	],
 	#classInstVars : [
-		'instance',
-		'cuoora'
+		'instancia'
 	],
 	#category : #CuOOra
 }
+
+{ #category : #'as yet unclassified' }
+CuOOra class >> clearInstancia [ 
+	instancia := nil.
+]
+
+{ #category : #accessing }
+CuOOra class >> instancia [
+
+	^ instancia ifNil:[instancia := self new]
+	ifNotNil: [ instancia ].
+]
 
 { #category : #'as yet unclassified' }
 CuOOra >> agregarPregunta:unTitulo Descrip:unaDescripcion usu:unUsuario topics:unosTopicos [ 
@@ -68,6 +79,12 @@ CuOOra >> initialize [
 	usuarios := OrderedCollection new.
 	topicos := OrderedCollection new.
 	
+]
+
+{ #category : #'as yet unclassified' }
+CuOOra >> loginUsuario:unNombre contrasena:unaContrasena [
+
+	^ usuarios detect: [ :usu | (usu nombre = unNombre ) & (usu contrasena = unaContrasena) ] ifNone:[nil].
 ]
 
 { #category : #accessing }

@@ -96,7 +96,9 @@ Usuario >> obtenerPreguntasRelevantes [
 	| preguntasRelevantes |
 
 	preguntasRelevantes := (self preguntasDeInteres , self preguntasDeSeguidos) asSet .
-	^ preguntasRelevantes 
+	^ preguntasRelevantes asSortedCollection: [:pr1 :pr2 | pr1 fechaHora > pr2 fechaHora ].
+	
+
 	
 
 
