@@ -10,9 +10,10 @@ Class {
 		'usu2',
 		'usu3',
 		'top1',
-		'top2'
+		'top2',
+		'top3'
 	],
-	#category : #CuOOra
+	#category : #CuOOraTests
 }
 
 { #category : #running }
@@ -35,10 +36,26 @@ TestCuOOra >> setUp [
 ]
 
 { #category : #tests }
+TestCuOOra >> testAgregarPregunta [
+	self
+		assert:
+			(usu1 preguntasRealizadas
+				detect: [ :a | a titulo = '¿Como hacer arroz con pollo?' ]) notNil
+]
+
+{ #category : #tests }
 TestCuOOra >> testAgregarRespuesta [
 	
 	self assert: (usu1 respuestasRealizadas detect: [:a | a texto = 'mezclarlos'] )notNil.
 
+]
+
+{ #category : #tests }
+TestCuOOra >> testAgregarTopico [
+	"El topico 'Programacion' deberia estar agregado correctamente en la coleccion de topicos de cuoora"
+
+	self
+		assert: (cuoora topicos detect: [ :t | t nombre = 'Programacion' ]) notNil
 ]
 
 { #category : #tests }
@@ -55,6 +72,14 @@ TestCuOOra >> testBorrarPregunta [
 	self assert: q isNil. "la pregunta ya no existe"
  
 
+]
+
+{ #category : #tests }
+TestCuOOra >> testCrearNuevoUsuario [
+	"El usuario 'Leandro' deberia estar agregado correctamente en la coleccion de usuarios de cuoora"
+
+	self
+		assert: (cuoora usuarios detect: [ :u | u nombre = 'Leandro' ]) notNil
 ]
 
 { #category : #tests }

@@ -131,6 +131,12 @@ Usuario >> publicaciones: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+Usuario >> respuestasAPreguntasDeOtrosUsuarios [
+	^ self respuestasRealizadas
+		reject: [ :respuesta | respuesta pregunta usuario = self ]
+]
+
+{ #category : #'as yet unclassified' }
 Usuario >> respuestasRealizadas [
 	^ publicaciones select: [ :p | p esRespuesta ].
 

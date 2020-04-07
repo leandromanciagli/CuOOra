@@ -32,6 +32,11 @@ Respuesta >> nuevaRespuesta:unTexto de:unaPregunta usu:unUsuario [
 ]
 
 { #category : #accessing }
+Respuesta >> pregunta [
+	^ pregunta
+]
+
+{ #category : #accessing }
 Respuesta >> texto [
 	^ texto
 ]
