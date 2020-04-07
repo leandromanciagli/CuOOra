@@ -69,12 +69,11 @@ CuOOraComponent >> loginComponent [
 ]
 
 { #category : #rendering }
-CuOOraComponent >> renderContentOn: html [ 
+CuOOraComponent >> renderContentOn: html [
 	html paragraph: 'Bienvenido a Cuoora'.
-		(usuario isNil) 
-		ifTrue:[
-			html div with: self loginComponent]
-		ifFalse: [  html div with: self homeComponent]
+	usuario
+		ifNil: [ html div with: self loginComponent ]
+		ifNotNil: [ html div with: self homeComponent ]
 ]
 
 { #category : #accessing }
