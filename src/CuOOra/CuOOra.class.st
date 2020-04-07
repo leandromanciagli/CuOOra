@@ -58,10 +58,8 @@ CuOOra >> borrarUnaPregunta:unaPregunta [
 CuOOra >> calcularPuntajeDelUsuario: unUsuario [
 	| puntajePorPreguntas puntajePorRespuestas puntajePorVotacion |
 	puntajePorPreguntas := unUsuario preguntasRealizadas size * 20.
-	puntajePorRespuestas := unUsuario respuestasRealizadas size * 50.
-	puntajePorVotacion := 0.
-	unUsuario publicaciones
-		do: [ :each | puntajePorVotacion := puntajePorVotacion + each puntaje ].
+	puntajePorRespuestas := unUsuario respuestasAPreguntasDeOtrosUsuarios size * 50.
+	puntajePorVotacion := unUsuario publicaciones inject: 0 into: [ :sum :p | sum + p puntaje ].
 	^ puntajePorPreguntas + puntajePorRespuestas + puntajePorVotacion
 ]
 
