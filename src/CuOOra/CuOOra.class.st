@@ -72,6 +72,14 @@ usuarios add:usuario.
 	
 ]
 
+{ #category : #'as yet unclassified' }
+CuOOra >> getTopicos: aName [ 
+
+^ topicos detect: [ :t | t nombre = aName].
+
+"'verifica' que el nombre del topico ingresado en el agregar pregunta exista"
+]
+
 { #category : #initialization }
 CuOOra >> initialize [ 
 	usuarios := OrderedCollection new.

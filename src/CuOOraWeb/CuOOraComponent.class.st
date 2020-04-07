@@ -5,7 +5,8 @@ Class {
 		'cuoora',
 		'loginComponent',
 		'homeComponent',
-		'usuario'
+		'usuario',
+		'preguntaComponent'
 	],
 	#classInstVars : [
 		'instancia'
@@ -41,6 +42,8 @@ CuOOraComponent >> initialize [
 	self instanciarCuOOra.
 	homeComponent := HomeComponent new.
 	loginComponent := LoginComponent new.
+	preguntaComponent := PreguntaComponent new.
+	
 	
 	
 
@@ -66,6 +69,11 @@ CuOOraComponent >> instanciarCuOOra [
 { #category : #accessing }
 CuOOraComponent >> loginComponent [
 	^ loginComponent
+]
+
+{ #category : #accessing }
+CuOOraComponent >> preguntaComponent [
+	^ preguntaComponent
 ]
 
 { #category : #rendering }
