@@ -94,14 +94,11 @@ Usuario >> nombre [
 { #category : #'as yet unclassified' }
 Usuario >> obtenerPreguntasRelevantes [
 	| preguntasRelevantes |
-
-	preguntasRelevantes := (self preguntasDeInteres , self preguntasDeSeguidos) asSet .
-	^ preguntasRelevantes asSortedCollection: [:pr1 :pr2 | pr1 fechaHora > pr2 fechaHora ].
-	
-
-	
-
-
+	preguntasRelevantes := (self preguntasDeInteres
+		, self preguntasDeSeguidos) asSet.
+	preguntasRelevantes := preguntasRelevantes
+		asSortedCollection: [ :pr1 :pr2 | pr1 fechaHora > pr2 fechaHora ].
+	^ preguntasRelevantes first: 5
 ]
 
 { #category : #'as yet unclassified' }

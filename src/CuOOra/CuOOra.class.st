@@ -23,7 +23,7 @@ CuOOra class >> instancia [
 	ifNotNil: [ instancia ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 CuOOra >> agregarPregunta:unTitulo Descrip:unaDescripcion usu:unUsuario topics:unosTopicos [ 
 	|preg|
 	preg := Pregunta nuevoTitulo: unTitulo Descrip:unaDescripcion  usu:unUsuario  top:unosTopicos. "La creación es realizada por la clase 																																Pregunta"
@@ -32,7 +32,7 @@ CuOOra >> agregarPregunta:unTitulo Descrip:unaDescripcion usu:unUsuario topics:u
 	^ preg.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 CuOOra >> agregarRespuesta:unTexto de:unaPregunta usu:unUsuario [ 
 	|resp|
 	resp := Respuesta nuevoRespuesta:unTexto de:unaPregunta usu:unUsuario. "La creación es realizada por la clase Respuesta"
@@ -41,7 +41,7 @@ CuOOra >> agregarRespuesta:unTexto de:unaPregunta usu:unUsuario [
 	^ resp.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 CuOOra >> agregarTopico:nom descripcion:descrip [ 
 |top|
 	top:=Topico crearTopico: nom descripcion:descrip.
@@ -49,12 +49,12 @@ CuOOra >> agregarTopico:nom descripcion:descrip [
 	^top.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #deleting }
 CuOOra >> borrarUnaPregunta:unaPregunta [
 	unaPregunta delete.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #calculating }
 CuOOra >> calcularPuntajeDelUsuario: unUsuario [
 	| puntajePorPreguntas puntajePorRespuestas puntajePorVotacion |
 	puntajePorPreguntas := unUsuario preguntasRealizadas size * 20.
@@ -63,7 +63,7 @@ CuOOra >> calcularPuntajeDelUsuario: unUsuario [
 	^ puntajePorPreguntas + puntajePorRespuestas + puntajePorVotacion
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 CuOOra >> crearNuevoUsuario:nombre cont:contrasena [
 |usuario|
 usuario:= Usuario nuevo: nombre y:contrasena.
@@ -72,7 +72,7 @@ usuarios add:usuario.
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CuOOra >> getTopicos: aName [ 
 
 ^ topicos detect: [ :t | t nombre = aName].
@@ -87,13 +87,13 @@ CuOOra >> initialize [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CuOOra >> loginUsuario:unNombre contrasena:unaContrasena [
 
 	^ usuarios detect: [ :usu | (usu nombre = unNombre ) & (usu contrasena = unaContrasena) ] ifNone:[nil].
 ]
 
-{ #category : #accessing }
+{ #category : #adding }
 CuOOra >> registrarReaccionDe: unUsuario a: unaPublicacion conVoto: unVoto [
 	| reaccion |
 	reaccion := unaPublicacion buscarReaccionDe: unUsuario.
@@ -107,12 +107,12 @@ CuOOra >> registrarReaccionDe: unUsuario a: unaPublicacion conVoto: unVoto [
 	^ reaccion
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 CuOOra >> registrarTopInteres:unTopico a:unUsuario [ 
 	unUsuario agregarTopicoInteres: unTopico.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CuOOra >> todasLasPreguntasDe:unTopico [
 	^ unTopico todasLasPreguntas.
 ]
@@ -127,7 +127,7 @@ CuOOra >> topicos: anObject [
 	topicos := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 CuOOra >> usuario:unUsuario sigue:otroUsuario [
 	unUsuario seguir:otroUsuario.
 ]

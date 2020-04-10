@@ -51,18 +51,25 @@ CuOOraComponent >> initialize [
 
 { #category : #'as yet unclassified' }
 CuOOraComponent >> instanciarCuOOra [
-	| top topicos usu preg respuesta preg1 |
+	| top topicos usuarioCatherine usuarioLeandro respuesta pregunta1 pregunta2 pregunta3 pregunta4 pregunta5 pregunta6 pregunta7 pregunta8 |
 	CuOOra clearInstancia.
 	cuoora := CuOOra instancia.
-	usu := cuoora crearNuevoUsuario: 'Catherine' cont:'1234'.
+	usuarioCatherine := cuoora crearNuevoUsuario: 'Catherine' cont:'1234'.
+	usuarioLeandro := cuoora crearNuevoUsuario: 'Leandro' cont:'lacontraseña'.
 	top := cuoora agregarTopico: 'topico1' descripcion:'vamos a verla'.
-	cuoora registrarTopInteres: top a: usu.
+	cuoora registrarTopInteres: top a: usuarioCatherine.
 	topicos:=OrderedCollection new.
 	topicos add:top.
-	preg := cuoora agregarPregunta:'¿que es?' Descrip:'la pregunta 1'  usu:usu  topics:topicos.
-	preg1 := cuoora agregarPregunta:'¿que es uno?' Descrip:'la pregunta 1'  usu:usu  topics:topicos.
-	respuesta := cuoora agregarRespuesta: 'una Droga' de:preg usu: usu.
-	cuoora registrarReaccionDe: usu a: preg conVoto:false.
+	pregunta1 := cuoora agregarPregunta:'pregunta 1' Descrip:'es relevante y debe mostrarse' usu:usuarioLeandro topics:topicos.
+	pregunta2 := cuoora agregarPregunta:'pregunta 2' Descrip:'es relevante y debe mostrarse' usu:usuarioLeandro topics:topicos.
+	pregunta3 := cuoora agregarPregunta:'pregunta 3' Descrip:'es relevante y debe mostrarse' usu:usuarioLeandro topics:topicos.
+	pregunta4 := cuoora agregarPregunta:'pregunta 4' Descrip:'es relevante y debe mostrarse' usu:usuarioLeandro topics:topicos.
+	pregunta5 := cuoora agregarPregunta:'pregunta 5' Descrip:'es relevante y debe mostrarse' usu:usuarioLeandro topics:topicos.
+	pregunta6 := cuoora agregarPregunta:'pregunta 6' Descrip:'es relevante y debe mostrarse' usu:usuarioLeandro topics:topicos.
+	pregunta7 := cuoora agregarPregunta:'pregunta 7' Descrip:'es relevante pero no debe mostrarse' usu:usuarioLeandro topics:topicos.
+	pregunta8 := cuoora agregarPregunta:'pregunta 8' Descrip:'es relevante pero no debe mostrarse' usu:usuarioLeandro topics:topicos.
+	respuesta := cuoora agregarRespuesta:'respuesta a la pregunta 1' de:pregunta1 usu:usuarioCatherine.
+	cuoora registrarReaccionDe: usuarioCatherine a: pregunta1 conVoto:false.
 	
 ]
 
