@@ -5,7 +5,8 @@ Class {
 		'cuoora',
 		'loginComponent',
 		'homeComponent',
-		'usuario'
+		'usuario',
+		'preguntaComponent'
 	],
 	#classInstVars : [
 		'instancia'
@@ -41,6 +42,8 @@ CuOOraComponent >> initialize [
 	self instanciarCuOOra.
 	homeComponent := HomeComponent new.
 	loginComponent := LoginComponent new.
+	preguntaComponent := PreguntaComponent new.
+	
 	
 	
 
@@ -48,10 +51,11 @@ CuOOraComponent >> initialize [
 
 { #category : #'as yet unclassified' }
 CuOOraComponent >> instanciarCuOOra [
-	| top topicos usu preg respuesta preg1 |
+	| top topicos usu usu1 preg preg2 respuesta preg1 |
 	CuOOra clearInstancia.
 	cuoora := CuOOra instancia.
 	usu := cuoora crearNuevoUsuario: 'Catherine' cont:'1234'.
+	usu1 := cuoora crearNuevoUsuario: 'Mariano' cont:'1234'.
 	top := cuoora agregarTopico: 'topico1' descripcion:'vamos a verla'.
 	cuoora registrarTopInteres: top a: usu.
 	topicos:=OrderedCollection new.
@@ -59,6 +63,7 @@ CuOOraComponent >> instanciarCuOOra [
 	preg := cuoora agregarPregunta:'¿que es?' Descrip:'la pregunta 1'  usu:usu  topics:topicos.
 	preg1 := cuoora agregarPregunta:'¿que es uno?' Descrip:'la pregunta 1'  usu:usu  topics:topicos.
 	respuesta := cuoora agregarRespuesta: 'una Droga' de:preg usu: usu.
+	preg2:= cuoora agregarPregunta:'¿Como se plancha' Descrip:'la pregunta de Mariano'  usu:usu1  topics:topicos.
 	cuoora registrarReaccionDe: usu a: preg conVoto:false.
 	
 ]
@@ -66,6 +71,11 @@ CuOOraComponent >> instanciarCuOOra [
 { #category : #accessing }
 CuOOraComponent >> loginComponent [
 	^ loginComponent
+]
+
+{ #category : #accessing }
+CuOOraComponent >> preguntaComponent [
+	^ preguntaComponent
 ]
 
 { #category : #rendering }
