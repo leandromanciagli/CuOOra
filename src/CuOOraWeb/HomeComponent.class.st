@@ -58,3 +58,17 @@ HomeComponent >> renderContentOn: html [
 HomeComponent >> renderPregunta [
 	self call: (CuOOraComponent instancia preguntaComponent).
 ]
+
+{ #category : #'as yet unclassified' }
+HomeComponent >> verPregunta:preg [ 
+ | pregunta |
+pregunta:= PreguntaDetalleComponent new:preg.
+self call: pregunta.
+]
+
+{ #category : #'as yet unclassified' }
+HomeComponent >> verUsuario:usu [ 
+ | usuario |
+usuario:= UsuarioDetalleComponent new:usu.
+self call: usuario.
+]
