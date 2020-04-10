@@ -22,9 +22,11 @@ html div.
 html heading
 level: 3;
 with: p titulo.
+html anchor callback: [ self verPregunta:p ]; with:'Ver'.
 html paragraph
 with: 'topicos:' , p topicos.
-html text: 'Realizada por: ', p usuario nombre.
+html text: 'Realizada por: '.
+html anchor callback: [ self verUsuario:p usuario ]; with: p usuario nombre.
 html paragraph
 with: 'respuestas:' , p obtenerRespuestas size asString.
 html paragraph
@@ -54,3 +56,18 @@ html anchor
 HomeComponent >> renderPregunta [
 	self call: (CuOOraComponent instancia preguntaComponent).
 ]
+
+{ #category : #'as yet unclassified' }
+HomeComponent >> verPregunta:preg [ 
+ | pregunta |
+pregunta:= PreguntaDetalleComponent new:preg.
+self call: pregunta.
+]
+
+{ #category : #'as yet unclassified' }
+HomeComponent >> verUsuario:usu [ 
+ | usuario |
+usuario:= UsuarioDetalleComponent new:usu.
+self call: usuario.
+]
+
