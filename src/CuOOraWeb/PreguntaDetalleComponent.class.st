@@ -51,25 +51,25 @@ PreguntaDetalleComponent >> renderContentOn: html [
 		callback: [ self verUsuario: preg usuario ];
 		with: preg usuario nombre.
 	html paragraph
-		with: 'respuestas:' , preg obtenerRespuestas size asString.
+		with: 'respuestas:' , preg obtenerRespuestasPorPuntaje size asString.
 	html paragraph
 		with:
 			'Likes: ' , preg likes size asString , '| Dislikes: '
-				, (preg reacciones size - preg likes size) asString.
+				, preg dislikes size asString.
 	html anchor
 		callback: [ CuOOra instancia
-				registrarReaccionDe: CuOOraComponent instancia usuario
-				a: preg
+				registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+				aPublicacion: preg
 				conVoto: true ];
 		with: 'like  '.
 	html anchor
 		callback: [ CuOOra instancia
-				registrarReaccionDe: CuOOraComponent instancia usuario
-				a: preg
+				registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+				aPublicacion: preg
 				conVoto: false ];
 		with: 'dislike'.
 	html tag: 'hr'.
-	preg obtenerRespuestas
+	preg obtenerRespuestasPorPuntaje
 		do: [ :r | 
 			html text: 'Respuesta de: '.
 			html anchor
@@ -80,17 +80,17 @@ PreguntaDetalleComponent >> renderContentOn: html [
 			html paragraph
 				with:
 					'Likes: ' , r likes size asString , '| Dislikes: '
-						, (r reacciones size - r likes size) asString.
+						, r dislikes size asString.
 			html anchor
 				callback: [ CuOOra instancia
-						registrarReaccionDe: CuOOraComponent instancia usuario
-						a: r
+						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+						aPublicacion: r
 						conVoto: true ];
 				with: 'like  '.
 			html anchor
 				callback: [ CuOOra instancia
-						registrarReaccionDe: CuOOraComponent instancia usuario
-						a: r
+						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+						aPublicacion: r
 						conVoto: false ];
 				with: 'dislike'.
 			html tag: 'hr' ].

@@ -21,53 +21,48 @@ Class {
 
 { #category : #'as yet unclassified' }
 Usuario class >> nuevo:nombre y:contrasena [
-	^self new nom: nombre cont: contrasena.
+	^self new nuevoConNombre: nombre yContrasena: contrasena.
 ]
 
 { #category : #'as yet unclassified' }
-Usuario >> agregarPublicacion:unaPublicacion [
-    publicaciones add:unaPublicacion. 
+Usuario >> agregarPublicacion: unaPublicacion [
+	publicaciones add: unaPublicacion
 ]
 
 { #category : #'as yet unclassified' }
-Usuario >> agregarSeguidor:unSeguidor [
-	seguidores add:unSeguidor.
+Usuario >> agregarSeguidor: unSeguidor [
+	seguidores add: unSeguidor
 ]
 
 { #category : #'as yet unclassified' }
-Usuario >> agregarTopicoInteres:unTopi [
-	intereses add:unTopi.
-	
+Usuario >> agregarTopicoDeInteres: unTopico [
+	intereses add: unTopico
 ]
 
 { #category : #'as yet unclassified' }
-Usuario >> borrarPregunta:unaPregunta [
+Usuario >> borrarPregunta: unaPregunta [
 	"(publicaciones includes: unaPregunta) => Es necesario hacer esta pregunta o esta de mas?"
-	publicaciones remove: unaPregunta.
-	
-	
+	publicaciones remove: unaPregunta
 ]
 
 { #category : #'as yet unclassified' }
-Usuario >> borrarPublicacion:unaPregunta [
+Usuario >> borrarRespuesta: unaRespuesta [
 	"(publicaciones includes: unaPregunta) => Es necesario hacer esta pregunta o esta de mas?"
-	publicaciones remove: unaPregunta.
-	
-	
+	publicaciones remove: unaRespuesta
 ]
 
 { #category : #accessing }
 Usuario >> contrasena [
-		^contrasena.
+	^ contrasena
 ]
 
 { #category : #initialization }
 Usuario >> initialize [
-	fechaHora:= DateAndTime today.
-	intereses:= OrderedCollection new.
-	seguidores:= OrderedCollection new.
-	seguidos:= OrderedCollection new.
-	publicaciones := OrderedCollection new.
+	fechaHora := DateAndTime today.
+	intereses := OrderedCollection new.
+	seguidores := OrderedCollection new.
+	seguidos := OrderedCollection new.
+	publicaciones := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -81,14 +76,14 @@ Usuario >> intereses: anObject [
 ]
 
 { #category : #accessing }
-Usuario >> nom:string cont:string1 [
-	nombre := string.
-	contrasena := string1.
+Usuario >> nombre [
+	^ nombre
 ]
 
 { #category : #accessing }
-Usuario >> nombre [ 
-	^nombre.
+Usuario >> nuevoConNombre: unNombre yContrasena: unaContrasena [
+	nombre := unNombre.
+	contrasena := unaContrasena
 ]
 
 { #category : #'as yet unclassified' }
@@ -103,7 +98,7 @@ Usuario >> obtenerPreguntasRelevantes [
 
 { #category : #'as yet unclassified' }
 Usuario >> preguntasDeInteres [
-	^ self intereses flatCollect: [ :each | each todasLasPreguntas ]
+	^ self intereses flatCollect: [ :each | each preguntas ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -120,11 +115,6 @@ Usuario >> preguntasRealizadas [
 { #category : #accessing }
 Usuario >> publicaciones [
 	^ publicaciones
-]
-
-{ #category : #accessing }
-Usuario >> publicaciones: anObject [
-	publicaciones := anObject
 ]
 
 { #category : #'as yet unclassified' }
@@ -150,7 +140,7 @@ Usuario >> seguidos [
 ]
 
 { #category : #'as yet unclassified' }
-Usuario >> seguir:unUsuario [
+Usuario >> seguirAlUsuario:unUsuario [
 	seguidos add:unUsuario.
 	unUsuario agregarSeguidor: self.
 ]

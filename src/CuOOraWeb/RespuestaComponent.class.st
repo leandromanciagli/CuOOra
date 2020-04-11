@@ -17,9 +17,9 @@ RespuestaComponent class >> pregunta: unaPregunta [
 { #category : #'as yet unclassified' }
 RespuestaComponent >> agregarRespuesta [
 	CuOOra instancia
-		agregarRespuesta: newTexto
-		de: pregunta
-		usu: CuOOraComponent instancia usuario.
+		nuevaConTexto: newTexto
+		aPregunta: pregunta
+		porUsuario: CuOOraComponent instancia usuario.
 	self answer: nil
 ]
 
@@ -63,17 +63,17 @@ RespuestaComponent >> renderContentOn: aCanvas [
 	aCanvas paragraph
 		with:
 			'Likes: ' , pregunta likes size asString , '| Dislikes: '
-				, (pregunta reacciones size - pregunta likes size) asString.
+				, pregunta dislikes size asString.
 	aCanvas anchor
 		callback: [ CuOOra instancia
-				registrarReaccionDe: usuarioLogueado
-				a: pregunta
+				registrarReaccionDelUsuario: usuarioLogueado
+				aPublicacion: pregunta
 				conVoto: true ];
 		with: 'like  '.
 	aCanvas anchor
 		callback: [ CuOOra instancia
-				registrarReaccionDe: usuarioLogueado
-				a: pregunta
+				registrarReaccionDelUsuario: usuarioLogueado
+				aPublicacion: pregunta
 				conVoto: false ];
 		with: 'dislike'.
 	aCanvas tag: 'hr'.

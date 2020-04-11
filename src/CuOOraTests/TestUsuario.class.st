@@ -18,15 +18,15 @@ Class {
 TestUsuario >> setUp [ 
 	super setUp.
 	cuoora := CuOOra new.
-	usuarioCatherine := cuoora crearNuevoUsuario: 'Catherine' cont:'1234'.
-	usuarioLeandro := cuoora crearNuevoUsuario: 'Leandro' 	cont:'2345'.
-	usuarioMariano := cuoora crearNuevoUsuario: 'Mariano' 	cont:'3456'.
-	usuarioLeandro seguir: usuarioMariano.
-	topicoProgramacion := cuoora agregarTopico: 'Programacion' descripcion:'Preguntas referidas a la programación en informática'.
-	topicoGeografia := cuoora agregarTopico: 'Geografia' descripcion:'Preguntas referidas a geografia'.
-	cuoora registrarTopInteres: topicoProgramacion a: usuarioLeandro.
-	preguntaDeTopico := cuoora agregarPregunta:'¿Alguien sabe test de unidad?' Descrip:'Test para OO2' usu:usuarioCatherine topics:(OrderedCollection with: topicoProgramacion).
-	preguntaDeUsuario := cuoora agregarPregunta:'¿Cual es la capital de Italia?' Descrip:'Del topico geografia' usu:usuarioMariano topics:(OrderedCollection with: topicoGeografia ).
+	usuarioCatherine := cuoora crearUsuarioConNombre: 'Catherine' yContrasena:'1234'.
+	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' 	yContrasena:'2345'.
+	usuarioMariano := cuoora crearUsuarioConNombre: 'Mariano' 	yContrasena:'3456'.
+	usuarioLeandro seguirAlUsuario: usuarioMariano.
+	topicoProgramacion := cuoora crearTopicoConNombre: 'Programacion' yDescripcion:'Preguntas referidas a la programación en informática'.
+	topicoGeografia := cuoora crearTopicoConNombre: 'Geografia' yDescripcion:'Preguntas referidas a geografia'.
+	cuoora registrarTopicoDeInteres: topicoProgramacion aUsuario: usuarioLeandro.
+	preguntaDeTopico := cuoora crearPreguntaConTitulo:'¿Alguien sabe test de unidad?' descripion:'Test para OO2' porUsuario:usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
+	preguntaDeUsuario := cuoora crearPreguntaConTitulo:'¿Cual es la capital de Italia?' descripion:'Del topico geografia' porUsuario:usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia ).
 	
 ]
 

@@ -12,7 +12,7 @@ Class {
 { #category : #'as yet unclassified' }
 PreguntaComponent >> agregarPregunta [
 	
-(CuOOra instancia) agregarPregunta: titulo  Descrip:descripcion usu:(CuOOraComponent instancia usuario) topics:self topicosIngresados.
+(CuOOra instancia) crearPreguntaConTitulo: titulo  descripion:descripcion porUsuario:(CuOOraComponent instancia usuario) yTopicos:self topicosIngresados.
 
  self answer: nil.
 
@@ -109,7 +109,7 @@ PreguntaComponent >> topicos: anObject [
 PreguntaComponent >> topicosIngresados [
 |t|
  t:= self topicos splitOn: ','. 
-^ t collect: [ :topic | CuOOra instancia getTopicos: topic ].
+^ t collect: [ :topic | CuOOra instancia buscarTopicoConNombre: topic ].
 
 "getTopicos esta en el model de cuoora y busca si los topicos ingresados son los que existen"
 ]

@@ -38,21 +38,21 @@ HomeComponent >> renderContentOn: html [
 				callback: [ self verUsuario: p usuario ];
 				with: p usuario nombre.
 			html paragraph
-				with: 'respuestas: ' , p obtenerRespuestas size asString.
+				with: 'respuestas: ' , p obtenerRespuestasPorPuntaje size asString.
 			html paragraph
 				with:
 					'Likes: ' , p likes size asString , '| Dislikes: '
-						, (p reacciones size - p likes size) asString.
+						, p dislikes size asString.
 			html anchor
 				callback: [ CuOOra instancia
-						registrarReaccionDe: CuOOraComponent instancia usuario
-						a: p
+						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+						aPublicacion: p
 						conVoto: true ];
 				with: 'like  '.
 			html anchor
 				callback: [ CuOOra instancia
-						registrarReaccionDe: CuOOraComponent instancia usuario
-						a: p
+						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+						aPublicacion: p
 						conVoto: false ];
 				with: 'dislike'.
 			html tag: 'hr' ].

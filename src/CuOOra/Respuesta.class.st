@@ -9,22 +9,22 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Respuesta class >> nuevoRespuesta:unTexto de:unaPregunta usu:unUsuario [
-	^ self new nuevaRespuesta:unTexto de:unaPregunta usu:unUsuario.
+Respuesta class >> nuevaConTexto:unTexto aPregunta:unaPregunta porUsuario:unUsuario [
+	^ self new nuevaConTexto:unTexto aPregunta:unaPregunta porUsuario:unUsuario.
 ]
 
 { #category : #'as yet unclassified' }
 Respuesta >> delete [
-        usuario borrarPublicacion: self.
+	usuario borrarRespuesta: self
 ]
 
 { #category : #'as yet unclassified' }
 Respuesta >> esRespuesta [
- 	^ true.
+	^ true
 ]
 
 { #category : #'as yet unclassified' }
-Respuesta >> nuevaRespuesta:unTexto de:unaPregunta usu:unUsuario [
+Respuesta >> nuevaConTexto:unTexto aPregunta:unaPregunta porUsuario:unUsuario [
 	pregunta := unaPregunta.
 	usuario := unUsuario.
 	texto := unTexto.

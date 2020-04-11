@@ -11,20 +11,18 @@ Class {
 
 { #category : #'as yet unclassified' }
 Topico class >> crearTopico:nom descripcion:descrip [ 
-		^ self new nombre:nom descripcion:descrip. 
+		^ self new nuevoConNombre:nom yDescripcion:descrip. 
 ]
 
 { #category : #'as yet unclassified' }
-Topico >> agregarPregunta:unaPregunta [ 
-	preguntas add:unaPregunta.
+Topico >> agregarPregunta: unaPregunta [
+	preguntas add: unaPregunta
 ]
 
 { #category : #'as yet unclassified' }
-Topico >> borrarPregunta:unaPregunta [
+Topico >> borrarPregunta: unaPregunta [
 	"(preguntas includes: unaPregunta) es necesario"
-	 preguntas remove:unaPregunta.
-
-	
+	preguntas remove: unaPregunta
 ]
 
 { #category : #accessing }
@@ -44,22 +42,17 @@ Topico >> nombre [
 ]
 
 { #category : #accessing }
-Topico >> nombre:nom descripcion:descrip [
-    nombre:= nom.
-	 descripcion:= descrip.
+Topico >> nuevoConNombre: unNombre yDescripcion: unaDescripcion [
+	nombre := unNombre.
+	descripcion := unaDescripcion
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 Topico >> preguntas [
-	^ preguntas
+	^ preguntas.
 ]
 
 { #category : #accessing }
 Topico >> preguntas: anObject [
 	preguntas := anObject
-]
-
-{ #category : #'as yet unclassified' }
-Topico >> todasLasPreguntas [
-	^ preguntas.
 ]

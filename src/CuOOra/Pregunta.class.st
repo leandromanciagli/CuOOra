@@ -11,41 +11,42 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Pregunta class >> nuevoTitulo:unTitulo Descrip:unaDescripcion usu:unUsuario top:unTopico [
-	^ self new nuevaPregunta: unTitulo Descrip:unaDescripcion usu:unUsuario topics:unTopico  
-	
+Pregunta class >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unUsuario yTopicos: unTopico [
+	^ self new
+		nuevaConTitulo: unTitulo
+		descripcion: unaDescripcion
+		porUsuario: unUsuario
+		yTopicos: unTopico
 ]
 
 { #category : #'as yet unclassified' }
-Pregunta >> agregarRespuesta:resp [
-	respuestas add:resp.
+Pregunta >> agregarRespuesta: unaRespuesta [
+	respuestas add: unaRespuesta
 ]
 
 { #category : #'submorphs-add/remove' }
-Pregunta >> delete [ 
-	usuario borrarPregunta:self. "Como la clase pregunta ya conoce al usuario que la hizo ya tenemos el dato usuario como topico"
-	topicos do:[:top | top borrarPregunta:self].
-	respuestas do:[:resp | resp delete].
+Pregunta >> delete [
+	usuario borrarPregunta: self.	"Como la clase pregunta ya conoce al usuario que la hizo ya tenemos el dato usuario como topico"
+	topicos do: [ :top | top borrarPregunta: self ].
+	respuestas do: [ :resp | resp delete ]
 ]
 
 { #category : #'as yet unclassified' }
 Pregunta >> esPregunta [
-
-	^ true.
+	^ true
 ]
 
 { #category : #'as yet unclassified' }
-Pregunta >> nuevaPregunta:unTitulo Descrip:unaDescripcion usu:unUsuario topics:unosTopicos [
-
-	titulo :=unTitulo.
-	descripcion :=unaDescripcion.
+Pregunta >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unUsuario yTopicos: unosTopicos [
+	titulo := unTitulo.
+	descripcion := unaDescripcion.
 	usuario := unUsuario.
-	topicos :=unosTopicos.
-	respuestas := OrderedCollection new.
+	topicos := unosTopicos.
+	respuestas := OrderedCollection new
 ]
 
 { #category : #'as yet unclassified' }
-Pregunta >> obtenerRespuestas [
+Pregunta >> obtenerRespuestasPorPuntaje [
 	^ respuestas
 		asSortedCollection: [ :r1 :r2 | r1 puntaje > r2 puntaje ]
 ]

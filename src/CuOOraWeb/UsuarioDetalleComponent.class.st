@@ -22,8 +22,8 @@ UsuarioDetalleComponent >> renderContentOn: html [
 			(usuarioLogueado seguidos includes: self usuario)
 				ifTrue: [ html text: 'Ya sigues a este usuario' ]
 				ifFalse: [ html anchor
-						callback: [ usuarioLogueado seguir: usuario ];
-						"el  2do usuario es el usuario cuyo perfil estoy 																							 																							viendo"
+						callback: [ usuarioLogueado seguirAlUsuario: usuario ];
+						"el  2do usuario es el usuario cuyo perfil estoy viendo"
 							with: 'Seguir' ] ].
 	self usuario preguntasRealizadas
 		do: [ :p | 
@@ -35,21 +35,21 @@ UsuarioDetalleComponent >> renderContentOn: html [
 						with: p titulo ].
 			html paragraph with: 'topicos:' , p topicos.
 			html paragraph
-				with: 'respuestas:' , p obtenerRespuestas size asString.
+				with: 'respuestas:' , p obtenerRespuestasPorPuntaje size asString.
 			html paragraph
 				with:
 					'Likes: ' , p likes size asString , '| Dislikes: '
-						, (p reacciones size - p likes size) asString.
+						, p dislikes size asString.
 			html anchor
 				callback: [ CuOOra instancia
-						registrarReaccionDe: CuOOraComponent instancia usuario
-						a: p
+						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+						aPublicacion: p
 						conVoto: true ];
 				with: 'like  '.
 			html anchor
 				callback: [ CuOOra instancia
-						registrarReaccionDe: CuOOraComponent instancia usuario
-						a: p
+						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+						aPublicacion: p
 						conVoto: false ];
 				with: 'dislike'.
 			html tag: 'hr' ].

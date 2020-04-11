@@ -18,40 +18,19 @@ CuOOra class >> clearInstancia [
 
 { #category : #accessing }
 CuOOra class >> instancia [
-
-	^ instancia ifNil:[instancia := self new]
-	ifNotNil: [ instancia ].
-]
-
-{ #category : #adding }
-CuOOra >> agregarPregunta:unTitulo Descrip:unaDescripcion usu:unUsuario topics:unosTopicos [ 
-	|preg|
-	preg := Pregunta nuevoTitulo: unTitulo Descrip:unaDescripcion  usu:unUsuario  top:unosTopicos. "La creación es realizada por la clase 																																Pregunta"
-	unUsuario agregarPublicacion:preg.  "La pregunta creada se agrega a la coleccion de preguntas del usuario"
-	unosTopicos do:[:top|top agregarPregunta:preg]. "La pregunta creada se agrega a la coleccion de preguntas de un/os topico/s"
-	^ preg.
-]
-
-{ #category : #adding }
-CuOOra >> agregarRespuesta:unTexto de:unaPregunta usu:unUsuario [ 
-	|resp|
-	resp := Respuesta nuevoRespuesta:unTexto de:unaPregunta usu:unUsuario. "La creación es realizada por la clase Respuesta"
-	unUsuario agregarPublicacion:resp.  "La respuesta creada se agrega a la coleccion de publicaciones(respuestas) del usuario"
-	unaPregunta agregarRespuesta:resp. "La respuesta creada se agrega a la coleccion de respuestas de la pregunta"
-	^ resp.
-]
-
-{ #category : #adding }
-CuOOra >> agregarTopico:nom descripcion:descrip [ 
-|top|
-	top:=Topico crearTopico: nom descripcion:descrip.
-	topicos add: top.
-	^top.
+	^ instancia ifNil: [ instancia := self new ] ifNotNil: [ instancia ]
 ]
 
 { #category : #deleting }
-CuOOra >> borrarUnaPregunta:unaPregunta [
-	unaPregunta delete.
+CuOOra >> borrarPregunta: unaPregunta [
+	unaPregunta delete
+]
+
+{ #category : #accessing }
+CuOOra >> buscarTopicoConNombre: unNombre [
+	^ topicos
+		detect:
+			[ :top | top nombre = unNombre ] "Verifica que el nombre del topico ingresado en el agregar pregunta exista"
 ]
 
 { #category : #calculating }
@@ -64,20 +43,32 @@ CuOOra >> calcularPuntajeDelUsuario: unUsuario [
 ]
 
 { #category : #adding }
-CuOOra >> crearNuevoUsuario:nombre cont:contrasena [
-|usuario|
-usuario:= Usuario nuevo: nombre y:contrasena.
-usuarios add:usuario. 
-^ usuario.
-	
+CuOOra >> crearPreguntaConTitulo: unTitulo descripion: unaDescripcion porUsuario: unUsuario yTopicos: unosTopicos [
+	| pregunta |
+	pregunta := Pregunta
+		nuevaConTitulo: unTitulo
+		descripcion: unaDescripcion
+		porUsuario: unUsuario
+		yTopicos: unosTopicos.	"La creación es realizada por la clase Pregunta"
+	unUsuario agregarPublicacion: pregunta.	"La pregunta creada se agrega a la coleccion de preguntas del usuario"
+	unosTopicos do: [ :top | top agregarPregunta: pregunta ].	"La pregunta creada se agrega a la coleccion de preguntas de un/os topico/s"
+	^ pregunta
 ]
 
-{ #category : #accessing }
-CuOOra >> getTopicos: aName [ 
+{ #category : #adding }
+CuOOra >> crearTopicoConNombre: unNombre yDescripcion: unaDescripcion [
+	| topico |
+	topico := Topico crearTopico: unNombre descripcion: unaDescripcion.
+	topicos add: topico.
+	^ topico
+]
 
-^ topicos detect: [ :t | t nombre = aName].
-
-"'verifica' que el nombre del topico ingresado en el agregar pregunta exista"
+{ #category : #adding }
+CuOOra >> crearUsuarioConNombre: unNombre yContrasena: unaContrasena [
+	| usuario |
+	usuario := Usuario nuevo: unNombre y: unaContrasena.
+	usuarios add: usuario.
+	^ usuario
 ]
 
 { #category : #initialization }
@@ -88,33 +79,46 @@ CuOOra >> initialize [
 ]
 
 { #category : #accessing }
-CuOOra >> loginUsuario:unNombre contrasena:unaContrasena [
-
-	^ usuarios detect: [ :usu | (usu nombre = unNombre ) & (usu contrasena = unaContrasena) ] ifNone:[nil].
+CuOOra >> loginUsuario: unNombre contrasena: unaContrasena [
+	^ usuarios
+		detect: [ :usu | usu nombre = unNombre & (usu contrasena = unaContrasena) ]
+		ifNone: [ nil ]
 ]
 
 { #category : #adding }
-CuOOra >> registrarReaccionDe: unUsuario a: unaPublicacion conVoto: unVoto [
+CuOOra >> nuevaConTexto: unTexto aPregunta: unaPregunta porUsuario: unUsuario [
+	| respuesta |
+	respuesta := Respuesta
+		nuevaConTexto: unTexto
+		aPregunta: unaPregunta
+		porUsuario: unUsuario.	"La creación es realizada por la clase Respuesta"
+	unUsuario agregarPublicacion: respuesta.	"La respuesta creada se agrega a la coleccion de publicaciones(respuestas) del usuario"
+	unaPregunta agregarRespuesta: respuesta.	"La respuesta creada se agrega a la coleccion de respuestas de la pregunta"
+	^ respuesta
+]
+
+{ #category : #accessing }
+CuOOra >> obtenerPreguntasDelTopico: unTopico [
+	^ unTopico preguntas
+]
+
+{ #category : #adding }
+CuOOra >> registrarReaccionDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto [
 	| reaccion |
-	reaccion := unaPublicacion buscarReaccionDe: unUsuario.
+	reaccion := unaPublicacion buscarReaccionDelUsuario: unUsuario.
 	reaccion
 		ifNil: [ reaccion := Reaccion
-				newConUsuario: unUsuario
-				publicacion: unaPublicacion
-				yVoto: unVoto.
+				nuevaDelUsuario: unUsuario
+				aPublicacion: unaPublicacion
+				conVoto: unVoto.
 			unaPublicacion agregarReaccion: reaccion ]
 		ifNotNil: [ reaccion estado: unVoto ].
 	^ reaccion
 ]
 
 { #category : #adding }
-CuOOra >> registrarTopInteres:unTopico a:unUsuario [ 
-	unUsuario agregarTopicoInteres: unTopico.
-]
-
-{ #category : #accessing }
-CuOOra >> todasLasPreguntasDe:unTopico [
-	^ unTopico todasLasPreguntas.
+CuOOra >> registrarTopicoDeInteres: unTopico aUsuario: unUsuario [
+	unUsuario agregarTopicoDeInteres: unTopico
 ]
 
 { #category : #accessing }
@@ -128,16 +132,11 @@ CuOOra >> topicos: anObject [
 ]
 
 { #category : #adding }
-CuOOra >> usuario:unUsuario sigue:otroUsuario [
-	unUsuario seguir:otroUsuario.
+CuOOra >> usuario: unUsuario sigue: otroUsuario [
+	unUsuario seguirAlUsuario: otroUsuario
 ]
 
 { #category : #accessing }
 CuOOra >> usuarios [
 	^ usuarios
-]
-
-{ #category : #accessing }
-CuOOra >> usuarios: anObject [
-	usuarios := anObject
 ]
