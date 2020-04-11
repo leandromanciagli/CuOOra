@@ -25,10 +25,10 @@ TestTopico >> setUp [
 	usuarioMariano := cuoora crearUsuarioConNombre: 'Mariano' 	yContrasena:'3456'.
 	topicoProgramacion := cuoora crearTopicoConNombre: 'Programacion' yDescripcion:'Preguntas referidas a la programación en informática'.
 	topicoGeografia := cuoora crearTopicoConNombre: 'Geografia' yDescripcion:'Preguntas referidas a geografia'.
-	preguntaDeProgramacion1 := cuoora crearPreguntaConTitulo:'¿Alguien sabe test de unidad?' descripion:'Test para OO2' porUsuario:usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
-	preguntaDeProgramacion2 := cuoora crearPreguntaConTitulo:'¿Que es programar?' descripion:'Definicion' porUsuario:usuarioMariano yTopicos:(OrderedCollection with: topicoProgramacion ).
-	preguntaDeProgramacion3 := cuoora crearPreguntaConTitulo:'¿Que es la POO?' descripion:'Definir paradigma' porUsuario:usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
-	preguntaDeGeografia1 := cuoora crearPreguntaConTitulo:'¿Cual es la capital de Italia?' descripion:'Del topico geografia' porUsuario:usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia ).
+	preguntaDeProgramacion1 := cuoora crearPreguntaConTitulo:'¿Alguien sabe test de unidad?' descripcion:'Test para OO2' porUsuario:usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
+	preguntaDeProgramacion2 := cuoora crearPreguntaConTitulo:'¿Que es programar?' descripcion:'Definicion' porUsuario:usuarioMariano yTopicos:(OrderedCollection with: topicoProgramacion ).
+	preguntaDeProgramacion3 := cuoora crearPreguntaConTitulo:'¿Que es la POO?' descripcion:'Definir paradigma' porUsuario:usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
+	preguntaDeGeografia1 := cuoora crearPreguntaConTitulo:'¿Cual es la capital de Italia?' descripcion:'Del topico geografia' porUsuario:usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia ).
 ]
 
 { #category : #tests }

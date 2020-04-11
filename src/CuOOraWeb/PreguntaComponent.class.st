@@ -12,7 +12,7 @@ Class {
 { #category : #'as yet unclassified' }
 PreguntaComponent >> agregarPregunta [
 	
-(CuOOra instancia) crearPreguntaConTitulo: titulo  descripion:descripcion porUsuario:(CuOOraComponent instancia usuario) yTopicos:self topicosIngresados.
+(CuOOra instancia) crearPreguntaConTitulo: titulo  descripcion:descripcion porUsuario:(CuOOraComponent instancia usuario) yTopicos:self topicosIngresados.
 
  self answer: nil.
 

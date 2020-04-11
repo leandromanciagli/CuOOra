@@ -29,10 +29,10 @@ TestCuOOra >> setUp [
 	cuoora registrarTopicoDeInteres: top1 aUsuario: usu1.
 	cuoora registrarTopicoDeInteres: top2 aUsuario: usu2.  
 	usu1 seguirAlUsuario: usu3.
-	preg1:= cuoora crearPreguntaConTitulo: '¿Como hacer arroz con pollo' descripion:'el aderezo'  porUsuario:usu1  yTopicos:(OrderedCollection with: top1).
-	cuoora nuevaConTexto: 'mezclarlos' aPregunta:preg1  porUsuario:usu1.
-	preg2:= cuoora crearPreguntaConTitulo: 'prueba por topico' descripion:'lo es'  porUsuario:usu2  yTopicos:(OrderedCollection with: top2). 
-	preg3:= cuoora crearPreguntaConTitulo: 'prueba por seguidores' descripion:'lo es'  porUsuario:usu3  yTopicos:(OrderedCollection with: top1). 
+	preg1:= cuoora crearPreguntaConTitulo: '¿Como hacer arroz con pollo' descripcion:'el aderezo'  porUsuario:usu1  yTopicos:(OrderedCollection with: top1).
+	cuoora crearRespuestaConTexto: 'mezclarlos' aPregunta:preg1  porUsuario:usu1.
+	preg2:= cuoora crearPreguntaConTitulo: 'prueba por topico' descripcion:'lo es'  porUsuario:usu2  yTopicos:(OrderedCollection with: top2). 
+	preg3:= cuoora crearPreguntaConTitulo: 'prueba por seguidores' descripcion:'lo es'  porUsuario:usu3  yTopicos:(OrderedCollection with: top1). 
 ]
 
 { #category : #tests }
@@ -61,7 +61,7 @@ TestCuOOra >> testAgregarTopico [
 { #category : #tests }
 TestCuOOra >> testBorrarPregunta [
 	|q|
-	cuoora crearPreguntaConTitulo:'Como multiplicar matrices'  descripion:'eso.' porUsuario: usu1 yTopicos:(OrderedCollection with:top1).
+	cuoora crearPreguntaConTitulo:'Como multiplicar matrices'  descripcion:'eso.' porUsuario: usu1 yTopicos:(OrderedCollection with:top1).
 	q:= ((usu1 preguntasRealizadas) detect: [:pre | pre titulo ='Como multiplicar matrices'] ifNone: [nil] ).
 	self assert: q notNil. "la pregunta existe"
 	

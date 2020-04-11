@@ -25,8 +25,8 @@ TestUsuario >> setUp [
 	topicoProgramacion := cuoora crearTopicoConNombre: 'Programacion' yDescripcion:'Preguntas referidas a la programación en informática'.
 	topicoGeografia := cuoora crearTopicoConNombre: 'Geografia' yDescripcion:'Preguntas referidas a geografia'.
 	cuoora registrarTopicoDeInteres: topicoProgramacion aUsuario: usuarioLeandro.
-	preguntaDeTopico := cuoora crearPreguntaConTitulo:'¿Alguien sabe test de unidad?' descripion:'Test para OO2' porUsuario:usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
-	preguntaDeUsuario := cuoora crearPreguntaConTitulo:'¿Cual es la capital de Italia?' descripion:'Del topico geografia' porUsuario:usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia ).
+	preguntaDeTopico := cuoora crearPreguntaConTitulo:'¿Alguien sabe test de unidad?' descripcion:'Test para OO2' porUsuario:usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
+	preguntaDeUsuario := cuoora crearPreguntaConTitulo:'¿Cual es la capital de Italia?' descripcion:'Del topico geografia' porUsuario:usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia ).
 	
 ]
 

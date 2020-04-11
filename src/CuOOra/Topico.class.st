@@ -9,9 +9,9 @@ Class {
 	#category : #CuOOra
 }
 
-{ #category : #'as yet unclassified' }
-Topico class >> crearTopico:nom descripcion:descrip [ 
-		^ self new nuevoConNombre:nom yDescripcion:descrip. 
+{ #category : #'instance creation' }
+Topico class >> nuevoConNombre: unNombre yDescripcion: unaDescripcion [
+	^ self new nuevoConNombre: unNombre yDescripcion: unaDescripcion
 ]
 
 { #category : #'as yet unclassified' }

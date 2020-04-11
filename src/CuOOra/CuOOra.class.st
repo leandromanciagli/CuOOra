@@ -11,7 +11,7 @@ Class {
 	#category : #CuOOra
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #clearing }
 CuOOra class >> clearInstancia [ 
 	instancia := nil.
 ]
@@ -43,7 +43,7 @@ CuOOra >> calcularPuntajeDelUsuario: unUsuario [
 ]
 
 { #category : #adding }
-CuOOra >> crearPreguntaConTitulo: unTitulo descripion: unaDescripcion porUsuario: unUsuario yTopicos: unosTopicos [
+CuOOra >> crearPreguntaConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unUsuario yTopicos: unosTopicos [
 	| pregunta |
 	pregunta := Pregunta
 		nuevaConTitulo: unTitulo
@@ -56,9 +56,21 @@ CuOOra >> crearPreguntaConTitulo: unTitulo descripion: unaDescripcion porUsuario
 ]
 
 { #category : #adding }
+CuOOra >> crearRespuestaConTexto: unTexto aPregunta: unaPregunta porUsuario: unUsuario [
+	| respuesta |
+	respuesta := Respuesta
+		crearRespuestaConTexto: unTexto
+		aPregunta: unaPregunta
+		porUsuario: unUsuario.	"La creación es realizada por la clase Respuesta"
+	unUsuario agregarPublicacion: respuesta.	"La respuesta creada se agrega a la coleccion de publicaciones(respuestas) del usuario"
+	unaPregunta agregarRespuesta: respuesta.	"La respuesta creada se agrega a la coleccion de respuestas de la pregunta"
+	^ respuesta
+]
+
+{ #category : #adding }
 CuOOra >> crearTopicoConNombre: unNombre yDescripcion: unaDescripcion [
 	| topico |
-	topico := Topico crearTopico: unNombre descripcion: unaDescripcion.
+	topico := Topico nuevoConNombre: unNombre yDescripcion: unaDescripcion.
 	topicos add: topico.
 	^ topico
 ]
@@ -66,7 +78,7 @@ CuOOra >> crearTopicoConNombre: unNombre yDescripcion: unaDescripcion [
 { #category : #adding }
 CuOOra >> crearUsuarioConNombre: unNombre yContrasena: unaContrasena [
 	| usuario |
-	usuario := Usuario nuevo: unNombre y: unaContrasena.
+	usuario := Usuario nuevoConNombre: unNombre yContrasena: unaContrasena.
 	usuarios add: usuario.
 	^ usuario
 ]
@@ -83,18 +95,6 @@ CuOOra >> loginUsuario: unNombre contrasena: unaContrasena [
 	^ usuarios
 		detect: [ :usu | usu nombre = unNombre & (usu contrasena = unaContrasena) ]
 		ifNone: [ nil ]
-]
-
-{ #category : #adding }
-CuOOra >> nuevaConTexto: unTexto aPregunta: unaPregunta porUsuario: unUsuario [
-	| respuesta |
-	respuesta := Respuesta
-		nuevaConTexto: unTexto
-		aPregunta: unaPregunta
-		porUsuario: unUsuario.	"La creación es realizada por la clase Respuesta"
-	unUsuario agregarPublicacion: respuesta.	"La respuesta creada se agrega a la coleccion de publicaciones(respuestas) del usuario"
-	unaPregunta agregarRespuesta: respuesta.	"La respuesta creada se agrega a la coleccion de respuestas de la pregunta"
-	^ respuesta
 ]
 
 { #category : #accessing }

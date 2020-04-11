@@ -10,7 +10,7 @@ Class {
 	#category : #CuOOra
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Pregunta class >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unUsuario yTopicos: unTopico [
 	^ self new
 		nuevaConTitulo: unTitulo

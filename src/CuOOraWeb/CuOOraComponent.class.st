@@ -60,15 +60,15 @@ CuOOraComponent >> instanciarCuOOra [
 	cuoora registrarTopicoDeInteres: top aUsuario: usuarioCatherine.
 	topicos:=OrderedCollection new.
 	topicos add:top.
-	pregunta1 := cuoora crearPreguntaConTitulo:'pregunta 1' descripion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	pregunta2 := cuoora crearPreguntaConTitulo:'pregunta 2' descripion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	pregunta3 := cuoora crearPreguntaConTitulo:'pregunta 3' descripion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	pregunta4 := cuoora crearPreguntaConTitulo:'pregunta 4' descripion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	pregunta5 := cuoora crearPreguntaConTitulo:'pregunta 5' descripion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	pregunta6 := cuoora crearPreguntaConTitulo:'pregunta 6' descripion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	pregunta7 := cuoora crearPreguntaConTitulo:'pregunta 7' descripion:'es relevante pero no debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	pregunta8 := cuoora crearPreguntaConTitulo:'pregunta 8' descripion:'es relevante pero no debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	respuesta := cuoora nuevaConTexto:'respuesta a la pregunta 1' aPregunta:pregunta1 porUsuario:usuarioCatherine.
+	pregunta1 := cuoora crearPreguntaConTitulo:'pregunta 1' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
+	pregunta2 := cuoora crearPreguntaConTitulo:'pregunta 2' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
+	pregunta3 := cuoora crearPreguntaConTitulo:'pregunta 3' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
+	pregunta4 := cuoora crearPreguntaConTitulo:'pregunta 4' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
+	pregunta5 := cuoora crearPreguntaConTitulo:'pregunta 5' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
+	pregunta6 := cuoora crearPreguntaConTitulo:'pregunta 6' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
+	pregunta7 := cuoora crearPreguntaConTitulo:'pregunta 7' descripcion:'es relevante pero no debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
+	pregunta8 := cuoora crearPreguntaConTitulo:'pregunta 8' descripcion:'es relevante pero no debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
+	respuesta := cuoora crearRespuestaConTexto:'respuesta a la pregunta 1' aPregunta:pregunta1 porUsuario:usuarioCatherine.
 	cuoora registrarReaccionDelUsuario: usuarioCatherine aPublicacion: pregunta1 conVoto:false.
 	
 ]

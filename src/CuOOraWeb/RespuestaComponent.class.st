@@ -17,7 +17,7 @@ RespuestaComponent class >> pregunta: unaPregunta [
 { #category : #'as yet unclassified' }
 RespuestaComponent >> agregarRespuesta [
 	CuOOra instancia
-		nuevaConTexto: newTexto
+		crearRespuestaConTexto: newTexto
 		aPregunta: pregunta
 		porUsuario: CuOOraComponent instancia usuario.
 	self answer: nil

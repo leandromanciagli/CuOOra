@@ -19,9 +19,9 @@ Class {
 	#category : #CuOOra
 }
 
-{ #category : #'as yet unclassified' }
-Usuario class >> nuevo:nombre y:contrasena [
-	^self new nuevoConNombre: nombre yContrasena: contrasena.
+{ #category : #'instance creation' }
+Usuario class >> nuevoConNombre: unNombre yContrasena: unaContrasena [
+	^ self new nuevoConNombre: unNombre yContrasena: unaContrasena
 ]
 
 { #category : #'as yet unclassified' }
