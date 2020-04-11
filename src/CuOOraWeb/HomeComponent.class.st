@@ -82,4 +82,6 @@ HomeComponent >> verUsuario: usu [
 	| usuario |
 	usuario := UsuarioDetalleComponent new: usu.
 	self call: usuario
+	
+
 ]

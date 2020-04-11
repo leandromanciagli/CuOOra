@@ -51,12 +51,13 @@ CuOOraComponent >> initialize [
 
 { #category : #'as yet unclassified' }
 CuOOraComponent >> instanciarCuOOra [
-	| top topicos usuarioCatherine usuarioLeandro respuesta pregunta1 pregunta2 pregunta3 pregunta4 pregunta5 pregunta6 pregunta7 pregunta8 |
+	| top top2 topicos usuarioCatherine usuarioLeandro respuesta pregunta1 pregunta2 pregunta3 pregunta4 pregunta5 pregunta6 pregunta7 pregunta8 |
 	CuOOra clearInstancia.
 	cuoora := CuOOra instancia.
 	usuarioCatherine := cuoora crearUsuarioConNombre: 'Catherine' yContrasena:'1234'.
 	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' yContrasena:'lacontraseña'.
 	top := cuoora crearTopicoConNombre: 'topico1' yDescripcion:'vamos a verla'.
+	top2 := cuoora crearTopicoConNombre: 'topico2' yDescripcion: 'Es el topico2'.
 	cuoora registrarTopicoDeInteres: top aUsuario: usuarioCatherine.
 	topicos:=OrderedCollection new.
 	topicos add:top.
