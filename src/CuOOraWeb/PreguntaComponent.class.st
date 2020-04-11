@@ -12,10 +12,18 @@ Class {
 { #category : #'as yet unclassified' }
 PreguntaComponent >> agregarPregunta [
 	
-(CuOOra instancia) agregarPregunta: titulo  Descrip:descripcion usu:(CuOOraComponent instancia usuario) topics:self topicosIngresados.
+(CuOOra instancia) crearPreguntaConTitulo: titulo  descripcion:descripcion porUsuario:(CuOOraComponent instancia usuario) yTopicos:self topicosIngresados.
 
  self answer: nil.
 
+]
+
+{ #category : #'as yet unclassified' }
+PreguntaComponent >> cancelar [
+	titulo := nil.
+	descripcion := nil.
+	topicos := nil.
+	self answer
 ]
 
 { #category : #accessing }
@@ -28,34 +36,47 @@ PreguntaComponent >> descripcion: anObject [
 	descripcion := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+PreguntaComponent >> desloguear [
+
+ CuOOraComponent instancia usuario: nil.
+ self answer: nil.
+]
+
 { #category : #rendering }
 PreguntaComponent >> renderContentOn: html [
+	| usuarioLogueado |
+	usuarioLogueado := CuOOraComponent instancia usuario.
+	html anchor
+		callback: [ self verUsuario: usuarioLogueado ];
+		with: usuarioLogueado nombre.
 	html heading: 'Haga una pregunta'.
-	
-	html form:[
-		html text: 'Título: '.
-		html textInput on: #titulo of: self.
-		html break.
-		
-		html tag: 'br'.
-		
-		html text: 'Descripción: '.
-		html textArea on: #descripcion of: self.
-		html break.
-		
-		html tag: 'br'. 
-		
-		html text: 'Tópicos: '.
-		html textInput on: #topicos of: self.
-		html break.
-		
-		html submitButton
-			callback: [ self agregarPregunta ];  "llamar al metodo que agrega la pregunta"
-			value: 'Agregar'.
-	]. "fin"
-	html anchor 
-	callback: [ self renderHome]; "redireccionar al home"
-	with: 'volver'.  
+	html
+		form: [ html text: 'Título: '.
+			html textInput on: #titulo of: self.
+			html break.
+			html tag: 'br'.
+			html text: 'Descripción: '.
+			html textArea on: #descripcion of: self.
+			html break.
+			html tag: 'br'.
+			html text: 'Tópicos: '.
+			html textInput on: #topicos of: self.
+			html break.
+			html button
+				callback: [ self cancelar ];
+				value: 'Cancelar'.
+			html submitButton
+				callback: [ self agregarPregunta ];
+				"llamar al metodo que agrega la pregunta"
+					value: 'Agregar' ].	"fin"
+	html anchor
+		callback: [ self renderHome ];
+		with: 'volver'.
+	html space.
+	html anchor
+		callback: [ self desloguear ];
+		with: 'logOut'
 ]
 
 { #category : #rendering }
@@ -88,7 +109,12 @@ PreguntaComponent >> topicos: anObject [
 PreguntaComponent >> topicosIngresados [
 |t|
  t:= self topicos splitOn: ','. 
-^ t collect: [ :topic | CuOOra instancia getTopicos: topic ].
+^ t collect: [ :topic | CuOOra instancia buscarTopicoConNombre: topic ].
 
 "getTopicos esta en el model de cuoora y busca si los topicos ingresados son los que existen"
+]
+
+{ #category : #'as yet unclassified' }
+PreguntaComponent >> verUsuario: unUsuario [
+	self call: (UsuarioDetalleComponent new: unUsuario)
 ]

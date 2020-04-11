@@ -15,7 +15,7 @@ Publicacion >> agregarReaccion: unaReaccion [
 ]
 
 { #category : #'as yet unclassified' }
-Publicacion >> buscarReaccionDe: unUsuario [
+Publicacion >> buscarReaccionDelUsuario: unUsuario [
 	| reaccion |
 	reacciones
 		do: [ :r | 
@@ -30,14 +30,18 @@ Publicacion >> delete [
 ]
 
 { #category : #'as yet unclassified' }
-Publicacion >> esPregunta [
+Publicacion >> dislikes [
+	^ self reacciones reject: [ :each | each estado ] "reject devuelve todos los false"
+]
 
-	^ false.
+{ #category : #'as yet unclassified' }
+Publicacion >> esPregunta [
+	^ false
 ]
 
 { #category : #'as yet unclassified' }
 Publicacion >> esRespuesta [
- 	^ false.
+	^ false
 ]
 
 { #category : #accessing }
@@ -62,7 +66,7 @@ Publicacion >> puntaje [
 	self reacciones isEmpty
 		ifTrue: [ ^ 0 ] "Por si esa publicacion no tiene ninguna reaccion"
 		ifFalse: [ cantLikes := self likes size.
-			cantDislikes := self reacciones size - cantLikes.
+			cantDislikes := self dislikes size.
 			^ cantLikes - cantDislikes ]
 ]
 

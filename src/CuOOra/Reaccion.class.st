@@ -11,13 +11,13 @@ Class {
 }
 
 { #category : #initialization }
-Reaccion class >> newConUsuario: unUsuario publicacion: unaPublicacion yVoto: unVoto [
-	^ self new nuevaReaccionUsuario: unUsuario publicacion: unaPublicacion yVoto: unVoto
+Reaccion class >> nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto [
+	^ self new nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto
 ]
 
 { #category : #accessing }
 Reaccion >> estado [
-	^estado
+	^ estado
 ]
 
 { #category : #accessing }
@@ -31,7 +31,7 @@ Reaccion >> initialize [
 ]
 
 { #category : #initialization }
-Reaccion >> nuevaReaccionUsuario: unUsuario publicacion: unaPublicacion yVoto: unVoto [
+Reaccion >> nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto [
 	usuario := unUsuario.
 	publicacion := unaPublicacion.
 	estado := unVoto

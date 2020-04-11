@@ -20,26 +20,26 @@ Class {
 TestTopico >> setUp [ 
 	super setUp.
 	cuoora := CuOOra new.
-	usuarioCatherine := cuoora crearNuevoUsuario: 'Catherine' cont:'1234'.
-	usuarioLeandro := cuoora crearNuevoUsuario: 'Leandro' 	cont:'2345'.
-	usuarioMariano := cuoora crearNuevoUsuario: 'Mariano' 	cont:'3456'.
-	topicoProgramacion := cuoora agregarTopico: 'Programacion' descripcion:'Preguntas referidas a la programación en informática'.
-	topicoGeografia := cuoora agregarTopico: 'Geografia' descripcion:'Preguntas referidas a geografia'.
-	preguntaDeProgramacion1 := cuoora agregarPregunta:'¿Alguien sabe test de unidad?' Descrip:'Test para OO2' usu:usuarioCatherine topics:(OrderedCollection with: topicoProgramacion).
-	preguntaDeProgramacion2 := cuoora agregarPregunta:'¿Que es programar?' Descrip:'Definicion' usu:usuarioMariano topics:(OrderedCollection with: topicoProgramacion ).
-	preguntaDeProgramacion3 := cuoora agregarPregunta:'¿Que es la POO?' Descrip:'Definir paradigma' usu:usuarioCatherine topics:(OrderedCollection with: topicoProgramacion).
-	preguntaDeGeografia1 := cuoora agregarPregunta:'¿Cual es la capital de Italia?' Descrip:'Del topico geografia' usu:usuarioMariano topics:(OrderedCollection with: topicoGeografia ).
+	usuarioCatherine := cuoora crearUsuarioConNombre: 'Catherine' yContrasena:'1234'.
+	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' 	yContrasena:'2345'.
+	usuarioMariano := cuoora crearUsuarioConNombre: 'Mariano' 	yContrasena:'3456'.
+	topicoProgramacion := cuoora crearTopicoConNombre: 'Programacion' yDescripcion:'Preguntas referidas a la programación en informática'.
+	topicoGeografia := cuoora crearTopicoConNombre: 'Geografia' yDescripcion:'Preguntas referidas a geografia'.
+	preguntaDeProgramacion1 := cuoora crearPreguntaConTitulo:'¿Alguien sabe test de unidad?' descripcion:'Test para OO2' porUsuario:usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
+	preguntaDeProgramacion2 := cuoora crearPreguntaConTitulo:'¿Que es programar?' descripcion:'Definicion' porUsuario:usuarioMariano yTopicos:(OrderedCollection with: topicoProgramacion ).
+	preguntaDeProgramacion3 := cuoora crearPreguntaConTitulo:'¿Que es la POO?' descripcion:'Definir paradigma' porUsuario:usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
+	preguntaDeGeografia1 := cuoora crearPreguntaConTitulo:'¿Cual es la capital de Italia?' descripcion:'Del topico geografia' porUsuario:usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia ).
 ]
 
 { #category : #tests }
 TestTopico >> testTodasLasPreguntas [
 	self
 		assert:
-			(topicoProgramacion todasLasPreguntas
+			(topicoProgramacion preguntas
 				detect: [ :p | p titulo = '¿Alguien sabe test de unidad?' ])
 				notNil.	"La pregunta se encuentra porque pertenece al topico"
 	self
-		should: [ topicoProgramacion todasLasPreguntas
+		should: [ topicoProgramacion preguntas
 				detect: [ :p | p titulo = '¿Cual es la capital de Italia?' ] ]
 		raise: Error
 ]
