@@ -84,6 +84,8 @@ CuOOraComponent >> renderContentOn: html [
 	usuario
 		ifNil: [ html div with: self loginComponent ]
 		ifNotNil: [ html div with: self homeComponent ]
+		
+	"nbvgccg"
 ]
 
 { #category : #accessing }
