@@ -15,17 +15,28 @@ HomeComponent >> desloguear [
 HomeComponent >> renderContentOn: html [
 	| preg cuooraweb |
 	cuooraweb := CuOOraComponent instancia.
-	html paragraph with: cuooraweb usuario nombre.
+	html anchor
+		callback: [ self verUsuario: cuooraweb usuario nombre ];
+		with: cuooraweb usuario nombre.
+	html heading
+		level: 1;
+		with: 'Ultimas preguntas'.
 	preg := CuOOraComponent instancia usuario obtenerPreguntasRelevantes.
 	preg
 		do: [ :p | 
 			html div.
-			html heading
-				level: 3;
-				with: p titulo.
-			html paragraph with: 'Fecha y hora de creación: ' , p fechaHora asString.
+			html anchor
+				callback: [ self verPregunta: p ];
+				with: [ html heading
+						level: 3;
+						with: p titulo ].
+			html paragraph
+				with: 'Fecha y hora de creación: ' , p fechaHora asString.
 			html paragraph with: 'topicos: ' , p topicos.
-			html text: 'Realizada por: ' , p usuario nombre.
+			html text: 'Realizada por: '.
+			html anchor
+				callback: [ self verUsuario: p usuario ];
+				with: p usuario nombre.
 			html paragraph
 				with: 'respuestas: ' , p obtenerRespuestas size asString.
 			html paragraph
@@ -67,8 +78,8 @@ self call: pregunta.
 ]
 
 { #category : #'as yet unclassified' }
-HomeComponent >> verUsuario:usu [ 
- | usuario |
-usuario:= UsuarioDetalleComponent new:usu.
-self call: usuario.
+HomeComponent >> verUsuario: usu [
+	| usuario |
+	usuario := UsuarioDetalleComponent new: usu.
+	self call: usuario
 ]

@@ -20,12 +20,12 @@ LoginComponent >> contrasena: anObject [
 
 { #category : #'as yet unclassified' }
 LoginComponent >> loginUsuario [
-	
-	CuOOraComponent instancia usuario: (CuOOra instancia loginUsuario:nombre contrasena:contrasena). 
-	self renderHome.
-	
+	CuOOraComponent instancia
+		usuario: (CuOOra instancia loginUsuario: nombre contrasena: contrasena).
+	self renderHome
 
-"Este método loguea un usuario en cuoora".
+
+	"Este método loguea un usuario en cuoora"
 ]
 
 { #category : #accessing }

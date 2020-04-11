@@ -18,6 +18,14 @@ PreguntaComponent >> agregarPregunta [
 
 ]
 
+{ #category : #'as yet unclassified' }
+PreguntaComponent >> cancelar [
+	titulo := nil.
+	descripcion := nil.
+	topicos := nil.
+	self answer
+]
+
 { #category : #accessing }
 PreguntaComponent >> descripcion [
 	^ descripcion
@@ -28,34 +36,47 @@ PreguntaComponent >> descripcion: anObject [
 	descripcion := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+PreguntaComponent >> desloguear [
+
+ CuOOraComponent instancia usuario: nil.
+ self answer: nil.
+]
+
 { #category : #rendering }
 PreguntaComponent >> renderContentOn: html [
+	| usuarioLogueado |
+	usuarioLogueado := CuOOraComponent instancia usuario.
+	html anchor
+		callback: [ self verUsuario: usuarioLogueado ];
+		with: usuarioLogueado nombre.
 	html heading: 'Haga una pregunta'.
-	
-	html form:[
-		html text: 'Título: '.
-		html textInput on: #titulo of: self.
-		html break.
-		
-		html tag: 'br'.
-		
-		html text: 'Descripción: '.
-		html textArea on: #descripcion of: self.
-		html break.
-		
-		html tag: 'br'. 
-		
-		html text: 'Tópicos: '.
-		html textInput on: #topicos of: self.
-		html break.
-		
-		html submitButton
-			callback: [ self agregarPregunta ];  "llamar al metodo que agrega la pregunta"
-			value: 'Agregar'.
-	]. "fin"
-	html anchor 
-	callback: [ self renderHome]; "redireccionar al home"
-	with: 'volver'.  
+	html
+		form: [ html text: 'Título: '.
+			html textInput on: #titulo of: self.
+			html break.
+			html tag: 'br'.
+			html text: 'Descripción: '.
+			html textArea on: #descripcion of: self.
+			html break.
+			html tag: 'br'.
+			html text: 'Tópicos: '.
+			html textInput on: #topicos of: self.
+			html break.
+			html button
+				callback: [ self cancelar ];
+				value: 'Cancelar'.
+			html submitButton
+				callback: [ self agregarPregunta ];
+				"llamar al metodo que agrega la pregunta"
+					value: 'Agregar' ].	"fin"
+	html anchor
+		callback: [ self renderHome ];
+		with: 'volver'.
+	html space.
+	html anchor
+		callback: [ self desloguear ];
+		with: 'logOut'
 ]
 
 { #category : #rendering }
@@ -91,4 +112,9 @@ PreguntaComponent >> topicosIngresados [
 ^ t collect: [ :topic | CuOOra instancia getTopicos: topic ].
 
 "getTopicos esta en el model de cuoora y busca si los topicos ingresados son los que existen"
+]
+
+{ #category : #'as yet unclassified' }
+PreguntaComponent >> verUsuario: unUsuario [
+	self call: (UsuarioDetalleComponent new: unUsuario)
 ]
