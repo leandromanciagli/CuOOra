@@ -3,15 +3,16 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'cuoora',
-		'preg1',
-		'preg2',
-		'preg3',
-		'usu1',
-		'usu2',
-		'usu3',
-		'top1',
-		'top2',
-		'top3'
+		'usuarioCatherine',
+		'usuarioLeandro',
+		'usuarioMariano',
+		'topicoProgramacion',
+		'topicoPOO',
+		'topicoCocina',
+		'pregunta1',
+		'pregunta2',
+		'pregunta3',
+		'respuestaPregunta1'
 	],
 	#category : #CuOOraTests
 }
@@ -20,54 +21,43 @@ Class {
 TestCuOOra >> setUp [ 
 	super setUp.
 	cuoora := CuOOra new.
-	usu1 := cuoora crearUsuarioConNombre: 'Catherine' yContrasena:'1234'.
-	usu2 := cuoora crearUsuarioConNombre: 'Leandro' 	yContrasena:'2345'.
-	usu3 := cuoora crearUsuarioConNombre: 'Mariano' 	yContrasena:'3456'. 
-	usu1 seguirAlUsuario: usu2.
-	top1 := cuoora crearTopicoConNombre: 'Programacion' yDescripcion:'patrones'.
-	top2 := cuoora crearTopicoConNombre: 'Cocina' yDescripcion:'Arroz con pollo'.
-	cuoora registrarTopicoDeInteres: top1 aUsuario: usu1.
-	cuoora registrarTopicoDeInteres: top2 aUsuario: usu2.  
-	usu1 seguirAlUsuario: usu3.
-	preg1:= cuoora crearPreguntaConTitulo: '¿Como hacer arroz con pollo' descripcion:'el aderezo'  porUsuario:usu1  yTopicos:(OrderedCollection with: top1).
-	cuoora crearRespuestaConTexto: 'mezclarlos' aPregunta:preg1  porUsuario:usu1.
-	preg2:= cuoora crearPreguntaConTitulo: 'prueba por topico' descripcion:'lo es'  porUsuario:usu2  yTopicos:(OrderedCollection with: top2). 
-	preg3:= cuoora crearPreguntaConTitulo: 'prueba por seguidores' descripcion:'lo es'  porUsuario:usu3  yTopicos:(OrderedCollection with: top1). 
-]
-
-{ #category : #tests }
-TestCuOOra >> testAgregarPregunta [
-	self
-		assert:
-			(usu1 preguntasRealizadas
-				detect: [ :a | a titulo = '¿Como hacer arroz con pollo?' ]) notNil
-]
-
-{ #category : #tests }
-TestCuOOra >> testAgregarRespuesta [
+	usuarioCatherine := cuoora crearUsuarioConNombre: 'Catherine' yContrasena:'1234'.
+	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' yContrasena:'2345'.
+	usuarioMariano := cuoora crearUsuarioConNombre: 'Mariano' yContrasena:'3456'.
+		
+	topicoProgramacion := cuoora crearTopicoConNombre: 'Programacion' yDescripcion:'patrones'.
+	topicoPOO := cuoora crearTopicoConNombre: 'POO' yDescripcion:'Programacion orientada a objetos'.
+	topicoCocina := cuoora crearTopicoConNombre: 'Cocina' yDescripcion:'Arroz con pollo'.
 	
-	self assert: (usu1 respuestasRealizadas detect: [:a | a texto = 'mezclarlos'] )notNil.
+	cuoora registrarTopicoDeInteres: topicoProgramacion aUsuario: usuarioCatherine.
+	cuoora registrarTopicoDeInteres: topicoCocina aUsuario: usuarioLeandro.
+	usuarioCatherine seguirAlUsuario: usuarioLeandro.
+	usuarioCatherine seguirAlUsuario: usuarioMariano.
+	
+	pregunta1:= cuoora crearPreguntaConTitulo: '¿Que es la POO?' descripcion: 'Funcionamiento del paradigma' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion with: topicoPOO).
+	pregunta2:= cuoora crearPreguntaConTitulo: 'prueba por topico' descripcion: 'lo es' porUsuario: usuarioLeandro  yTopicos: (OrderedCollection with: topicoCocina).
+	pregunta3:= cuoora crearPreguntaConTitulo: 'prueba por seguidores' descripcion: 'lo es' porUsuario: usuarioMariano yTopicos: (OrderedCollection with: topicoProgramacion).
+	
+	respuestaPregunta1 := cuoora crearRespuestaConTexto: 'Es un conjunto de objetos que se mandan mensajes entre si' aPregunta: pregunta1 porUsuario: usuarioLeandro. 
+	
 
-]
 
-{ #category : #tests }
-TestCuOOra >> testAgregarTopico [
-	"El topico 'Programacion' deberia estar agregado correctamente en la coleccion de topicos de cuoora"
 
-	self
-		assert: (cuoora topicos detect: [ :t | t nombre = 'Programacion' ]) notNil
+
+
+
 ]
 
 { #category : #tests }
 TestCuOOra >> testBorrarPregunta [
 	|q|
-	cuoora crearPreguntaConTitulo:'Como multiplicar matrices'  descripcion:'eso.' porUsuario: usu1 yTopicos:(OrderedCollection with:top1).
-	q:= ((usu1 preguntasRealizadas) detect: [:pre | pre titulo ='Como multiplicar matrices'] ifNone: [nil] ).
+	cuoora crearPreguntaConTitulo:'Como multiplicar matrices'  descripcion:'eso.' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with:topicoProgramacion).
+	q:= ((usuarioCatherine preguntasRealizadas) detect: [:pre | pre titulo ='Como multiplicar matrices'] ifNone: [nil] ).
 	self assert: q notNil. "la pregunta existe"
 	
 	cuoora borrarPregunta: q.
 	
-	q:= ((usu2 preguntasRealizadas) detect: [:qu | qu titulo='Como multiplicar matrices'] ifNone: [nil]).
+	q:= ((usuarioLeandro preguntasRealizadas) detect: [:qu | qu titulo='Como multiplicar matrices'] ifNone: [nil]).
 	
 	self assert: q isNil. "la pregunta ya no existe"
  
@@ -75,7 +65,47 @@ TestCuOOra >> testBorrarPregunta [
 ]
 
 { #category : #tests }
-TestCuOOra >> testCrearNuevoUsuario [
+TestCuOOra >> testCrearPregunta [
+	self
+		assert:
+			(usuarioCatherine preguntasRealizadas
+				detect: [ :p | p titulo = '¿Que es la POO?' ]) notNil.	"La pregunta se agrego a la coleccion de preguntas del usuario usuarioCatherine"
+	self
+		assert:
+			(topicoProgramacion preguntas
+				detect: [ :p | p titulo = '¿Que es la POO?' ]) notNil.	"La pregunta se agrego a la coleccion de preguntas del topico topicoProgramacion"
+	self
+		assert:
+			(topicoPOO preguntas detect: [ :p | p titulo = '¿Que es la POO?' ])
+				notNil	"La pregunta se agrego a la coleccion de preguntas del topico topicoProgramacion"
+]
+
+{ #category : #tests }
+TestCuOOra >> testCrearRespuesta [
+	self
+		assert:
+			(usuarioLeandro respuestasRealizadas
+				detect:
+					[ :r | r texto = 'Es un conjunto de objetos que se mandan mensajes entre si' ])
+				notNil.	"La respuesta es agregada a la coleccion de publicaciones del usuario usuarioLeandro"
+	self
+		assert:
+			(pregunta1 obtenerRespuestasPorPuntaje
+				detect:
+					[ :r | r texto = 'Es un conjunto de objetos que se mandan mensajes entre si' ])
+				notNil	"La respuesta es agregada a la coleccion de respuestas de la pregunta pregunta1"
+]
+
+{ #category : #tests }
+TestCuOOra >> testCrearTopico [
+	"El topico 'Programacion' deberia estar agregado correctamente en la coleccion de topicos de cuoora"
+
+	self
+		assert: (cuoora topicos detect: [ :t | t nombre = 'Programacion' ]) notNil
+]
+
+{ #category : #tests }
+TestCuOOra >> testCrearUsuario [
 	"El usuario 'Leandro' deberia estar agregado correctamente en la coleccion de usuarios de cuoora"
 
 	self
@@ -84,7 +114,7 @@ TestCuOOra >> testCrearNuevoUsuario [
 
 { #category : #tests }
 TestCuOOra >> testRegistrarTopicoDeInteres [ 
-	self assert: ( usu1 intereses detect: [:i | i nombre = 'Programacion'] )notNil.
+	self assert: ( usuarioCatherine intereses detect: [:i | i nombre = 'Programacion'] )notNil.
 
 
 
