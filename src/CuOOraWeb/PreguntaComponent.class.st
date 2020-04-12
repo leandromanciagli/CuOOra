@@ -11,19 +11,22 @@ Class {
 
 { #category : #'as yet unclassified' }
 PreguntaComponent >> agregarPregunta [
-	
-(CuOOra instancia) crearPreguntaConTitulo: titulo  descripcion:descripcion porUsuario:(CuOOraComponent instancia usuario) yTopicos:self topicosIngresados.
-
- self answer: nil.
-
+	CuOOra instancia
+		crearPreguntaConTitulo: titulo
+		descripcion: descripcion
+		porUsuario: CuOOraComponent instancia usuario
+		yTopicos: self topicosIngresados.
+	titulo := nil.
+	descripcion := nil.
+	topicos := nil.
+	self answer: nil
 ]
 
 { #category : #'as yet unclassified' }
 PreguntaComponent >> cancelar [
 	titulo := nil.
 	descripcion := nil.
-	topicos := nil.
-	self answer
+	topicos := nil
 ]
 
 { #category : #accessing }
@@ -107,11 +110,12 @@ PreguntaComponent >> topicos: anObject [
 
 { #category : #'as yet unclassified' }
 PreguntaComponent >> topicosIngresados [
-|t|
- t:= self topicos splitOn: ','. 
-^ t collect: [ :topic | CuOOra instancia buscarTopicoConNombre: topic ].
+	| t |
+	t := self topicos splitOn: ','.
+	^ t
+		collect: [ :topic | CuOOra instancia buscarTopicoConNombre: topic ]
 
-"getTopicos esta en el model de cuoora y busca si los topicos ingresados son los que existen"
+	"getTopicos esta en el model de cuoora y busca si los topicos ingresados son los que existen"
 ]
 
 { #category : #'as yet unclassified' }

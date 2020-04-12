@@ -16,6 +16,9 @@ UsuarioDetalleComponent class >> new: usuario [
 UsuarioDetalleComponent >> renderContentOn: html [
 	| usuarioLogueado |
 	usuarioLogueado := CuOOraComponent instancia usuario.	"para tener el usuario logueado"
+	html anchor
+		callback: [ self verUsuario: usuarioLogueado ];
+		with: usuarioLogueado nombre.
 	html heading: 'Preguntas de ' , self usuario nombre.
 	self usuario == usuarioLogueado
 		ifFalse: [ "el usuario logueado es el usuario del que se ve su perfil?"
@@ -25,34 +28,36 @@ UsuarioDetalleComponent >> renderContentOn: html [
 						callback: [ usuarioLogueado seguirAlUsuario: usuario ];
 						"el  2do usuario es el usuario cuyo perfil estoy viendo"
 							with: 'Seguir' ] ].
-	self usuario preguntasRealizadas
-		do: [ :p | 
-			html div.
-			html anchor
-				callback: [ self verPregunta: p ];
-				with: [ html heading
-						level: 3;
-						with: p titulo ].
-			html paragraph with: 'topicos:' , p topicos.
-			html paragraph
-				with: 'respuestas:' , p obtenerRespuestasPorPuntaje size asString.
-			html paragraph
-				with:
-					'Likes: ' , p likes size asString , '| Dislikes: '
-						, p dislikes size asString.
-			html anchor
-				callback: [ CuOOra instancia
-						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
-						aPublicacion: p
-						conVoto: true ];
-				with: 'like  '.
-			html anchor
-				callback: [ CuOOra instancia
-						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
-						aPublicacion: p
-						conVoto: false ];
-				with: 'dislike'.
-			html tag: 'hr' ].
+	self usuario preguntasRealizadas isEmpty
+		ifTrue: [ html paragraph with: 'No hay preguntas' ]
+		ifFalse: [ self usuario preguntasRealizadas
+				do: [ :p | 
+					html div.
+					html anchor
+						callback: [ self verPregunta: p ];
+						with: [ html heading
+								level: 3;
+								with: p titulo ].
+					html paragraph with: 'topicos: ' , p topicos .
+					html paragraph
+						with: 'respuestas:' , p obtenerRespuestasPorPuntaje size asString.
+					html paragraph
+						with:
+							'Likes: ' , p likes size asString , '| Dislikes: '
+								, p dislikes size asString.
+					html anchor
+						callback: [ CuOOra instancia
+								registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+								aPublicacion: p
+								conVoto: true ];
+						with: 'like  '.
+					html anchor
+						callback: [ CuOOra instancia
+								registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+								aPublicacion: p
+								conVoto: false ];
+						with: 'dislike'.
+					html tag: 'hr' ] ].
 	html tag: 'br'.
 	html anchor
 		callback: [ self renderHome ];
@@ -62,8 +67,7 @@ UsuarioDetalleComponent >> renderContentOn: html [
 
 { #category : #rendering }
 UsuarioDetalleComponent >> renderHome [
-	
- 	self answer: nil.
+	self answer: nil
 ]
 
 { #category : #accessing }
@@ -77,8 +81,15 @@ UsuarioDetalleComponent >> usuario: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-UsuarioDetalleComponent >> verPregunta:preg [ 
- | pregunta |
-pregunta:= PreguntaDetalleComponent new:preg.
-self call: pregunta.
+UsuarioDetalleComponent >> verPregunta: preg [
+	| pregunta |
+	pregunta := PreguntaDetalleComponent new: preg.
+	self call: pregunta
+]
+
+{ #category : #'as yet unclassified' }
+UsuarioDetalleComponent >> verUsuario: unUsuario [
+	| usuarioDetalleComponent |
+	usuarioDetalleComponent := self class new: unUsuario.
+	self call: usuarioDetalleComponent
 ]

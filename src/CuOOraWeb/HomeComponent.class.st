@@ -13,15 +13,15 @@ HomeComponent >> desloguear [
 
 { #category : #rendering }
 HomeComponent >> renderContentOn: html [
-	| preg cuooraweb |
-	cuooraweb := CuOOraComponent instancia.
+	| preg usuarioLogueado |
+	usuarioLogueado := CuOOraComponent instancia usuario.
 	html anchor
-		callback: [ self verUsuario: cuooraweb usuario nombre ];
-		with: cuooraweb usuario nombre.
+		callback: [ self verUsuario: usuarioLogueado ];
+		with: usuarioLogueado nombre.
 	html heading
 		level: 1;
 		with: 'Ultimas preguntas'.
-	preg := CuOOraComponent instancia usuario obtenerPreguntasRelevantes.
+	preg := usuarioLogueado obtenerPreguntasRelevantes.
 	preg
 		do: [ :p | 
 			html div.
@@ -30,8 +30,6 @@ HomeComponent >> renderContentOn: html [
 				with: [ html heading
 						level: 3;
 						with: p titulo ].
-			html paragraph
-				with: 'Fecha y hora de creación: ' , p fechaHora asString.
 			html paragraph with: 'topicos: ' , p topicos.
 			html text: 'Realizada por: '.
 			html anchor

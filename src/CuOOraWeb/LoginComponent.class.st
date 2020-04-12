@@ -44,16 +44,16 @@ LoginComponent >> renderContentOn: html [
 	html heading
 		level: 1;
 		with: 'Bienvenido'.
-		html form: [ 
-		html text: 'Usuario: '.
-		html textInput on: #nombre  of: self.
-		html break.
-		html text: 'Contrasena: '.
-		html textInput on: #contrasena of: self.
-		html break.
-		html submitButton
-			callback: [ self loginUsuario ];
-			value: 'Login'. ].
+	html
+		form: [ html text: 'Usuario: '.
+			html textInput on: #nombre of: self.
+			html break.
+			html text: 'Contrasena: '.
+			html textInput on: #contrasena of: self.
+			html break.
+			html submitButton
+				callback: [ self loginUsuario ];
+				value: 'Login' ]
 ]
 
 { #category : #rendering }

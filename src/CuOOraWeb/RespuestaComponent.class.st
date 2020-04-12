@@ -25,8 +25,8 @@ RespuestaComponent >> agregarRespuesta [
 
 { #category : #'as yet unclassified' }
 RespuestaComponent >> cancelar [
-	respuesta := nil.
-	self answer
+	newTexto := nil.
+	
 ]
 
 { #category : #accessing }
@@ -85,7 +85,10 @@ RespuestaComponent >> renderContentOn: aCanvas [
 				value: 'Cancelar'.
 			aCanvas submitButton
 				callback: [ self agregarRespuesta ];
-				value: 'Guardar' ]
+				value: 'Guardar' ].
+	aCanvas anchor
+		callback: [ self volver ];
+		with: 'Volver'
 ]
 
 { #category : #'as yet unclassified' }
@@ -93,4 +96,10 @@ RespuestaComponent >> verUsuario: unUsuario [
 	| usuarioDetalleComponent |
 	usuarioDetalleComponent := UsuarioDetalleComponent new: unUsuario.
 	self call: usuarioDetalleComponent
+]
+
+{ #category : #'as yet unclassified' }
+RespuestaComponent >> volver [
+	respuesta := nil.
+	self answer
 ]

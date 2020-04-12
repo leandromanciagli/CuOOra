@@ -63,15 +63,21 @@ Pregunta >> titulo [
 
 { #category : #accessing }
 Pregunta >> topicos [
+	^ String
+		streamContents: [ :s | 
+			topicos
+				do: [ :each | 
+					s
+						nextPutAll: each nombre;
+						nextPutAll: ', ' ] ]
+				
+	"Devuelve la coleccion de topicos como un string separados por coma"
 	"^ topicos"
 	"String streamContents: [:stream | #(’bob’ ’joe’ ’toto’) asStringOn: stream delimiter: ’.’ ] -→ ’bob.joe.toto’"
 	"nextPutAll:agrega cada elemento de la colección, pasado como parámetro, a la secuencia;"
 	"String streamContents: [ : tempStream |     
   (1 a: 100000)   
        hacer: [ : i | tempStream nextPutAll: i asString ; espacio ]]  "
-	
-^ String streamContents: [:s | 
-		topicos  do: [:each | s nextPutAll: each nombre , ', ']].
 ]
 
 { #category : #accessing }
