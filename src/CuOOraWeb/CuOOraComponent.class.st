@@ -86,7 +86,6 @@ CuOOraComponent >> preguntaComponent [
 
 { #category : #rendering }
 CuOOraComponent >> renderContentOn: html [
-	html paragraph: 'Bienvenido a Cuoora'.
 	usuario
 		ifNil: [ html div with: self loginComponent ]
 		ifNotNil: [ html div with: self homeComponent ]

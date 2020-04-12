@@ -39,20 +39,14 @@ PreguntaComponent >> descripcion: anObject [
 	descripcion := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-PreguntaComponent >> desloguear [
-
- CuOOraComponent instancia usuario: nil.
- self answer: nil.
-]
-
 { #category : #rendering }
 PreguntaComponent >> renderContentOn: html [
 	| usuarioLogueado |
+	html render: HeaderComponent new.
 	usuarioLogueado := CuOOraComponent instancia usuario.
-	html anchor
+	"html anchor
 		callback: [ self verUsuario: usuarioLogueado ];
-		with: usuarioLogueado nombre.
+		with: usuarioLogueado nombre."
 	html heading: 'Haga una pregunta'.
 	html
 		form: [ html text: 'Título: '.
@@ -77,9 +71,9 @@ PreguntaComponent >> renderContentOn: html [
 		callback: [ self renderHome ];
 		with: 'volver'.
 	html space.
-	html anchor
+	"html anchor
 		callback: [ self desloguear ];
-		with: 'logOut'
+		with: 'logOut'"
 ]
 
 { #category : #rendering }
@@ -116,9 +110,4 @@ PreguntaComponent >> topicosIngresados [
 		collect: [ :topic | CuOOra instancia buscarTopicoConNombre: topic ]
 
 	"getTopicos esta en el model de cuoora y busca si los topicos ingresados son los que existen"
-]
-
-{ #category : #'as yet unclassified' }
-PreguntaComponent >> verUsuario: unUsuario [
-	self call: (UsuarioDetalleComponent new: unUsuario)
 ]

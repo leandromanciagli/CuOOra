@@ -4,17 +4,13 @@ Class {
 	#category : #CuOOraWeb
 }
 
-{ #category : #'as yet unclassified' }
-HomeComponent >> desloguear [
-
- CuOOraComponent instancia usuario: nil.
- self answer: nil.
-]
-
 { #category : #rendering }
 HomeComponent >> renderContentOn: html [
 	| preg usuarioLogueado |
+	html render: HeaderComponent new.
 	usuarioLogueado := CuOOraComponent instancia usuario.
+	
+	
 	html anchor
 		callback: [ self verUsuario: usuarioLogueado ];
 		with: usuarioLogueado nombre.
@@ -31,10 +27,10 @@ HomeComponent >> renderContentOn: html [
 						level: 3;
 						with: p titulo ].
 			html paragraph with: 'topicos: ' , p topicos.
-			html text: 'Realizada por: '.
+			"html text: 'Realizada por: '.
 			html anchor
 				callback: [ self verUsuario: p usuario ];
-				with: p usuario nombre.
+				with: p usuario nombre."
 			html paragraph
 				with: 'respuestas: ' , p obtenerRespuestasPorPuntaje size asString.
 			html paragraph
@@ -54,9 +50,6 @@ HomeComponent >> renderContentOn: html [
 						conVoto: false ];
 				with: 'dislike'.
 			html tag: 'hr' ].
-	html anchor
-		callback: [ self desloguear ];
-		with: 'logOut'.
 	html break.
 	html anchor
 		callback: [ self renderPregunta ];

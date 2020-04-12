@@ -17,13 +17,6 @@ PreguntaDetalleComponent >> addRespuesta: unaPregunta [
 	self call: (RespuestaComponent pregunta: unaPregunta)
 ]
 
-{ #category : #'as yet unclassified' }
-PreguntaDetalleComponent >> desloguear [
-
- CuOOraComponent instancia usuario: nil.
- self answer: nil.
-]
-
 { #category : #accessing }
 PreguntaDetalleComponent >> preg [
 	^ preg
@@ -37,10 +30,11 @@ PreguntaDetalleComponent >> preg: anObject [
 { #category : #rendering }
 PreguntaDetalleComponent >> renderContentOn: html [
 	| usuarioLogueado |
+	html render: HeaderComponent new.
 	usuarioLogueado := CuOOraComponent instancia usuario.
-	html anchor
+	"html anchor
 		callback: [ self verUsuario: usuarioLogueado ];
-		with: usuarioLogueado nombre.
+		with: usuarioLogueado nombre."
 	html div.
 	html heading
 		level: 1;
@@ -102,15 +96,9 @@ PreguntaDetalleComponent >> renderContentOn: html [
 		callback: [ self volver ];
 		with: 'volver'.
 	html space.
-	html anchor
+	"html anchor
 		callback: [ self desloguear ];
-		with: 'logOut'
-]
-
-{ #category : #rendering }
-PreguntaDetalleComponent >> renderHome [
-
-
+		with: 'logOut'"
 ]
 
 { #category : #'as yet unclassified' }

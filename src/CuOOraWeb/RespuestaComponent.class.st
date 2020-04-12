@@ -47,10 +47,11 @@ RespuestaComponent >> pregunta: unaPregunta [
 { #category : #rendering }
 RespuestaComponent >> renderContentOn: aCanvas [
 	| usuarioLogueado |
+	aCanvas render: HeaderComponent new.
 	usuarioLogueado := CuOOraComponent instancia usuario.
-	aCanvas anchor
+	"aCanvas anchor
 		callback: [ self verUsuario: usuarioLogueado ];
-		with: usuarioLogueado nombre.
+		with: usuarioLogueado nombre."
 	aCanvas div.
 	aCanvas heading
 		level: 1;
