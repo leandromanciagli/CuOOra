@@ -13,7 +13,7 @@ Respuesta class >> crearRespuestaConTexto:unTexto aPregunta:unaPregunta porUsuar
 	^ self new crearRespuestaConTexto:unTexto aPregunta:unaPregunta porUsuario:unUsuario.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance initialization' }
 Respuesta >> crearRespuestaConTexto:unTexto aPregunta:unaPregunta porUsuario:unUsuario [
 	pregunta := unaPregunta.
 	usuario := unUsuario.
@@ -21,12 +21,12 @@ Respuesta >> crearRespuestaConTexto:unTexto aPregunta:unaPregunta porUsuario:unU
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #deleting }
 Respuesta >> delete [
 	usuario borrarRespuesta: self
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #overrided }
 Respuesta >> esRespuesta [
 	^ true
 ]
@@ -39,9 +39,4 @@ Respuesta >> pregunta [
 { #category : #accessing }
 Respuesta >> texto [
 	^ texto
-]
-
-{ #category : #accessing }
-Respuesta >> texto: anObject [
-	texto := anObject
 ]

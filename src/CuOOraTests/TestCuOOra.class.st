@@ -194,10 +194,10 @@ TestCuOOra >> testValidarUsuario [
 	self
 		assert:
 			(cuoora
-				loginUsuario: usuarioLeandro nombre
-				contrasena: usuarioLeandro contrasena) notNil.	"Debería existir el usuario"
+				validarUsuarioConNombre: usuarioLeandro nombre
+				yContrasena: usuarioLeandro contrasena) notNil.	"Debería existir el usuario"
 	self
 		assert:
-			(cuoora loginUsuario: 'Alberto' contrasena: 'laContrasenaDeAlberto')
+			(cuoora validarUsuarioConNombre: 'Alberto' yContrasena: 'laContrasenaDeAlberto')
 				isNil	"No debería existir el usuario"
 ]

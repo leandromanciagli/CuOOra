@@ -14,12 +14,12 @@ Topico class >> nuevoConNombre: unNombre yDescripcion: unaDescripcion [
 	^ self new nuevoConNombre: unNombre yDescripcion: unaDescripcion
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 Topico >> agregarPregunta: unaPregunta [
 	preguntas add: unaPregunta
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #deleting }
 Topico >> borrarPregunta: unaPregunta [
 	(preguntas includes: unaPregunta)
 		ifTrue: [ preguntas remove: unaPregunta.
@@ -42,18 +42,13 @@ Topico >> nombre [
 	^ nombre
 ]
 
-{ #category : #accessing }
+{ #category : #'instance initialization' }
 Topico >> nuevoConNombre: unNombre yDescripcion: unaDescripcion [
 	nombre := unNombre.
 	descripcion := unaDescripcion
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Topico >> preguntas [
 	^ preguntas.
-]
-
-{ #category : #accessing }
-Topico >> preguntas: anObject [
-	preguntas := anObject
 ]

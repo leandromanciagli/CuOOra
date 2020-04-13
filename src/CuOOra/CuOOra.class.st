@@ -91,15 +91,6 @@ CuOOra >> initialize [
 ]
 
 { #category : #accessing }
-CuOOra >> loginUsuario: unNombre contrasena: unaContrasena [
-	^ usuarios
-		detect: [ :usu | usu nombre = unNombre & (usu contrasena = unaContrasena) ]
-		ifNone: [ nil ]
-		
-	"Se valida que el usuario que se quiere loguear exista en la coleccion de usuarios de CuOOra"
-]
-
-{ #category : #accessing }
 CuOOra >> obtenerPreguntasDelTopico: unTopico [
 	^ unTopico preguntas
 ]
@@ -129,16 +120,15 @@ CuOOra >> topicos [
 ]
 
 { #category : #accessing }
-CuOOra >> topicos: anObject [
-	topicos := anObject
-]
-
-{ #category : #adding }
-CuOOra >> usuario: unUsuario sigue: otroUsuario [
-	unUsuario seguirAlUsuario: otroUsuario
-]
-
-{ #category : #accessing }
 CuOOra >> usuarios [
 	^ usuarios
+]
+
+{ #category : #validating }
+CuOOra >> validarUsuarioConNombre: unNombre yContrasena: unaContrasena [
+	^ usuarios
+		detect: [ :usu | usu nombre = unNombre & (usu contrasena = unaContrasena) ]
+		ifNone: [ nil ]
+		
+	"Se valida que el usuario que se quiere loguear exista en la coleccion de usuarios de CuOOra"
 ]

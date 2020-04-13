@@ -38,11 +38,6 @@ Reaccion >> nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unV
 ]
 
 { #category : #accessing }
-Reaccion >> publicacion [
-	^ publicacion
-]
-
-{ #category : #accessing }
 Reaccion >> usuario [
 	^ usuario
 ]

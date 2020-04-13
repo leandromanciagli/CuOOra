@@ -21,7 +21,7 @@ LoginComponent >> contrasena: anObject [
 { #category : #'as yet unclassified' }
 LoginComponent >> loginUsuario [
 	CuOOraComponent instancia
-		usuario: (CuOOra instancia loginUsuario: nombre contrasena: contrasena).
+		usuario: (CuOOra instancia validarUsuarioConNombre: nombre yContrasena: contrasena).
 	self renderHome
 
 

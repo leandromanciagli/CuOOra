@@ -19,7 +19,7 @@ Pregunta class >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuari
 		yTopicos: unTopico
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 Pregunta >> agregarRespuesta: unaRespuesta [
 	respuestas add: unaRespuesta
 ]
@@ -31,12 +31,12 @@ Pregunta >> delete [
 	respuestas do: [ :resp | resp delete ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #overrided }
 Pregunta >> esPregunta [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance initialization' }
 Pregunta >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unUsuario yTopicos: unosTopicos [
 	titulo := unTitulo.
 	descripcion := unaDescripcion.
@@ -45,15 +45,10 @@ Pregunta >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unU
 	respuestas := OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Pregunta >> obtenerRespuestasPorPuntaje [
 	^ respuestas
 		asSortedCollection: [ :r1 :r2 | r1 puntaje > r2 puntaje ]
-]
-
-{ #category : #accessing }
-Pregunta >> respuestas: anObject [
-	respuestas := anObject
 ]
 
 { #category : #accessing }
@@ -78,9 +73,4 @@ Pregunta >> topicos [
 	"String streamContents: [ : tempStream |     
   (1 a: 100000)   
        hacer: [ : i | tempStream nextPutAll: i asString ; espacio ]]  "
-]
-
-{ #category : #accessing }
-Pregunta >> topicos: anObject [
-	topicos := anObject
 ]

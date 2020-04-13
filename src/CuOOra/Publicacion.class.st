@@ -9,12 +9,12 @@ Class {
 	#category : #CuOOra
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #adding }
 Publicacion >> agregarReaccion: unaReaccion [
 	reacciones add: unaReaccion
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'search and filtering' }
 Publicacion >> buscarReaccionDelUsuario: unUsuario [
 	| reaccion |
 	reacciones
@@ -29,17 +29,17 @@ Publicacion >> delete [
 	self subclassResponsibility.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'search and filtering' }
 Publicacion >> dislikes [
 	^ self reacciones reject: [ :each | each estado ] "reject devuelve todos los false"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #overridden }
 Publicacion >> esPregunta [
 	^ false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #overridden }
 Publicacion >> esRespuesta [
 	^ false
 ]
@@ -55,12 +55,12 @@ Publicacion >> initialize [
 	reacciones := OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'search and filtering' }
 Publicacion >> likes [
 	^ self reacciones select: [ :each | each estado ] "select devuelve todos los true"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #calculating }
 Publicacion >> puntaje [
 	| cantLikes cantDislikes |
 	self reacciones isEmpty
