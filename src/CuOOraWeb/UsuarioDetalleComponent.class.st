@@ -15,10 +15,11 @@ UsuarioDetalleComponent class >> new: usuario [
 { #category : #rendering }
 UsuarioDetalleComponent >> renderContentOn: html [
 	| usuarioLogueado |
+	html render: HeaderComponent new.
 	usuarioLogueado := CuOOraComponent instancia usuario.	"para tener el usuario logueado"
-	html anchor
+	"html anchor
 		callback: [ self verUsuario: usuarioLogueado ];
-		with: usuarioLogueado nombre.
+		with: usuarioLogueado nombre."
 	html heading: 'Preguntas de ' , self usuario nombre.
 	self usuario == usuarioLogueado
 		ifFalse: [ "el usuario logueado es el usuario del que se ve su perfil?"
@@ -85,11 +86,4 @@ UsuarioDetalleComponent >> verPregunta: preg [
 	| pregunta |
 	pregunta := PreguntaDetalleComponent new: preg.
 	self call: pregunta
-]
-
-{ #category : #'as yet unclassified' }
-UsuarioDetalleComponent >> verUsuario: unUsuario [
-	| usuarioDetalleComponent |
-	usuarioDetalleComponent := self class new: unUsuario.
-	self call: usuarioDetalleComponent
 ]
