@@ -34,8 +34,7 @@ Topico >> descripcion [
 
 { #category : #initialization }
 Topico >> initialize [
-	preguntas:= OrderedCollection new.
-	
+	preguntas := OrderedCollection new
 ]
 
 { #category : #accessing }

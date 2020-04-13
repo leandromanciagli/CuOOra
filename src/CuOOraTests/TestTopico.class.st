@@ -70,8 +70,8 @@ TestTopico >> testBorrarPregunta [
 		equals: true.	"La pregunta se encuentra dentro de la coleccion de preguntas entonces se quita de la misma y retorna true"
 	self
 		assert: (topicoProgramacion preguntas includes: preguntaDeProgramacion1)
-		equals: false.
+		equals: false. "La pregunta no deberia encontrarse dentro de las preguntas del topico"
 	self
 		assert: (topicoProgramacion borrarPregunta: preguntaDeGeografia1)
-		equals: false	"La pregunta no se encuentra dentro de la coleccion de preguntas entonces retorna false"
+		equals: false	"Al intentar borrar la pregunta no se encuentra dentro de la coleccion de preguntas entonces retorna false"
 ]

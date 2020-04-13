@@ -41,14 +41,18 @@ Usuario >> agregarTopicoDeInteres: unTopico [
 
 { #category : #'as yet unclassified' }
 Usuario >> borrarPregunta: unaPregunta [
-	"(publicaciones includes: unaPregunta) => Es necesario hacer esta pregunta o esta de mas?"
-	publicaciones remove: unaPregunta
+	(publicaciones includes: unaPregunta)
+		ifTrue: [ publicaciones remove: unaPregunta.
+			^ true ].
+	^ false
 ]
 
 { #category : #'as yet unclassified' }
 Usuario >> borrarRespuesta: unaRespuesta [
-	"(publicaciones includes: unaPregunta) => Es necesario hacer esta pregunta o esta de mas?"
-	publicaciones remove: unaRespuesta
+	(publicaciones includes: unaRespuesta)
+		ifTrue: [ publicaciones remove: unaRespuesta.
+			^ true ].
+	^ false
 ]
 
 { #category : #accessing }
@@ -140,7 +144,7 @@ Usuario >> seguidos [
 ]
 
 { #category : #'as yet unclassified' }
-Usuario >> seguirAlUsuario:unUsuario [
-	seguidos add:unUsuario.
-	unUsuario agregarSeguidor: self.
+Usuario >> seguirAlUsuario: unUsuario [
+	seguidos add: unUsuario.
+	unUsuario agregarSeguidor: self
 ]

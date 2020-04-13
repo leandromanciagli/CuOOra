@@ -25,9 +25,9 @@ TestCuOOra >> setUp [
 	super setUp.
 	cuoora := CuOOra new.
 	
-	usuarioCatherine := cuoora crearUsuarioConNombre: 'Catherine' yContrasena:'1234'.
+	usuarioCatherine := cuoora crearUsuarioConNombre: 'Catherine' yContrasena:'laContrasenaDeCatherine'.
 	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' yContrasena:'laContrasenaDeLeandro'.
-	usuarioMariano := cuoora crearUsuarioConNombre: 'Mariano' yContrasena:'3456'.
+	usuarioMariano := cuoora crearUsuarioConNombre: 'Mariano' yContrasena:'laContrasenaDeMariano'.
 		
 	topicoProgramacion := cuoora crearTopicoConNombre: 'Programacion' yDescripcion:'patrones'.
 	topicoPOO := cuoora crearTopicoConNombre: 'POO' yDescripcion:'Programacion orientada a objetos'.
