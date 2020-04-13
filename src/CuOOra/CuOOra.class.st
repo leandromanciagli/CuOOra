@@ -95,6 +95,8 @@ CuOOra >> loginUsuario: unNombre contrasena: unaContrasena [
 	^ usuarios
 		detect: [ :usu | usu nombre = unNombre & (usu contrasena = unaContrasena) ]
 		ifNone: [ nil ]
+		
+	"Se valida que el usuario que se quiere loguear exista en la coleccion de usuarios de CuOOra"
 ]
 
 { #category : #accessing }

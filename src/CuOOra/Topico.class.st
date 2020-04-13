@@ -21,8 +21,10 @@ Topico >> agregarPregunta: unaPregunta [
 
 { #category : #'as yet unclassified' }
 Topico >> borrarPregunta: unaPregunta [
-	"(preguntas includes: unaPregunta) es necesario"
-	preguntas remove: unaPregunta
+	(preguntas includes: unaPregunta)
+		ifTrue: [ preguntas remove: unaPregunta.
+			^ true ].
+	^ false
 ]
 
 { #category : #accessing }

@@ -12,7 +12,10 @@ Class {
 		'pregunta1',
 		'pregunta2',
 		'pregunta3',
-		'respuestaPregunta1'
+		'respuestaPregunta1',
+		'respuesta2Pregunta1',
+		'respuestaPregunta2',
+		'respuestaPregunta3'
 	],
 	#category : #CuOOraTests
 }
@@ -21,8 +24,9 @@ Class {
 TestCuOOra >> setUp [ 
 	super setUp.
 	cuoora := CuOOra new.
+	
 	usuarioCatherine := cuoora crearUsuarioConNombre: 'Catherine' yContrasena:'1234'.
-	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' yContrasena:'2345'.
+	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' yContrasena:'laContrasenaDeLeandro'.
 	usuarioMariano := cuoora crearUsuarioConNombre: 'Mariano' yContrasena:'3456'.
 		
 	topicoProgramacion := cuoora crearTopicoConNombre: 'Programacion' yDescripcion:'patrones'.
@@ -34,11 +38,30 @@ TestCuOOra >> setUp [
 	usuarioCatherine seguirAlUsuario: usuarioLeandro.
 	usuarioCatherine seguirAlUsuario: usuarioMariano.
 	
-	pregunta1:= cuoora crearPreguntaConTitulo: '¿Que es la POO?' descripcion: 'Funcionamiento del paradigma' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion with: topicoPOO).
-	pregunta2:= cuoora crearPreguntaConTitulo: 'prueba por topico' descripcion: 'lo es' porUsuario: usuarioLeandro  yTopicos: (OrderedCollection with: topicoCocina).
-	pregunta3:= cuoora crearPreguntaConTitulo: 'prueba por seguidores' descripcion: 'lo es' porUsuario: usuarioMariano yTopicos: (OrderedCollection with: topicoProgramacion).
+	pregunta1 := cuoora crearPreguntaConTitulo: '¿Que es la POO?' descripcion: 'Funcionamiento del paradigma' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion with: topicoPOO).
+	pregunta2 := cuoora crearPreguntaConTitulo: '¿Como se hace una torta?' descripcion: 'Ingredientes' porUsuario: usuarioLeandro  yTopicos: (OrderedCollection with: topicoCocina).
+	pregunta3 := cuoora crearPreguntaConTitulo: '¿Que es programar?' descripcion: 'Como se hace' porUsuario: usuarioMariano yTopicos: (OrderedCollection with: topicoProgramacion).
 	
-	respuestaPregunta1 := cuoora crearRespuestaConTexto: 'Es un conjunto de objetos que se mandan mensajes entre si' aPregunta: pregunta1 porUsuario: usuarioLeandro. 
+	respuestaPregunta1 := cuoora crearRespuestaConTexto: 'Es un conjunto de objetos que se mandan mensajes entre si' aPregunta: pregunta1 porUsuario: usuarioLeandro.
+	respuesta2Pregunta1 := cuoora crearRespuestaConTexto: 'Idem' aPregunta: pregunta1 porUsuario: usuarioMariano.
+	respuestaPregunta2 := cuoora crearRespuestaConTexto: 'Con harina, leche y huevos' aPregunta: pregunta2 porUsuario: usuarioCatherine.
+	respuestaPregunta3 := cuoora crearRespuestaConTexto: 'Conjunto de instrucciones para resolver un problema' aPregunta: pregunta3 porUsuario: usuarioCatherine.
+	
+	cuoora registrarReaccionDelUsuario: usuarioLeandro aPublicacion: pregunta1 conVoto: false.
+	cuoora registrarReaccionDelUsuario: usuarioMariano aPublicacion: pregunta1 conVoto: true.
+	cuoora registrarReaccionDelUsuario: usuarioLeandro aPublicacion: respuestaPregunta2 conVoto: true.
+	cuoora registrarReaccionDelUsuario: usuarioMariano aPublicacion: respuestaPregunta2 conVoto: false.
+	cuoora registrarReaccionDelUsuario: usuarioLeandro aPublicacion: respuestaPregunta3 conVoto: false.
+	cuoora registrarReaccionDelUsuario: usuarioMariano aPublicacion: respuestaPregunta3 conVoto: false.
+	cuoora registrarReaccionDelUsuario: usuarioCatherine aPublicacion: pregunta2 conVoto: true.
+
+	
+
+
+
+
+
+
 	
 
 
@@ -50,18 +73,43 @@ TestCuOOra >> setUp [
 
 { #category : #tests }
 TestCuOOra >> testBorrarPregunta [
-	|q|
-	cuoora crearPreguntaConTitulo:'Como multiplicar matrices'  descripcion:'eso.' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with:topicoProgramacion).
-	q:= ((usuarioCatherine preguntasRealizadas) detect: [:pre | pre titulo ='Como multiplicar matrices'] ifNone: [nil] ).
-	self assert: q notNil. "la pregunta existe"
-	
-	cuoora borrarPregunta: q.
-	
-	q:= ((usuarioLeandro preguntasRealizadas) detect: [:qu | qu titulo='Como multiplicar matrices'] ifNone: [nil]).
-	
-	self assert: q isNil. "la pregunta ya no existe"
- 
+	| pregunta |
+	cuoora
+		crearPreguntaConTitulo: '¿Como multiplicar matrices?'
+		descripcion: 'eso.'
+		porUsuario: usuarioCatherine
+		yTopicos: (OrderedCollection with: topicoProgramacion).
+	pregunta := usuarioCatherine preguntasRealizadas
+		detect: [ :p | p titulo = '¿Como multiplicar matrices?' ]
+		ifNone: [ nil ].
+	self assert: pregunta notNil.	"La pregunta debería existir"
+	cuoora borrarPregunta: pregunta.
+	pregunta := usuarioCatherine preguntasRealizadas
+		detect: [ :p | p titulo = '¿Como multiplicar matrices?' ]
+		ifNone: [ nil ].
+	self assert: pregunta isNil	"La pregunta ya no debería existir"
+]
 
+{ #category : #tests }
+TestCuOOra >> testBuscarTopicoConNombre [
+	self
+		assert: (cuoora topicos detect: [ :t | t nombre = 'Programacion' ]) notNil.
+	self
+		should: [ cuoora topicos detect: [ :t | t nombre = 'Moda' ] ]
+		raise: Error
+]
+
+{ #category : #tests }
+TestCuOOra >> testCalcularPuntajeDelUsuario [
+	"puntajeCatherine = 20 + 50 + 50 + 0 + 0 + (-3) = 118"
+
+	| puntajeCatherine puntajeReal puntajeFalso |
+	puntajeCatherine := cuoora
+		calcularPuntajeDelUsuario: usuarioCatherine.
+	puntajeReal := 118.
+	puntajeFalso := 117.
+	self assert: puntajeCatherine equals: puntajeReal.
+	self should: [ puntajeCatherine equals: puntajeFalso ] raise: Error
 ]
 
 { #category : #tests }
@@ -101,7 +149,7 @@ TestCuOOra >> testCrearTopico [
 	"El topico 'Programacion' deberia estar agregado correctamente en la coleccion de topicos de cuoora"
 
 	self
-		assert: (cuoora topicos detect: [ :t | t nombre = 'Programacion' ]) notNil
+		assert: (cuoora topicos detect: [ :top | top nombre = 'Programacion' ]) notNil
 ]
 
 { #category : #tests }
@@ -113,9 +161,43 @@ TestCuOOra >> testCrearUsuario [
 ]
 
 { #category : #tests }
+TestCuOOra >> testObtenerPreguntasDelTopico [
+	self
+		assert: (cuoora obtenerPreguntasDelTopico: topicoProgramacion) size
+		equals: 2.
+	self
+		should: [ (cuoora obtenerPreguntasDelTopico: topicoProgramacion) size
+				equals: 3 ]
+		raise: Error
+]
+
+{ #category : #tests }
+TestCuOOra >> testRegistrarReaccionDelUsuario [
+	| reaccionDeCatherine |
+	reaccionDeCatherine := pregunta2
+		buscarReaccionDelUsuario: usuarioCatherine.
+	self assert: reaccionDeCatherine estado equals: true.
+	cuoora registrarReaccionDelUsuario: usuarioCatherine aPublicacion: pregunta2 conVoto: false.
+	self assert: reaccionDeCatherine estado equals: false.
+]
+
+{ #category : #tests }
 TestCuOOra >> testRegistrarTopicoDeInteres [ 
-	self assert: ( usuarioCatherine intereses detect: [:i | i nombre = 'Programacion'] )notNil.
+	self assert: ( usuarioCatherine intereses detect: [:top | top nombre = 'Programacion'] )notNil.
 
 
 
+]
+
+{ #category : #tests }
+TestCuOOra >> testValidarUsuario [
+	self
+		assert:
+			(cuoora
+				loginUsuario: usuarioLeandro nombre
+				contrasena: usuarioLeandro contrasena) notNil.	"Debería existir el usuario"
+	self
+		assert:
+			(cuoora loginUsuario: 'Alberto' contrasena: 'laContrasenaDeAlberto')
+				isNil	"No debería existir el usuario"
 ]
