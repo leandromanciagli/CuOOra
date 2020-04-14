@@ -90,29 +90,26 @@ TestUsuario >> testAgregarTopicoDeInteres [
 ]
 
 { #category : #tests }
-TestUsuario >> testBorrarPregunta [
+TestUsuario >> testBorrarPublicacion [
 	self
-		assert: (usuarioCatherine borrarPregunta: preguntaDeProgramacion)
+		assert: (usuarioLeandro borrarPublicacion: respuesta1PreguntaProgramacion)
+		equals: true.	"La respuesta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y retorna true"
+	self
+		assert:
+			(usuarioLeandro publicaciones includes: respuesta1PreguntaProgramacion)
+		equals: false.	"La respuesta no deberia encontrarse dentro de las publicaciones del usuario"
+	self
+		assert: (usuarioLeandro borrarPublicacion: respuesta2PreguntaProgramacion)
+		equals: false.	"Al intentar borrar la respuesta no se encuentra dentro de la coleccion de publicaciones entonces retorna false"
+	self
+		assert: (usuarioCatherine borrarPublicacion: preguntaDeProgramacion)
 		equals: true.	"La pregunta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y retorna true"
 	self
 		assert: (usuarioCatherine publicaciones includes: preguntaDeProgramacion)
 		equals: false.	"La pregunta no deberia encontrarse dentro de las publicaciones del usuario"
 	self
-		assert: (usuarioCatherine borrarPregunta: preguntaDeGeografia)
+		assert: (usuarioCatherine borrarPublicacion: preguntaDeGeografia)
 		equals: false	"Al intentar borrar la pregunta no se encuentra dentro de la coleccion de publicaciones entonces retorna false"
-]
-
-{ #category : #tests }
-TestUsuario >> testBorrarRespuesta [
-self
-		assert: (usuarioLeandro borrarRespuesta: respuesta1PreguntaProgramacion)
-		equals: true.	"La respuesta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y retorna true"
-	self
-		assert: (usuarioLeandro publicaciones includes: respuesta1PreguntaProgramacion)
-		equals: false.	"La respuesta no deberia encontrarse dentro de las publicaciones del usuario"
-	self
-		assert: (usuarioLeandro borrarRespuesta: respuesta2PreguntaProgramacion)
-		equals: false	"Al intentar borrar la respuesta no se encuentra dentro de la coleccion de publicaciones entonces retorna false"
 ]
 
 { #category : #tests }

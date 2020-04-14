@@ -40,17 +40,9 @@ Usuario >> agregarTopicoDeInteres: unTopico [
 ]
 
 { #category : #deleting }
-Usuario >> borrarPregunta: unaPregunta [
-	(publicaciones includes: unaPregunta)
-		ifTrue: [ publicaciones remove: unaPregunta.
-			^ true ].
-	^ false
-]
-
-{ #category : #deleting }
-Usuario >> borrarRespuesta: unaRespuesta [
-	(publicaciones includes: unaRespuesta)
-		ifTrue: [ publicaciones remove: unaRespuesta.
+Usuario >> borrarPublicacion: unaPublicacion [
+	(publicaciones includes: unaPublicacion)
+		ifTrue: [ publicaciones remove: unaPublicacion.
 			^ true ].
 	^ false
 ]

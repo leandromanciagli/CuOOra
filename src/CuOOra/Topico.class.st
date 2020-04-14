@@ -50,5 +50,5 @@ Topico >> nuevoConNombre: unNombre yDescripcion: unaDescripcion [
 
 { #category : #accessing }
 Topico >> preguntas [
-	^ preguntas.
+	^ preguntas
 ]

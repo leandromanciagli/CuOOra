@@ -59,7 +59,7 @@ CuOOra >> crearPreguntaConTitulo: unTitulo descripcion: unaDescripcion porUsuari
 CuOOra >> crearRespuestaConTexto: unTexto aPregunta: unaPregunta porUsuario: unUsuario [
 	| respuesta |
 	respuesta := Respuesta
-		crearRespuestaConTexto: unTexto
+		nuevaConTexto: unTexto
 		aPregunta: unaPregunta
 		porUsuario: unUsuario.	"La creación es realizada por la clase Respuesta"
 	unUsuario agregarPublicacion: respuesta.	"La respuesta creada se agrega a la coleccion de publicaciones(respuestas) del usuario"
