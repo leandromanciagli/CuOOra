@@ -47,6 +47,15 @@ Usuario >> borrarPublicacion: unaPublicacion [
 	^ false
 ]
 
+{ #category : #calculating }
+Usuario >> calcularPuntaje [
+	| puntajePorPreguntas puntajePorRespuestas puntajePorVotacion |
+	puntajePorPreguntas := self preguntasRealizadas size * 20.
+	puntajePorRespuestas := self respuestasAPreguntasDeOtrosUsuarios size * 50.
+	puntajePorVotacion := self publicaciones inject: 0 into: [ :sum :p | sum + p puntaje ].
+	^ puntajePorPreguntas + puntajePorRespuestas + puntajePorVotacion
+]
+
 { #category : #accessing }
 Usuario >> contrasena [
 	^ contrasena

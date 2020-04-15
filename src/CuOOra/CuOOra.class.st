@@ -21,25 +21,11 @@ CuOOra class >> instancia [
 	^ instancia ifNil: [ instancia := self new ] ifNotNil: [ instancia ]
 ]
 
-{ #category : #deleting }
-CuOOra >> borrarPregunta: unaPregunta [
-	unaPregunta delete
-]
-
 { #category : #accessing }
 CuOOra >> buscarTopicoConNombre: unNombre [
 	^ topicos
 		detect:
 			[ :top | top nombre = unNombre ] "Verifica que el nombre del topico ingresado en el agregar pregunta exista"
-]
-
-{ #category : #calculating }
-CuOOra >> calcularPuntajeDelUsuario: unUsuario [
-	| puntajePorPreguntas puntajePorRespuestas puntajePorVotacion |
-	puntajePorPreguntas := unUsuario preguntasRealizadas size * 20.
-	puntajePorRespuestas := unUsuario respuestasAPreguntasDeOtrosUsuarios size * 50.
-	puntajePorVotacion := unUsuario publicaciones inject: 0 into: [ :sum :p | sum + p puntaje ].
-	^ puntajePorPreguntas + puntajePorRespuestas + puntajePorVotacion
 ]
 
 { #category : #adding }
@@ -90,11 +76,6 @@ CuOOra >> initialize [
 	
 ]
 
-{ #category : #accessing }
-CuOOra >> obtenerPreguntasDelTopico: unTopico [
-	^ unTopico preguntas
-]
-
 { #category : #adding }
 CuOOra >> registrarReaccionDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto [
 	| reaccion |
@@ -107,11 +88,6 @@ CuOOra >> registrarReaccionDelUsuario: unUsuario aPublicacion: unaPublicacion co
 			unaPublicacion agregarReaccion: reaccion ]
 		ifNotNil: [ reaccion estado: unVoto ].
 	^ reaccion
-]
-
-{ #category : #adding }
-CuOOra >> registrarTopicoDeInteres: unTopico aUsuario: unUsuario [
-	unUsuario agregarTopicoDeInteres: unTopico
 ]
 
 { #category : #accessing }

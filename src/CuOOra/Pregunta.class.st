@@ -36,13 +36,18 @@ Pregunta >> esPregunta [
 	^ true
 ]
 
+{ #category : #initialization }
+Pregunta >> initialize [
+	super initialize.
+	respuestas := OrderedCollection new
+]
+
 { #category : #'instance initialization' }
 Pregunta >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unUsuario yTopicos: unosTopicos [
 	titulo := unTitulo.
 	descripcion := unaDescripcion.
 	usuario := unUsuario.
-	topicos := unosTopicos.
-	respuestas := OrderedCollection new
+	topicos := unosTopicos
 ]
 
 { #category : #accessing }

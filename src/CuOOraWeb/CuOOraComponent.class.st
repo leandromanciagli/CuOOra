@@ -58,7 +58,7 @@ CuOOraComponent >> instanciarCuOOra [
 	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' yContrasena:'lacontraseña'.
 	top := cuoora crearTopicoConNombre: 'topico1' yDescripcion:'vamos a verla'.
 	top2 := cuoora crearTopicoConNombre: 'topico2' yDescripcion: 'Es el topico2'.
-	cuoora registrarTopicoDeInteres: top aUsuario: usuarioCatherine.
+	usuarioCatherine agregarTopicoDeInteres: top.
 	topicos:=OrderedCollection new.
 	topicos add:top.
 	pregunta1 := cuoora crearPreguntaConTitulo:'pregunta 1' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
