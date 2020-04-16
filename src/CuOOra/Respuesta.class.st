@@ -18,7 +18,7 @@ Respuesta class >> nuevaConTexto: unTexto aPregunta: unaPregunta porUsuario: unU
 
 { #category : #deleting }
 Respuesta >> delete [
-	usuario borrarPublicacion: self
+	usuario quitarPublicacion: self
 ]
 
 { #category : #overrided }

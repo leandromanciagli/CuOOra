@@ -19,14 +19,6 @@ Topico >> agregarPregunta: unaPregunta [
 	preguntas add: unaPregunta
 ]
 
-{ #category : #deleting }
-Topico >> borrarPregunta: unaPregunta [
-	(preguntas includes: unaPregunta)
-		ifTrue: [ preguntas remove: unaPregunta.
-			^ true ].
-	^ false
-]
-
 { #category : #accessing }
 Topico >> descripcion [
 	^ descripcion
@@ -51,4 +43,12 @@ Topico >> nuevoConNombre: unNombre yDescripcion: unaDescripcion [
 { #category : #accessing }
 Topico >> preguntas [
 	^ preguntas
+]
+
+{ #category : #deleting }
+Topico >> quitarPregunta: unaPregunta [
+	(preguntas includes: unaPregunta)
+		ifTrue: [ preguntas remove: unaPregunta.
+			^ true ].
+	^ false
 ]

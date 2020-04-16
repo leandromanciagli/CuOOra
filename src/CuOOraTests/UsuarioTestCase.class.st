@@ -106,29 +106,6 @@ UsuarioTestCase >> testAgregarTopicoDeInteres [
 ]
 
 { #category : #tests }
-UsuarioTestCase >> testBorrarPublicacion [
-	self
-		assert: (usuarioLeandro borrarPublicacion: respuesta1PreguntaProgramacion)
-		equals: true.	"La respuesta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y retorna true"
-	self
-		assert:
-			(usuarioLeandro publicaciones includes: respuesta1PreguntaProgramacion)
-		equals: false.	"La respuesta no deberia encontrarse dentro de las publicaciones del usuario"
-	self
-		assert: (usuarioLeandro borrarPublicacion: respuesta2PreguntaProgramacion)
-		equals: false.	"Al intentar borrar la respuesta no se encuentra dentro de la coleccion de publicaciones entonces retorna false"
-	self
-		assert: (usuarioCatherine borrarPublicacion: preguntaDeProgramacion)
-		equals: true.	"La pregunta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y retorna true"
-	self
-		assert: (usuarioCatherine publicaciones includes: preguntaDeProgramacion)
-		equals: false.	"La pregunta no deberia encontrarse dentro de las publicaciones del usuario"
-	self
-		assert: (usuarioCatherine borrarPublicacion: preguntaDeGeografia)
-		equals: false	"Al intentar borrar la pregunta no se encuentra dentro de la coleccion de publicaciones entonces retorna false"
-]
-
-{ #category : #tests }
 UsuarioTestCase >> testCalcularPuntaje [
 	"puntajeCatherine = 20 + 20 + 50 + (-2) + 2 + (-2) = 88"
 
@@ -199,6 +176,29 @@ UsuarioTestCase >> testPreguntasDeSeguidos [
 			(usuarioLeandro preguntasDeSeguidos 
 				detect: [ :p | p titulo = '¿Cual es la capital de Italia?' ])
 				notNil	"La pregunta es de interes para el usuario Leandro porque pertenece al usuario que sigue"
+]
+
+{ #category : #tests }
+UsuarioTestCase >> testQuitarPublicacion [
+	self
+		assert: (usuarioLeandro quitarPublicacion: respuesta1PreguntaProgramacion)
+		equals: true.	"La respuesta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y retorna true"
+	self
+		assert:
+			(usuarioLeandro publicaciones includes: respuesta1PreguntaProgramacion)
+		equals: false.	"La respuesta no deberia encontrarse dentro de las publicaciones del usuario"
+	self
+		assert: (usuarioLeandro quitarPublicacion: respuesta2PreguntaProgramacion)
+		equals: false.	"Al intentar quitar la respuesta no se encuentra dentro de la coleccion de publicaciones entonces retorna false"
+	self
+		assert: (usuarioCatherine quitarPublicacion: preguntaDeProgramacion)
+		equals: true.	"La pregunta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y retorna true"
+	self
+		assert: (usuarioCatherine publicaciones includes: preguntaDeProgramacion)
+		equals: false.	"La pregunta no deberia encontrarse dentro de las publicaciones del usuario"
+	self
+		assert: (usuarioCatherine quitarPublicacion: preguntaDeGeografia)
+		equals: false	"Al intentar quitar la pregunta no se encuentra dentro de la coleccion de publicaciones entonces retorna false"
 ]
 
 { #category : #tests }

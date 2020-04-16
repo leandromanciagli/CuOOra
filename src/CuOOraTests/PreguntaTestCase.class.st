@@ -9,7 +9,8 @@ Class {
 		'topicoPOO',
 		'topicoCocina',
 		'preguntaDeProgramacion',
-		'respuestaAPreguntaDeProgramacion'
+		'respuestaAPreguntaDeProgramacion',
+		'preguntaDeCocina'
 	],
 	#category : #CuOOraTests
 }
@@ -32,8 +33,10 @@ PreguntaTestCase >> setUp [
 	usuarioCatherine agregarTopicoDeInteres: topicoProgramacion.
 	usuarioLeandro agregarTopicoDeInteres: topicoCocina.
 	
-	"Se crea una pregunta"
+	"Se crean 2 preguntas"
 	preguntaDeProgramacion := cuoora crearPreguntaConTitulo: '¿Que es la POO?' descripcion: 'Funcionamiento del paradigma' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion with: topicoPOO).
+	
+	preguntaDeCocina := cuoora crearPreguntaConTitulo: '¿Como se hace una torta?' descripcion: 'Ingredientes' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion with: topicoPOO).
 	
 	"Se crea una respuesta para la pregunta"
 	respuestaAPreguntaDeProgramacion := cuoora crearRespuestaConTexto: 'Es un conjunto de objetos que se mandan mensajes entre si' aPregunta: preguntaDeProgramacion porUsuario: usuarioLeandro.
@@ -61,18 +64,16 @@ PreguntaTestCase >> setUp [
 PreguntaTestCase >> testAgregarRespuesta [
 	self
 		assert:
-			(topicoProgramacion preguntas
-				detect: [ :p | p titulo = '¿Alguien sabe test de unidad?' ])
-				notNil.	"La pregunta se encuentra entre las preguntas del topico"
+			(preguntaDeProgramacion respuestas
+				detect: [ :resp | 
+					resp texto
+						= 'Es un conjunto de objetos que se mandan mensajes entre si' ])
+				notNil.	"La respuesta se encuentra entre las respuestas de la pregunta"
 	self
-		assert:
-			(topicoProgramacion preguntas
-				detect: [ :p | p titulo = '¿Cual es la capital de Italia?' ])
-				notNil.	"La pregunta se encuentra entre las preguntas del topico"
-	self
-		should: [ topicoProgramacion preguntas
-				detect: [ :p | p titulo = '¿Cual es la capital de Italia?' ] ]
-		raise: Error	"La pregunta se agregó al topico que se le indico y no a otro"
+		should: [ preguntaDeCocina respuestas
+				detect: [ :resp | resp texto = '¿Como se hace una torta?' ] ]
+		raise: Error	"La respuesta se agregó a las respuestas de la pregunta que se indico y no a otra"
+
 ]
 
 { #category : #tests }

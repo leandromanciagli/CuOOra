@@ -23,9 +23,13 @@ CuOOra class >> instancia [
 
 { #category : #accessing }
 CuOOra >> buscarTopicoConNombre: unNombre [
-	^ topicos
-		detect:
-			[ :top | top nombre = unNombre ] "Verifica que el nombre del topico ingresado en el agregar pregunta exista"
+	| unTopico |
+	unTopico := (topicos
+		anySatisfy: [ :topico | topico nombre = unNombre ])
+		ifTrue: [ topicos detect: [ :top | top nombre = unNombre ] ]
+		ifFalse: [ self crearTopicoConNombre: unNombre yDescripcion: 'Sin descripcion' ].
+	^ unTopico
+	"Verifica que el nombre del topico ingresado al agregar una pregunta exista, sino se crea"
 ]
 
 { #category : #adding }

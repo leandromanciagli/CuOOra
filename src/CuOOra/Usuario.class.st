@@ -39,14 +39,6 @@ Usuario >> agregarTopicoDeInteres: unTopico [
 	intereses add: unTopico
 ]
 
-{ #category : #deleting }
-Usuario >> borrarPublicacion: unaPublicacion [
-	(publicaciones includes: unaPublicacion)
-		ifTrue: [ publicaciones remove: unaPublicacion.
-			^ true ].
-	^ false
-]
-
 { #category : #calculating }
 Usuario >> calcularPuntaje [
 	| puntajePorPreguntas puntajePorRespuestas puntajePorVotacion |
@@ -115,6 +107,14 @@ Usuario >> preguntasRealizadas [
 { #category : #accessing }
 Usuario >> publicaciones [
 	^ publicaciones
+]
+
+{ #category : #deleting }
+Usuario >> quitarPublicacion: unaPublicacion [
+	(publicaciones includes: unaPublicacion)
+		ifTrue: [ publicaciones remove: unaPublicacion.
+			^ true ].
+	^ false
 ]
 
 { #category : #'search and filtering' }

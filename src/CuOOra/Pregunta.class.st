@@ -26,8 +26,8 @@ Pregunta >> agregarRespuesta: unaRespuesta [
 
 { #category : #'submorphs-add/remove' }
 Pregunta >> delete [
-	usuario borrarPublicacion: self.	"Como la clase pregunta ya conoce al usuario que la hizo ya tenemos el dato usuario y topico"
-	topicos do: [ :top | top borrarPregunta: self ].
+	usuario quitarPublicacion: self.	"Como la clase pregunta ya conoce al usuario que la hizo ya tenemos el dato usuario y topico"
+	topicos do: [ :top | top quitarPregunta: self ].
 	respuestas do: [ :resp | resp delete ]
 ]
 
@@ -54,6 +54,11 @@ Pregunta >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unU
 Pregunta >> obtenerRespuestasPorPuntaje [
 	^ respuestas
 		asSortedCollection: [ :r1 :r2 | r1 puntaje > r2 puntaje ]
+]
+
+{ #category : #accessing }
+Pregunta >> respuestas [
+	^ respuestas
 ]
 
 { #category : #accessing }

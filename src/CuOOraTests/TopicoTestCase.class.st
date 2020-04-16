@@ -59,14 +59,14 @@ TopicoTestCase >> testAgregarPregunta [
 ]
 
 { #category : #tests }
-TopicoTestCase >> testBorrarPregunta [
+TopicoTestCase >> testQuitarPregunta [
 	self
-		assert: (topicoProgramacion borrarPregunta: preguntaDeProgramacion)
+		assert: (topicoProgramacion quitarPregunta: preguntaDeProgramacion)
 		equals: true.	"La pregunta se encuentra dentro de la coleccion de preguntas entonces se quita de la misma y retorna true"
 	self
 		assert: (topicoProgramacion preguntas includes: preguntaDeProgramacion)
 		equals: false. "La pregunta no deberia encontrarse dentro de las preguntas del topico"
 	self
-		assert: (topicoProgramacion borrarPregunta: preguntaDeGeografia)
-		equals: false	"Al intentar borrar la pregunta no se encuentra dentro de la coleccion de preguntas entonces retorna false"
+		assert: (topicoProgramacion quitarPregunta: preguntaDeGeografia)
+		equals: false	"Al intentar quitar la pregunta no se encuentra dentro de la coleccion de preguntas entonces retorna false"
 ]
