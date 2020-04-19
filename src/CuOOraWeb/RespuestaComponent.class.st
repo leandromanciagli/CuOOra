@@ -2,8 +2,8 @@ Class {
 	#name : #RespuestaComponent,
 	#superclass : #WAComponent,
 	#instVars : [
+		'header',
 		'pregunta',
-		'respuesta',
 		'newTexto'
 	],
 	#category : #CuOOraWeb
@@ -14,19 +14,25 @@ RespuestaComponent class >> pregunta: unaPregunta [
 	^ self new pregunta: unaPregunta
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #callbacks }
 RespuestaComponent >> agregarRespuesta [
 	CuOOra instancia
 		crearRespuestaConTexto: newTexto
 		aPregunta: pregunta
-		porUsuario: CuOOraComponent instancia usuario.
-	self answer: nil
+		porUsuario: self session usuario.
+	self volver
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #callbacks }
 RespuestaComponent >> cancelar [
 	newTexto := nil.
 	
+]
+
+{ #category : #initialization }
+RespuestaComponent >> initialize [
+	super initialize.
+	header := HeaderComponent newConPadre: self
 ]
 
 { #category : #accessing }
@@ -47,11 +53,8 @@ RespuestaComponent >> pregunta: unaPregunta [
 { #category : #rendering }
 RespuestaComponent >> renderContentOn: aCanvas [
 	| usuarioLogueado |
-	aCanvas render: HeaderComponent new.
-	usuarioLogueado := CuOOraComponent instancia usuario.
-	"aCanvas anchor
-		callback: [ self verUsuario: usuarioLogueado ];
-		with: usuarioLogueado nombre."
+	usuarioLogueado := self session usuario.
+	aCanvas render: header.
 	aCanvas div.
 	aCanvas heading
 		level: 1;
@@ -59,7 +62,7 @@ RespuestaComponent >> renderContentOn: aCanvas [
 	aCanvas paragraph with: 'Tópicos: ' , pregunta topicos.
 	aCanvas text: 'Realizada por: '.
 	aCanvas anchor
-		callback: [ self verUsuario: pregunta usuario ];
+		callback: [ self renderUsuario: pregunta usuario ];
 		with: pregunta usuario nombre.
 	aCanvas paragraph
 		with:
@@ -92,15 +95,13 @@ RespuestaComponent >> renderContentOn: aCanvas [
 		with: 'Volver'
 ]
 
-{ #category : #'as yet unclassified' }
-RespuestaComponent >> verUsuario: unUsuario [
-	| usuarioDetalleComponent |
-	usuarioDetalleComponent := UsuarioDetalleComponent new: unUsuario.
-	self call: usuarioDetalleComponent
+{ #category : #rendering }
+RespuestaComponent >> renderUsuario: unUsuario [
+	self call: (UsuarioDetalleComponent new: unUsuario)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #callbacks }
 RespuestaComponent >> volver [
-	respuesta := nil.
+	self cancelar.
 	self answer
 ]

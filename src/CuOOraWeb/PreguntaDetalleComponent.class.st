@@ -2,72 +2,71 @@ Class {
 	#name : #PreguntaDetalleComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'preg'
+		'header',
+		'pregunta'
 	],
 	#category : #CuOOraWeb
 }
 
 { #category : #'instance creation' }
-PreguntaDetalleComponent class >> new:preg [ 
-	^ self new preg:preg.
+PreguntaDetalleComponent class >> new: unaPregunta [
+	^ self new pregunta: unaPregunta
 ]
 
-{ #category : #adding }
-PreguntaDetalleComponent >> addRespuesta: unaPregunta [
+{ #category : #callbacks }
+PreguntaDetalleComponent >> agregarRespuesta: unaPregunta [
 	self call: (RespuestaComponent pregunta: unaPregunta)
 ]
 
-{ #category : #accessing }
-PreguntaDetalleComponent >> preg [
-	^ preg
+{ #category : #initialization }
+PreguntaDetalleComponent >> initialize [
+	super initialize.
+	header := HeaderComponent newConPadre: self
 ]
 
 { #category : #accessing }
-PreguntaDetalleComponent >> preg: anObject [
-	preg := anObject
+PreguntaDetalleComponent >> pregunta: anObject [
+	pregunta := anObject
 ]
 
 { #category : #rendering }
 PreguntaDetalleComponent >> renderContentOn: html [
 	| usuarioLogueado |
-	html render: HeaderComponent new.
-	usuarioLogueado := CuOOraComponent instancia usuario.
-	"html anchor
-		callback: [ self verUsuario: usuarioLogueado ];
-		with: usuarioLogueado nombre."
+	usuarioLogueado := self session usuario.
+	html render: header.
 	html div.
 	html heading
 		level: 1;
-		with: preg titulo.
-	html paragraph with: 'topicos:' , preg topicos.
+		with: pregunta titulo.
+	html paragraph with: 'Topicos: ' , pregunta topicos.
 	html text: 'Realizada por: '.
 	html anchor
-		callback: [ self verUsuario: preg usuario ];
-		with: preg usuario nombre.
+		callback: [ self renderUsuario: pregunta usuario ];
+		with: pregunta usuario nombre.
 	html paragraph
-		with: 'respuestas:' , preg obtenerRespuestasPorPuntaje size asString.
+		with: 'Respuestas: ' , pregunta obtenerRespuestasPorPuntaje size asString.
 	html paragraph
 		with:
-			'Likes: ' , preg likes size asString , '| Dislikes: '
-				, preg dislikes size asString.
+			'Likes: ' , pregunta likes size asString , '| Dislikes: '
+				, pregunta dislikes size asString.
 	html anchor
 		callback: [ CuOOra instancia
-				registrarReaccionDelUsuario: CuOOraComponent instancia usuario
-				aPublicacion: preg
+				registrarReaccionDelUsuario: usuarioLogueado
+				aPublicacion: pregunta
 				conVoto: true ];
 		with: 'like  '.
 	html anchor
 		callback: [ CuOOra instancia
-				registrarReaccionDelUsuario: CuOOraComponent instancia usuario
-				aPublicacion: preg
+				registrarReaccionDelUsuario: usuarioLogueado
+				aPublicacion: pregunta
 				conVoto: false ];
 		with: 'dislike'.
 	html tag: 'hr'.
-	preg obtenerRespuestasPorPuntaje
+	pregunta obtenerRespuestasPorPuntaje
 		do: [ :r | 
 			html text: 'Respuesta de: '.
 			html anchor
-				callback: [ self verUsuario: r usuario ];
+				callback: [ self renderUsuario: r usuario ];
 				with: r usuario nombre.
 			html break.
 			html paragraph: r texto.
@@ -77,36 +76,27 @@ PreguntaDetalleComponent >> renderContentOn: html [
 						, r dislikes size asString.
 			html anchor
 				callback: [ CuOOra instancia
-						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+						registrarReaccionDelUsuario: usuarioLogueado
 						aPublicacion: r
 						conVoto: true ];
 				with: 'like  '.
 			html anchor
 				callback: [ CuOOra instancia
-						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+						registrarReaccionDelUsuario: usuarioLogueado
 						aPublicacion: r
 						conVoto: false ];
 				with: 'dislike'.
 			html tag: 'hr' ].
 	html anchor
-		callback: [ self addRespuesta: preg ];
+		callback: [ self agregarRespuesta: pregunta ];
 		with: 'Agregar respuesta'.
 	html space.
 	html anchor
-		callback: [ self volver ];
-		with: 'volver'.
-	html space.
-	"html anchor
-		callback: [ self desloguear ];
-		with: 'logOut'"
-]
-
-{ #category : #'as yet unclassified' }
-PreguntaDetalleComponent >> verUsuario: unUsuario [
-	self call: (UsuarioDetalleComponent new: unUsuario)
+		callback: [ self answer ];
+		with: 'volver'
 ]
 
 { #category : #rendering }
-PreguntaDetalleComponent >> volver [
-	self answer: nil
+PreguntaDetalleComponent >> renderUsuario: unUsuario [
+	self call: (UsuarioDetalleComponent new: unUsuario)
 ]

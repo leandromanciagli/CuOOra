@@ -2,6 +2,7 @@ Class {
 	#name : #PreguntaComponent,
 	#superclass : #WAComponent,
 	#instVars : [
+		'header',
 		'titulo',
 		'descripcion',
 		'topicos'
@@ -9,20 +10,17 @@ Class {
 	#category : #CuOOraWeb
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #callbacks }
 PreguntaComponent >> agregarPregunta [
 	CuOOra instancia
 		crearPreguntaConTitulo: titulo
 		descripcion: descripcion
-		porUsuario: CuOOraComponent instancia usuario
+		porUsuario: self session usuario
 		yTopicos: self topicosIngresados.
-	titulo := nil.
-	descripcion := nil.
-	topicos := nil.
-	self answer: nil
+	self volver
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #callbacks }
 PreguntaComponent >> cancelar [
 	titulo := nil.
 	descripcion := nil.
@@ -39,14 +37,15 @@ PreguntaComponent >> descripcion: anObject [
 	descripcion := anObject
 ]
 
+{ #category : #initialization }
+PreguntaComponent >> initialize [
+	super initialize.
+	header := HeaderComponent newConPadre: self
+]
+
 { #category : #rendering }
 PreguntaComponent >> renderContentOn: html [
-	| usuarioLogueado |
-	html render: HeaderComponent new.
-	usuarioLogueado := CuOOraComponent instancia usuario.
-	"html anchor
-		callback: [ self verUsuario: usuarioLogueado ];
-		with: usuarioLogueado nombre."
+	html render: header.
 	html heading: 'Haga una pregunta'.
 	html
 		form: [ html text: 'Título: '.
@@ -63,23 +62,13 @@ PreguntaComponent >> renderContentOn: html [
 			html button
 				callback: [ self cancelar ];
 				value: 'Cancelar'.
+			"Llamar al metodo que agrega la pregunta"
 			html submitButton
 				callback: [ self agregarPregunta ];
-				"llamar al metodo que agrega la pregunta"
-					value: 'Agregar' ].	"fin"
+				value: 'Agregar' ].
 	html anchor
-		callback: [ self renderHome ];
-		with: 'volver'.
-	html space.
-	"html anchor
-		callback: [ self desloguear ];
-		with: 'logOut'"
-]
-
-{ #category : #rendering }
-PreguntaComponent >> renderHome [
-	
- 	self answer: nil.
+		callback: [ self volver ];
+		with: 'volver'
 ]
 
 { #category : #accessing }
@@ -102,12 +91,18 @@ PreguntaComponent >> topicos: anObject [
 	topicos := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PreguntaComponent >> topicosIngresados [
 	| t |
 	t := self topicos splitOn: ','.
 	^ t
-		collect: [ :topic | CuOOra instancia buscarTopicoConNombre: topic ]
+		collect: [ :topico | CuOOra instancia buscarTopicoConNombre: topico ]
 
-	"getTopicos esta en el model de cuoora y busca si los topicos ingresados son los que existen"
+	"buscarTopicoConNombre: esta en el model de cuoora y busca si los topicos ingresados existen. En caso de no existir, lo crea"
+]
+
+{ #category : #callbacks }
+PreguntaComponent >> volver [
+	self cancelar.
+	self answer
 ]

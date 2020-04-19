@@ -1,19 +1,23 @@
 Class {
 	#name : #HomeComponent,
 	#superclass : #WAComponent,
+	#instVars : [
+		'header'
+	],
 	#category : #CuOOraWeb
 }
+
+{ #category : #initialization }
+HomeComponent >> initialize [
+	super initialize.
+	header := HeaderComponent newConPadre: self
+]
 
 { #category : #rendering }
 HomeComponent >> renderContentOn: html [
 	| preg usuarioLogueado |
-	html render: HeaderComponent new.
-	usuarioLogueado := CuOOraComponent instancia usuario.
-	
-	
-	html anchor
-		callback: [ self verUsuario: usuarioLogueado ];
-		with: usuarioLogueado nombre.
+	usuarioLogueado := self session usuario.
+	html render: header.
 	html heading
 		level: 1;
 		with: 'Ultimas preguntas'.
@@ -22,15 +26,15 @@ HomeComponent >> renderContentOn: html [
 		do: [ :p | 
 			html div.
 			html anchor
-				callback: [ self verPregunta: p ];
+				callback: [ self renderPregunta: p ];
 				with: [ html heading
 						level: 3;
 						with: p titulo ].
 			html paragraph with: 'topicos: ' , p topicos.
-			"html text: 'Realizada por: '.
+			html text: 'Realizada por: '.
 			html anchor
-				callback: [ self verUsuario: p usuario ];
-				with: p usuario nombre."
+				callback: [ self renderUsuario: p usuario ];
+				with: p usuario nombre.
 			html paragraph
 				with: 'respuestas: ' , p obtenerRespuestasPorPuntaje size asString.
 			html paragraph
@@ -39,13 +43,13 @@ HomeComponent >> renderContentOn: html [
 						, p dislikes size asString.
 			html anchor
 				callback: [ CuOOra instancia
-						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+						registrarReaccionDelUsuario: usuarioLogueado
 						aPublicacion: p
 						conVoto: true ];
 				with: 'like  '.
 			html anchor
 				callback: [ CuOOra instancia
-						registrarReaccionDelUsuario: CuOOraComponent instancia usuario
+						registrarReaccionDelUsuario: usuarioLogueado
 						aPublicacion: p
 						conVoto: false ];
 				with: 'dislike'.
@@ -58,21 +62,15 @@ HomeComponent >> renderContentOn: html [
 
 { #category : #rendering }
 HomeComponent >> renderPregunta [
-	self call: (CuOOraComponent instancia preguntaComponent).
+	self call: PreguntaComponent new
 ]
 
-{ #category : #'as yet unclassified' }
-HomeComponent >> verPregunta:preg [ 
- | pregunta |
-pregunta:= PreguntaDetalleComponent new:preg.
-self call: pregunta.
+{ #category : #rendering }
+HomeComponent >> renderPregunta: unaPregunta [
+	self call: (PreguntaDetalleComponent new: unaPregunta)
 ]
 
-{ #category : #'as yet unclassified' }
-HomeComponent >> verUsuario: usu [
-	| usuario |
-	usuario := UsuarioDetalleComponent new: usu.
-	self call: usuario
-	
-
+{ #category : #rendering }
+HomeComponent >> renderUsuario: unUsuario [
+	self call: (UsuarioDetalleComponent new: unUsuario)
 ]

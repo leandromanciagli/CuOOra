@@ -1,35 +1,46 @@
 Class {
 	#name : #HeaderComponent,
 	#superclass : #WAComponent,
+	#instVars : [
+		'padre'
+	],
 	#category : #CuOOraWeb
 }
 
-{ #category : #'as yet unclassified' }
-HeaderComponent >> desloguear [
+{ #category : #'instance creation' }
+HeaderComponent class >> newConPadre: unPadre [
+	^ self new padre: unPadre
+]
 
- CuOOraComponent instancia usuario: nil.
- self answer: nil.
+{ #category : #callbacks }
+HeaderComponent >> logout [
+	self session usuario: nil.
+	self session presenter home
+]
+
+{ #category : #accessing }
+HeaderComponent >> padre: unPadre [
+	padre := unPadre
 ]
 
 { #category : #rendering }
-HeaderComponent >> renderContentOn: html [ 
+HeaderComponent >> renderContentOn: html [
 	| usuarioLogueado |
-	usuarioLogueado := CuOOraComponent instancia usuario.
-	html heading level:2;
-	with:'CuOOra'.
+	usuarioLogueado := self session usuario.
+	html heading
+		level: 2;
+		with: 'CuOOra'.
 	html anchor
-		callback: [ self verPerfilUsuario: usuarioLogueado ];
+		callback: [ self renderPerfil: usuarioLogueado ];
 		with: usuarioLogueado nombre.
-	html break.	
+	html break.
 	html anchor
-		callback: [ self desloguear ];
+		callback: [ self logout ];
 		with: 'logOut'.
-	html horizontalRule.
+	html horizontalRule
 ]
 
-{ #category : #'as yet unclassified' }
-HeaderComponent >> verPerfilUsuario: usu [
-	| usuario |
-	usuario := UsuarioDetalleComponent new: usu.
-	self call: usuario 
+{ #category : #rendering }
+HeaderComponent >> renderPerfil: unUsuario [
+	padre call: (UsuarioDetalleComponent new: unUsuario)
 ]
