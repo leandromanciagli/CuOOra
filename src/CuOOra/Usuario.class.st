@@ -73,7 +73,7 @@ Usuario >> obtenerPreguntasRelevantes [
 		, self preguntasDeSeguidos) asSet.
 	preguntasRelevantes := preguntasRelevantes
 		asSortedCollection: [ :pr1 :pr2 | pr1 fechaHora > pr2 fechaHora ].
-	^ preguntasRelevantes takeFirst: 5
+	^ preguntasRelevantes
 ]
 
 { #category : #'search and filtering' }

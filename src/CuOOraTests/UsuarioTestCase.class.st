@@ -136,27 +136,6 @@ UsuarioTestCase >> testObtenerPreguntasRelevantes [
 				detect: [ :p | p titulo = '¿Cómo caminar en tacones?' ] ]
 		raise: Error	."La pregunta no pertenece a un topico de su interes ni fue realizada por un usuario al que sigue"
 			
-	"Se crean 4 preguntas más que sean relevantes para el usuario para testear la cantidad de preguntar retornadas (como máximo 5)"
-	preguntaDeGeografia2 := cuoora crearPreguntaConTitulo: '¿Cual es la capital de Marruecos?' descripcion: 'Del topico geografia' porUsuario: usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia).
-	preguntaDeGeografia3 := cuoora crearPreguntaConTitulo: '¿Cual es la capital de España?' descripcion: 'Del topico geografia' porUsuario: usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia).
-	cuoora crearPreguntaConTitulo: '¿Cual es la capital de Francia?' descripcion: 'Del topico geografia' porUsuario: usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia).
-	cuoora crearPreguntaConTitulo: '¿Cual es la capital de Canadá?' descripcion: 'Del topico geografia' porUsuario: usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia).
-	
-	self assert: usuarioLeandro obtenerPreguntasRelevantes size equals: 5. "El usuario tiene 6 preguntas relevantes pero solo 5 son devueltas"
-   preguntaDeGeografia2 delete. "Se borra una pregunta"
-	self assert: usuarioLeandro obtenerPreguntasRelevantes size equals: 5. "El usuario tiene 5 preguntas relevantes y 5 son devueltas"
-	preguntaDeGeografia3 delete. "Se borra otra pregunta"
-	self assert: usuarioLeandro obtenerPreguntasRelevantes size equals: 4. "El usuario tiene 4 preguntas relevantes y 4 son devueltas"	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 		
 ]
 

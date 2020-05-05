@@ -41,6 +41,11 @@ Respuesta >> pregunta [
 ]
 
 { #category : #accessing }
+Respuesta >> pregunta: unaPregunta [
+	pregunta := unaPregunta
+]
+
+{ #category : #accessing }
 Respuesta >> texto [
 	^ texto
 ]

@@ -21,7 +21,7 @@ HomeComponent >> renderContentOn: html [
 	html heading
 		level: 1;
 		with: 'Ultimas preguntas'.
-	preg := usuarioLogueado obtenerPreguntasRelevantes.
+	preg := usuarioLogueado obtenerPreguntasRelevantes takeFirst: 5.
 	preg
 		do: [ :p | 
 			html div.

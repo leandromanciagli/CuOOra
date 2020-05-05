@@ -21,7 +21,8 @@ Pregunta class >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuari
 
 { #category : #adding }
 Pregunta >> agregarRespuesta: unaRespuesta [
-	respuestas add: unaRespuesta
+	respuestas add: unaRespuesta.
+	unaRespuesta pregunta: self
 ]
 
 { #category : #'submorphs-add/remove' }
