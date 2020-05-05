@@ -119,7 +119,6 @@ UsuarioTestCase >> testCalcularPuntaje [
 
 { #category : #tests }
 UsuarioTestCase >> testObtenerPreguntasRelevantes [
-| preguntaDeGeografia2 preguntaDeGeografia3 |
 
 	self
 		assert:

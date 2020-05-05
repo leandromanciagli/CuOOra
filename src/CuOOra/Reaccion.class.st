@@ -21,13 +21,13 @@ Reaccion >> borrarPublicacion [
 ]
 
 { #category : #accessing }
-Reaccion >> estado [
-	^ estado
+Reaccion >> dislike [
+	estado := false.
 ]
 
 { #category : #accessing }
-Reaccion >> estado: unEstado [
-	estado := unEstado
+Reaccion >> estado [
+	^ estado
 ]
 
 { #category : #initialization }
@@ -39,7 +39,13 @@ Reaccion >> inicializarDelUsuario: unUsuario aPublicacion: unaPublicacion conVot
 
 { #category : #initialization }
 Reaccion >> initialize [
+	estado  := true.
 	fechaHora := DateAndTime today
+]
+
+{ #category : #accessing }
+Reaccion >> like [
+	estado := true.
 ]
 
 { #category : #accessing }
