@@ -15,6 +15,21 @@ Reaccion class >> nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVot
 	^ self new inicializarDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto
 ]
 
+{ #category : #'instance creation' }
+Reaccion class >> nuevaDelUsuario:unUsuario dislikesPublicacion: unaPublicacion [
+	^ self new inicializarDelUsuario: unUsuario dislikesPublicacion: unaPublicacion
+		
+		
+		
+
+]
+
+{ #category : #'instance creation' }
+Reaccion class >> nuevaDelusuario:unUsuario likesPublicacion: unaPublicacion [
+	^ self new inicializarDelUsuario: unUsuario likesPublicacion: unaPublicacion
+		
+]
+
 { #category : #deleting }
 Reaccion >> borrarPublicacion [
 	publicacion := nil
@@ -27,14 +42,20 @@ Reaccion >> dislike [
 
 { #category : #accessing }
 Reaccion >> estado [
-	^ estado
+	^ estado "voto"
 ]
 
 { #category : #initialization }
-Reaccion >> inicializarDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto [
+Reaccion >> inicializarDelUsuario: unUsuario dislikesPublicacion: unaPublicacion [
 	usuario := unUsuario.
 	publicacion := unaPublicacion.
-	estado := unVoto
+	self dislike
+]
+
+{ #category : #initialization }
+Reaccion >> inicializarDelUsuario: unUsuario likesPublicacion: unaPublicacion [
+	usuario := unUsuario.
+	publicacion := unaPublicacion.
 ]
 
 { #category : #initialization }

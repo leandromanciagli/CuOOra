@@ -42,7 +42,7 @@ PreguntaTestCase >> setUp [
 	respuestaAPreguntaDeProgramacion := cuoora crearRespuestaConTexto: 'Es un conjunto de objetos que se mandan mensajes entre si' aPregunta: preguntaDeProgramacion porUsuario: usuarioLeandro.
 	
 	"Se registra reaccion a la respuesta"
-	cuoora registrarReaccionDelUsuario: usuarioCatherine aPublicacion: respuestaAPreguntaDeProgramacion conVoto: true.
+	respuestaAPreguntaDeProgramacion registrarLikeDelUsuario: usuarioCatherine.
 
 	
 

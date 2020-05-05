@@ -69,16 +69,10 @@ RespuestaComponent >> renderContentOn: aCanvas [
 			'Likes: ' , pregunta likes size asString , '| Dislikes: '
 				, pregunta dislikes size asString.
 	aCanvas anchor
-		callback: [ CuOOra instancia
-				registrarReaccionDelUsuario: usuarioLogueado
-				aPublicacion: pregunta
-				conVoto: true ];
+		callback: [ pregunta registrarLikeDelUsuario: usuarioLogueado];
 		with: 'like  '.
 	aCanvas anchor
-		callback: [ CuOOra instancia
-				registrarReaccionDelUsuario: usuarioLogueado
-				aPublicacion: pregunta
-				conVoto: false ];
+		callback: [ pregunta registrarDisLikeDelUsuario: usuarioLogueado ];
 		with: 'dislike'.
 	aCanvas tag: 'hr'.
 	aCanvas paragraph with: 'RESPONDER'.

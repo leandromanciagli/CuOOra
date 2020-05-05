@@ -39,7 +39,7 @@ CuOOraTestCase >> setUp [
 	respuestaAPreguntaDeProgramacion := cuoora crearRespuestaConTexto: 'Es un conjunto de objetos que se mandan mensajes entre si' aPregunta: preguntaDeProgramacion porUsuario: usuarioLeandro.
 	
 	"Se registra reaccion a la respuesta"
-	cuoora registrarReaccionDelUsuario: usuarioCatherine aPublicacion: respuestaAPreguntaDeProgramacion conVoto: true.
+	respuestaAPreguntaDeProgramacion registrarLikeDelUsuario: usuarioCatherine.
 
 	
 
@@ -120,10 +120,8 @@ CuOOraTestCase >> testRegistrarReaccionDelUsuario [
 	reaccionDeCatherine := respuestaAPreguntaDeProgramacion
 		buscarReaccionDelUsuario: usuarioCatherine.
 	self assert: reaccionDeCatherine estado equals: true.
-	cuoora
-		registrarReaccionDelUsuario: usuarioCatherine
-		aPublicacion: respuestaAPreguntaDeProgramacion
-		conVoto: false.
+	respuestaAPreguntaDeProgramacion
+		registrarDisLikeDelUsuario: usuarioCatherine.
 	self assert: reaccionDeCatherine estado equals: false
 ]
 

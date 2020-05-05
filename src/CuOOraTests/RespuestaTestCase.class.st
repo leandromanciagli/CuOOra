@@ -41,9 +41,9 @@ RespuestaTestCase >> setUp [
 	respuestaAPreguntaDeProgramacion3 := cuoora crearRespuestaConTexto: 'Es un paradigma de programación' aPregunta: preguntaDeProgramacion porUsuario: usuarioLeandro.
 	
 	"Se registra reaccion a la respuesta"
-	cuoora registrarReaccionDelUsuario: usuarioCatherine aPublicacion: respuestaAPreguntaDeProgramacion conVoto: true.
-	cuoora registrarReaccionDelUsuario: usuarioLeandro aPublicacion: respuestaAPreguntaDeProgramacion conVoto: true.
-	cuoora registrarReaccionDelUsuario: usuarioCatherine aPublicacion: respuestaAPreguntaDeProgramacion2 conVoto: true.
+	respuestaAPreguntaDeProgramacion registrarLikeDelUsuario: usuarioCatherine.
+	respuestaAPreguntaDeProgramacion registrarLikeDelUsuario: usuarioLeandro.
+	respuestaAPreguntaDeProgramacion2 registrarLikeDelUsuario: usuarioCatherine.
 
 	
 

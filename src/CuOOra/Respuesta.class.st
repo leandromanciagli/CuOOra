@@ -46,6 +46,11 @@ Respuesta >> pregunta: unaPregunta [
 ]
 
 { #category : #accessing }
+Respuesta >> preguntaEsDelUsuario: unUsuario [
+	^ pregunta usuario == unUsuario
+]
+
+{ #category : #accessing }
 Respuesta >> texto [
 	^ texto
 ]

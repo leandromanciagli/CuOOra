@@ -51,16 +51,10 @@ UsuarioDetalleComponent >> renderContentOn: html [
 							'Likes: ' , p likes size asString , '| Dislikes: '
 								, p dislikes size asString.
 					html anchor
-						callback: [ CuOOra instancia
-								registrarReaccionDelUsuario: usuarioLogueado
-								aPublicacion: p
-								conVoto: true ];
+						callback: [ p registrarLikeDelUsuario: usuarioLogueado];
 						with: 'like  '.
 					html anchor
-						callback: [ CuOOra instancia
-								registrarReaccionDelUsuario: usuarioLogueado
-								aPublicacion: p
-								conVoto: false ];
+						callback: [ p registrarDisLikeDelUsuario: usuarioLogueado];
 						with: 'dislike'.
 					html tag: 'hr' ] ].
 	html tag: 'br'.

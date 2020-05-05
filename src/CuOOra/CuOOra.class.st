@@ -76,20 +76,6 @@ CuOOra >> initialize [
 	
 ]
 
-{ #category : #adding }
-CuOOra >> registrarReaccionDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto [
-	| reaccion |
-	reaccion := unaPublicacion buscarReaccionDelUsuario: unUsuario.
-	reaccion
-		ifNil: [ reaccion := Reaccion
-				nuevaDelUsuario: unUsuario
-				aPublicacion: unaPublicacion
-				conVoto: unVoto.
-			unaPublicacion agregarReaccion: reaccion ]
-		ifNotNil: [ reaccion estado: unVoto ].
-	^ reaccion
-]
-
 { #category : #accessing }
 CuOOra >> topicos [
 	^ topicos

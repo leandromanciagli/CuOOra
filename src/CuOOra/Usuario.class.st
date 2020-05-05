@@ -105,7 +105,7 @@ Usuario >> quitarPublicacion: unaPublicacion [
 { #category : #'search and filtering' }
 Usuario >> respuestasAPreguntasDeOtrosUsuarios [
 	^ self respuestasRealizadas
-		reject: [ :respuesta | respuesta pregunta usuario = self ]
+		reject: [ :respuesta | respuesta preguntaEsDelUsuario:self ].
 ]
 
 { #category : #'search and filtering' }

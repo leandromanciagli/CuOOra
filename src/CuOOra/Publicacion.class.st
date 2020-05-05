@@ -18,8 +18,7 @@ Publicacion >> agregarReaccion: unaReaccion [
 Publicacion >> buscarReaccionDelUsuario: unUsuario [
 	| reaccion |
 	reacciones
-		do: [ :r | 
-			r usuario = unUsuario
+		do: [ :r | r usuario = unUsuario
 				ifTrue: [ reaccion := r ] ].
 	^ reaccion
 ]
@@ -73,6 +72,28 @@ Publicacion >> puntaje [
 { #category : #accessing }
 Publicacion >> reacciones [
 	^ reacciones
+]
+
+{ #category : #adding }
+Publicacion >> registrarDisLikeDelUsuario: unUsuario [
+	| reaccion |
+	reaccion := self buscarReaccionDelUsuario: unUsuario.
+	reaccion
+		ifNil: [ reaccion := Reaccion nuevaDelUsuario:unUsuario dislikesPublicacion: self.
+			      self agregarReaccion: reaccion ]
+		ifNotNil: [ reaccion dislike].
+	^ reaccion
+]
+
+{ #category : #adding }
+Publicacion >> registrarLikeDelUsuario: unUsuario [
+	| reaccion |
+	reaccion := self buscarReaccionDelUsuario: unUsuario.
+	reaccion
+		ifNil: [ reaccion := Reaccion nuevaDelusuario:unUsuario likesPublicacion: self.
+			      self agregarReaccion: reaccion ]
+		ifNotNil: [ reaccion like].
+	^ reaccion
 ]
 
 { #category : #accessing }

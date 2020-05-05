@@ -50,16 +50,10 @@ PreguntaDetalleComponent >> renderContentOn: html [
 			'Likes: ' , pregunta likes size asString , '| Dislikes: '
 				, pregunta dislikes size asString.
 	html anchor
-		callback: [ CuOOra instancia
-				registrarReaccionDelUsuario: usuarioLogueado
-				aPublicacion: pregunta
-				conVoto: true ];
+		callback: [ pregunta registrarLikeDelUsuario: usuarioLogueado  ];
 		with: 'like  '.
 	html anchor
-		callback: [ CuOOra instancia
-				registrarReaccionDelUsuario: usuarioLogueado
-				aPublicacion: pregunta
-				conVoto: false ];
+		callback: [ pregunta registrarDisLikeDelUsuario: usuarioLogueado ];
 		with: 'dislike'.
 	html tag: 'hr'.
 	pregunta obtenerRespuestasPorPuntaje
@@ -75,16 +69,10 @@ PreguntaDetalleComponent >> renderContentOn: html [
 					'Likes: ' , r likes size asString , '| Dislikes: '
 						, r dislikes size asString.
 			html anchor
-				callback: [ CuOOra instancia
-						registrarReaccionDelUsuario: usuarioLogueado
-						aPublicacion: r
-						conVoto: true ];
+				callback: [ r registrarLikeDelUsuario: usuarioLogueado  ];
 				with: 'like  '.
 			html anchor
-				callback: [ CuOOra instancia
-						registrarReaccionDelUsuario: usuarioLogueado
-						aPublicacion: r
-						conVoto: false ];
+				callback: [ r registrarDisLikeDelUsuario: usuarioLogueado ];
 				with: 'dislike'.
 			html tag: 'hr' ].
 	html anchor
