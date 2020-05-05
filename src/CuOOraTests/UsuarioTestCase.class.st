@@ -182,7 +182,7 @@ UsuarioTestCase >> testPreguntasDeSeguidos [
 UsuarioTestCase >> testQuitarPublicacion [
 	self
 		assert: (usuarioLeandro quitarPublicacion: respuesta1PreguntaProgramacion)
-		equals: true.	"La respuesta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y retorna true"
+		equals: respuesta1PreguntaProgramacion.	"La respuesta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y se retorna"
 	self
 		assert:
 			(usuarioLeandro publicaciones includes: respuesta1PreguntaProgramacion)
@@ -192,7 +192,7 @@ UsuarioTestCase >> testQuitarPublicacion [
 		equals: false.	"Al intentar quitar la respuesta no se encuentra dentro de la coleccion de publicaciones entonces retorna false"
 	self
 		assert: (usuarioCatherine quitarPublicacion: preguntaDeProgramacion)
-		equals: true.	"La pregunta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y retorna true"
+		equals: preguntaDeProgramacion.	"La pregunta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y se retorna"
 	self
 		assert: (usuarioCatherine publicaciones includes: preguntaDeProgramacion)
 		equals: false.	"La pregunta no deberia encontrarse dentro de las publicaciones del usuario"

@@ -13,7 +13,7 @@ Class {
 { #category : #'instance creation' }
 Pregunta class >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unUsuario yTopicos: unTopico [
 	^ self new
-		nuevaConTitulo: unTitulo
+		inicializarConTitulo: unTitulo
 		descripcion: unaDescripcion
 		porUsuario: unUsuario
 		yTopicos: unTopico
@@ -39,18 +39,18 @@ Pregunta >> esPregunta [
 	^ true
 ]
 
-{ #category : #initialization }
-Pregunta >> initialize [
-	super initialize.
-	respuestas := OrderedCollection new
-]
-
 { #category : #'instance initialization' }
-Pregunta >> nuevaConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unUsuario yTopicos: unosTopicos [
+Pregunta >> inicializarConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unUsuario yTopicos: unosTopicos [
 	titulo := unTitulo.
 	descripcion := unaDescripcion.
 	usuario := unUsuario.
 	topicos := unosTopicos
+]
+
+{ #category : #initialization }
+Pregunta >> initialize [
+	super initialize.
+	respuestas := OrderedCollection new
 ]
 
 { #category : #accessing }

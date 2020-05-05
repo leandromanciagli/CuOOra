@@ -41,7 +41,7 @@ LoginComponent >> initialize [
 { #category : #'instance initialization' }
 LoginComponent >> instanciarCuOOra [
 	| usuarioPedro usuarioDiego usuarioJuan topico1 topico2 topico3 preguntaDePedro preguntaDeDiego RespuestaAPreguntaDePedro RespuestaAPreguntaDeDiego |
-	CuOOra clearInstancia.
+	
 	cuoora := CuOOra instancia.
 	
 	"Usuarios:" 	

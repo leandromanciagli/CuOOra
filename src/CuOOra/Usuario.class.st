@@ -7,8 +7,7 @@ Class {
 		'publicaciones',
 		'topicosDeInteres',
 		'fechaHora',
-		'seguidos',
-		'seguidores'
+		'seguidos'
 	],
 	#classInstVars : [
 		'fechaHora',
@@ -21,17 +20,12 @@ Class {
 
 { #category : #'instance creation' }
 Usuario class >> nuevoConNombre: unNombre yContrasena: unaContrasena [
-	^ self new nuevoConNombre: unNombre yContrasena: unaContrasena
+	^ self new inicializarConNombre: unNombre yContrasena: unaContrasena
 ]
 
 { #category : #adding }
 Usuario >> agregarPublicacion: unaPublicacion [
 	publicaciones add: unaPublicacion
-]
-
-{ #category : #adding }
-Usuario >> agregarSeguidor: unSeguidor [
-	seguidores add: unSeguidor
 ]
 
 { #category : #adding }
@@ -53,11 +47,16 @@ Usuario >> contrasena [
 	^ contrasena
 ]
 
+{ #category : #'instance initialization' }
+Usuario >> inicializarConNombre: unNombre yContrasena: unaContrasena [
+	nombre := unNombre.
+	contrasena := unaContrasena
+]
+
 { #category : #initialization }
 Usuario >> initialize [
 	fechaHora := DateAndTime today.
 	topicosDeInteres := OrderedCollection new.
-	seguidores := OrderedCollection new.
 	seguidos := OrderedCollection new.
 	publicaciones := OrderedCollection new
 ]
@@ -65,12 +64,6 @@ Usuario >> initialize [
 { #category : #accessing }
 Usuario >> nombre [
 	^ nombre
-]
-
-{ #category : #'instance initialization' }
-Usuario >> nuevoConNombre: unNombre yContrasena: unaContrasena [
-	nombre := unNombre.
-	contrasena := unaContrasena
 ]
 
 { #category : #'search and filtering' }
@@ -106,10 +99,7 @@ Usuario >> publicaciones [
 
 { #category : #deleting }
 Usuario >> quitarPublicacion: unaPublicacion [
-	(publicaciones includes: unaPublicacion)
-		ifTrue: [ publicaciones remove: unaPublicacion.
-			^ true ].
-	^ false
+	^ publicaciones remove: unaPublicacion ifAbsent: [ false ]
 ]
 
 { #category : #'search and filtering' }
@@ -131,8 +121,7 @@ Usuario >> seguidos [
 
 { #category : #adding }
 Usuario >> seguirAlUsuario: unUsuario [
-	seguidos add: unUsuario.
-	unUsuario agregarSeguidor: self
+	seguidos add: unUsuario
 ]
 
 { #category : #accessing }

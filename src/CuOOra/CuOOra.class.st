@@ -59,18 +59,14 @@ CuOOra >> crearRespuestaConTexto: unTexto aPregunta: unaPregunta porUsuario: unU
 
 { #category : #adding }
 CuOOra >> crearTopicoConNombre: unNombre yDescripcion: unaDescripcion [
-	| topico |
-	topico := Topico nuevoConNombre: unNombre yDescripcion: unaDescripcion.
-	topicos add: topico.
-	^ topico
+	^ topicos
+		add: (Topico nuevoConNombre: unNombre yDescripcion: unaDescripcion)
 ]
 
 { #category : #adding }
 CuOOra >> crearUsuarioConNombre: unNombre yContrasena: unaContrasena [
-	| usuario |
-	usuario := Usuario nuevoConNombre: unNombre yContrasena: unaContrasena.
-	usuarios add: usuario.
-	^ usuario
+	^ usuarios
+		add: (Usuario nuevoConNombre: unNombre yContrasena: unaContrasena)
 ]
 
 { #category : #initialization }

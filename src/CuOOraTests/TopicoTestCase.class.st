@@ -62,7 +62,7 @@ TopicoTestCase >> testAgregarPregunta [
 TopicoTestCase >> testQuitarPregunta [
 	self
 		assert: (topicoProgramacion quitarPregunta: preguntaDeProgramacion)
-		equals: true.	"La pregunta se encuentra dentro de la coleccion de preguntas entonces se quita de la misma y retorna true"
+		equals: preguntaDeProgramacion.	"La pregunta se encuentra dentro de la coleccion de preguntas entonces se quita de la misma y se retorna"
 	self
 		assert: (topicoProgramacion preguntas includes: preguntaDeProgramacion)
 		equals: false. "La pregunta no deberia encontrarse dentro de las preguntas del topico"

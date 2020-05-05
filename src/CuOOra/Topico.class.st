@@ -11,7 +11,7 @@ Class {
 
 { #category : #'instance creation' }
 Topico class >> nuevoConNombre: unNombre yDescripcion: unaDescripcion [
-	^ self new nuevoConNombre: unNombre yDescripcion: unaDescripcion
+	^ self new inicializarConNombre: unNombre yDescripcion: unaDescripcion
 ]
 
 { #category : #adding }
@@ -24,6 +24,12 @@ Topico >> descripcion [
 	^ descripcion
 ]
 
+{ #category : #'instance initialization' }
+Topico >> inicializarConNombre: unNombre yDescripcion: unaDescripcion [
+	nombre := unNombre.
+	descripcion := unaDescripcion
+]
+
 { #category : #initialization }
 Topico >> initialize [
 	preguntas := OrderedCollection new
@@ -34,12 +40,6 @@ Topico >> nombre [
 	^ nombre
 ]
 
-{ #category : #'instance initialization' }
-Topico >> nuevoConNombre: unNombre yDescripcion: unaDescripcion [
-	nombre := unNombre.
-	descripcion := unaDescripcion
-]
-
 { #category : #accessing }
 Topico >> preguntas [
 	^ preguntas
@@ -47,8 +47,5 @@ Topico >> preguntas [
 
 { #category : #deleting }
 Topico >> quitarPregunta: unaPregunta [
-	(preguntas includes: unaPregunta)
-		ifTrue: [ preguntas remove: unaPregunta.
-			^ true ].
-	^ false
+	^ preguntas remove: unaPregunta ifAbsent: [ false ]
 ]

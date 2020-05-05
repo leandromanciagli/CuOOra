@@ -11,7 +11,7 @@ Class {
 { #category : #'instance creation' }
 Respuesta class >> nuevaConTexto: unTexto aPregunta: unaPregunta porUsuario: unUsuario [
 	^ self new
-		nuevaConTexto: unTexto
+		inicializarConTexto: unTexto
 		aPregunta: unaPregunta
 		porUsuario: unUsuario
 ]
@@ -29,7 +29,7 @@ Respuesta >> esRespuesta [
 ]
 
 { #category : #'instance initialization' }
-Respuesta >> nuevaConTexto: unTexto aPregunta: unaPregunta porUsuario: unUsuario [
+Respuesta >> inicializarConTexto: unTexto aPregunta: unaPregunta porUsuario: unUsuario [
 	pregunta := unaPregunta.
 	usuario := unUsuario.
 	texto := unTexto

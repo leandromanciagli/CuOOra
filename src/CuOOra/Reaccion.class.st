@@ -12,7 +12,7 @@ Class {
 
 { #category : #initialization }
 Reaccion class >> nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto [
-	^ self new nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto
+	^ self new inicializarDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto
 ]
 
 { #category : #deleting }
@@ -31,15 +31,15 @@ Reaccion >> estado: unEstado [
 ]
 
 { #category : #initialization }
-Reaccion >> initialize [
-	fechaHora := DateAndTime today
-]
-
-{ #category : #initialization }
-Reaccion >> nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto [
+Reaccion >> inicializarDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto [
 	usuario := unUsuario.
 	publicacion := unaPublicacion.
 	estado := unVoto
+]
+
+{ #category : #initialization }
+Reaccion >> initialize [
+	fechaHora := DateAndTime today
 ]
 
 { #category : #accessing }
