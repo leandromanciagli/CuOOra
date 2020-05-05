@@ -1,3 +1,8 @@
+"
+| app |
+	app := WAAdmin register: LoginComponent asApplicationAt: 'cuoora'.
+	app preferenceAt: #sessionClass put: CuOOraSession
+"
 Class {
 	#name : #LoginComponent,
 	#superclass : #WAComponent,
@@ -35,28 +40,36 @@ LoginComponent >> initialize [
 
 { #category : #'instance initialization' }
 LoginComponent >> instanciarCuOOra [
-	| top topicos usuarioCatherine usuarioLeandro pregunta1 |
+	| usuarioPedro usuarioDiego usuarioJuan topico1 topico2 topico3 preguntaDePedro preguntaDeDiego RespuestaAPreguntaDePedro RespuestaAPreguntaDeDiego |
 	CuOOra clearInstancia.
 	cuoora := CuOOra instancia.
-	usuarioCatherine := cuoora crearUsuarioConNombre: 'Catherine' yContrasena:'1234'.
-	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' yContrasena:'lacontraseña'.
-	top := cuoora crearTopicoConNombre: 'topico1' yDescripcion:'vamos a verla'.
-	cuoora crearTopicoConNombre: 'topico2' yDescripcion: 'Es el topico2'.
-	usuarioCatherine agregarTopicoDeInteres: top.
-	usuarioLeandro seguirAlUsuario: usuarioCatherine.
-	topicos:=OrderedCollection new.
-	topicos add:top.
-	pregunta1 := cuoora crearPreguntaConTitulo:'pregunta 1' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	cuoora crearPreguntaConTitulo:'pregunta 2' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	cuoora crearPreguntaConTitulo:'pregunta 3' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	cuoora crearPreguntaConTitulo:'pregunta 4' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	cuoora crearPreguntaConTitulo:'pregunta 5' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	cuoora crearPreguntaConTitulo:'pregunta 6' descripcion:'es relevante y debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	cuoora crearPreguntaConTitulo:'pregunta 7' descripcion:'es relevante pero no debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	cuoora crearPreguntaConTitulo:'pregunta 8' descripcion:'es relevante pero no debe mostrarse' porUsuario:usuarioLeandro yTopicos:topicos.
-	cuoora crearRespuestaConTexto:'respuesta a la pregunta 1' aPregunta:pregunta1 porUsuario:usuarioCatherine.
-	cuoora registrarReaccionDelUsuario: usuarioCatherine aPublicacion: pregunta1 conVoto:false.
 	
+	"Usuarios:" 	
+	usuarioPedro := cuoora crearUsuarioConNombre: 'pedro@cuoora.com' yContrasena: 'pedro@cuoora.com'.
+	usuarioDiego := cuoora crearUsuarioConNombre: 'diego@cuoora.com' yContrasena: 'diego@cuoora.com'.
+	usuarioJuan := cuoora crearUsuarioConNombre: 'juan@cuoora.com' yContrasena: 'juan@cuoora.com'.
+
+	"- Las relaciones entre ellos son:"
+	"Juan sigue a Diego :" usuarioJuan seguirAlUsuario: usuarioDiego.
+	"Pedro sigue a Juan :" usuarioPedro seguirAlUsuario: usuarioJuan.
+
+"- Preguntas y respuestas: - "
+	topico1 := cuoora crearTopicoConNombre: 'OO1' yDescripcion: 'Objetos 1'.
+	topico2 := cuoora crearTopicoConNombre: 'Test de unidad' yDescripcion: 'Test de unidad'.
+	topico3 := cuoora crearTopicoConNombre: 'Smalltalk' yDescripcion: 'Smalltalk'.
+
+	"Pregunta de Pedro:  "
+	preguntaDePedro := cuoora crearPreguntaConTitulo: '¿Para qué sirve el método SetUp? ' descripcion: '¿Para qué sirve el método SetUp?' porUsuario: usuarioPedro yTopicos:(OrderedCollection with: topico1 with: topico2).
+		 
+	"- Respuesta de Diego: "
+	RespuestaAPreguntaDePedro := cuoora crearRespuestaConTexto: 'Sirve para instanciar los objetos que  son evaluados por el test en un único método y que se ejecute siempre antes de cada test.' aPregunta: preguntaDePedro porUsuario: usuarioDiego.
+
+	"- Pregunta de Diego:"
+	preguntaDeDiego := cuoora crearPreguntaConTitulo: '¿Qué significa #messageNotUnderstood? ' descripcion: '¿Para qué sirve el método SetUp?' porUsuario: usuarioDiego yTopicos:(OrderedCollection with: topico1 with: topico3).
+
+	"- Respuesta de Pedro:"
+	RespuestaAPreguntaDeDiego := cuoora crearRespuestaConTexto: 'Significa que el objeto que recibió el mensaje no encontró ningún método para ejecutar en respuesta.' aPregunta: preguntaDeDiego porUsuario: usuarioPedro.
+		   
 ]
 
 { #category : #callbacks }

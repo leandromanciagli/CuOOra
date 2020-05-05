@@ -3,12 +3,12 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'nombre',
-		'intereses',
-		'publicaciones',
 		'contrasena',
+		'publicaciones',
+		'topicosDeInteres',
 		'fechaHora',
-		'seguidores',
-		'seguidos'
+		'seguidos',
+		'seguidores'
 	],
 	#classInstVars : [
 		'fechaHora',
@@ -36,7 +36,7 @@ Usuario >> agregarSeguidor: unSeguidor [
 
 { #category : #adding }
 Usuario >> agregarTopicoDeInteres: unTopico [
-	intereses add: unTopico
+	topicosDeInteres add: unTopico
 ]
 
 { #category : #calculating }
@@ -56,15 +56,10 @@ Usuario >> contrasena [
 { #category : #initialization }
 Usuario >> initialize [
 	fechaHora := DateAndTime today.
-	intereses := OrderedCollection new.
+	topicosDeInteres := OrderedCollection new.
 	seguidores := OrderedCollection new.
 	seguidos := OrderedCollection new.
 	publicaciones := OrderedCollection new
-]
-
-{ #category : #accessing }
-Usuario >> intereses [
-	^ intereses
 ]
 
 { #category : #accessing }
@@ -90,7 +85,7 @@ Usuario >> obtenerPreguntasRelevantes [
 
 { #category : #'search and filtering' }
 Usuario >> preguntasDeInteres [
-	^ self intereses flatCollect: [ :each | each preguntas ]
+	^ self topicosDeInteres flatCollect: [ :each | each preguntas ]
 ]
 
 { #category : #'search and filtering' }
@@ -138,4 +133,9 @@ Usuario >> seguidos [
 Usuario >> seguirAlUsuario: unUsuario [
 	seguidos add: unUsuario.
 	unUsuario agregarSeguidor: self
+]
+
+{ #category : #accessing }
+Usuario >> topicosDeInteres [
+	^ topicosDeInteres
 ]

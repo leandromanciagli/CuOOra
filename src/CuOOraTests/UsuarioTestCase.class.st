@@ -97,11 +97,11 @@ UsuarioTestCase >> testAgregarPublicacion [
 UsuarioTestCase >> testAgregarTopicoDeInteres [
 	self
 		assert:
-			(usuarioLeandro intereses
+			(usuarioLeandro topicosDeInteres
 				detect: [ :top | top nombre = 'Programacion' ]) notNil.	"El topico se encuentra entre los topicos de interes del usuario"
 	self
 		should:
-			[ usuarioLeandro intereses detect: [ :top | top nombre = 'Geografia' ] ]
+			[ usuarioLeandro topicosDeInteres detect: [ :top | top nombre = 'Geografia' ] ]
 		raise: Error	"El topico no debería encontrarse entre los topicos de interes del usuario"
 ]
 

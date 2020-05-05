@@ -64,13 +64,13 @@ PreguntaTestCase >> setUp [
 PreguntaTestCase >> testAgregarRespuesta [
 	self
 		assert:
-			(preguntaDeProgramacion respuestas
+			(preguntaDeProgramacion obtenerRespuestasPorPuntaje
 				detect: [ :resp | 
 					resp texto
 						= 'Es un conjunto de objetos que se mandan mensajes entre si' ])
 				notNil.	"La respuesta se encuentra entre las respuestas de la pregunta"
 	self
-		should: [ preguntaDeCocina respuestas
+		should: [ preguntaDeCocina obtenerRespuestasPorPuntaje
 				detect: [ :resp | resp texto = '¿Como se hace una torta?' ] ]
 		raise: Error	"La respuesta se agregó a las respuestas de la pregunta que se indico y no a otra"
 
@@ -84,17 +84,26 @@ PreguntaTestCase >> testDelete [
 		descripcion: 'En Pascal'
 		porUsuario: usuarioCatherine
 		yTopicos: (OrderedCollection with: topicoProgramacion).
+		
 	pregunta := usuarioCatherine preguntasRealizadas
 		detect: [ :p | p titulo = '¿Como multiplicar matrices?' ]
 		ifNone: [ nil ].
+		
 	self assert: pregunta notNil.	"La pregunta debería existir"
+	
 	pregunta delete.	"Se borra la pregunta"
+		
 	pregunta := usuarioCatherine preguntasRealizadas
 		detect: [ :p | p titulo = '¿Como multiplicar matrices?' ]
 		ifNone: [ nil ].
-	self assert: pregunta isNil	"La pregunta ya no debería existir"
-]
+		
+	self assert: pregunta isNil.	"La pregunta ya no debería existir en la coleccion de publicaciones del usuario"
+		
+	pregunta := topicoProgramacion preguntas 
+		detect: [ :p | p titulo = '¿Como multiplicar matrices?' ]
+		ifNone: [ nil ].
+		
+	self assert: pregunta isNil.	"La pregunta ya no debería existir en la coleccion de preguntas del topico"
 
-{ #category : #tests }
-PreguntaTestCase >> testObtenerRespuestasPorPuntaje [
+
 ]

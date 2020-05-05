@@ -15,6 +15,11 @@ Reaccion class >> nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVot
 	^ self new nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto
 ]
 
+{ #category : #deleting }
+Reaccion >> borrarPublicacion [
+	publicacion := nil
+]
+
 { #category : #accessing }
 Reaccion >> estado [
 	^ estado
