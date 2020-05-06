@@ -18,7 +18,8 @@ Publicacion >> agregarReaccion: unaReaccion [
 Publicacion >> buscarReaccionDelUsuario: unUsuario [
 	| reaccion |
 	reacciones
-		do: [ :r | r usuario = unUsuario
+		do: [ :r | 
+			r usuario = unUsuario
 				ifTrue: [ reaccion := r ] ].
 	^ reaccion
 ]
@@ -75,13 +76,15 @@ Publicacion >> reacciones [
 ]
 
 { #category : #adding }
-Publicacion >> registrarDisLikeDelUsuario: unUsuario [
+Publicacion >> registrarDislikeDelUsuario: unUsuario [
 	| reaccion |
 	reaccion := self buscarReaccionDelUsuario: unUsuario.
 	reaccion
-		ifNil: [ reaccion := Reaccion nuevaDelUsuario:unUsuario dislikesPublicacion: self.
-			      self agregarReaccion: reaccion ]
-		ifNotNil: [ reaccion dislike].
+		ifNil: [ reaccion := Reaccion
+				nuevaDelUsuario: unUsuario
+				dislikesPublicacion: self.
+			self agregarReaccion: reaccion ]
+		ifNotNil: [ reaccion dislike ].
 	^ reaccion
 ]
 
@@ -90,9 +93,11 @@ Publicacion >> registrarLikeDelUsuario: unUsuario [
 	| reaccion |
 	reaccion := self buscarReaccionDelUsuario: unUsuario.
 	reaccion
-		ifNil: [ reaccion := Reaccion nuevaDelusuario:unUsuario likesPublicacion: self.
-			      self agregarReaccion: reaccion ]
-		ifNotNil: [ reaccion like].
+		ifNil: [ reaccion := Reaccion
+				nuevaDelusuario: unUsuario
+				likesPublicacion: self.
+			self agregarReaccion: reaccion ]
+		ifNotNil: [ reaccion like ].
 	^ reaccion
 ]
 

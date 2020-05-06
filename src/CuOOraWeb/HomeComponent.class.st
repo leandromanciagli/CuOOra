@@ -45,7 +45,7 @@ HomeComponent >> renderContentOn: html [
 				callback: [ p registrarLikeDelUsuario: usuarioLogueado ];
 				with: 'like  '.
 			html anchor
-				callback: [ p registrarDisLikeDelUsuario: usuarioLogueado];
+				callback: [ p registrarDislikeDelUsuario: usuarioLogueado];
 				with: 'dislike'.
 			html tag: 'hr' ].
 	html break.

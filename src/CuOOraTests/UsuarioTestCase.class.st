@@ -55,12 +55,12 @@ UsuarioTestCase >> setUp [
 	respuesta2PreguntaModa := cuoora crearRespuestaConTexto: 'Yo tampoco' aPregunta: preguntaDeModa porUsuario: usuarioMariano.
 	
 	"Se registran reacciones de los usuarios a las preguntas y respuestas"
-	preguntaDeProgramacion registrarDisLikeDelUsuario: usuarioLeandro.
-	preguntaDeProgramacion registrarDisLikeDelUsuario: usuarioMariano.
+	preguntaDeProgramacion registrarDislikeDelUsuario: usuarioLeandro.
+	preguntaDeProgramacion registrarDislikeDelUsuario: usuarioMariano.
 	respuesta1PreguntaGeografia registrarLikeDelUsuario: usuarioLeandro.
 	respuesta1PreguntaGeografia registrarLikeDelUsuario: usuarioMariano.
-	preguntaDeModa registrarDisLikeDelUsuario: usuarioLeandro.
-	preguntaDeModa registrarDisLikeDelUsuario: usuarioMariano.
+	preguntaDeModa registrarDislikeDelUsuario: usuarioLeandro.
+	preguntaDeModa registrarDislikeDelUsuario: usuarioMariano.
 	preguntaDeGeografia registrarLikeDelUsuario: usuarioCatherine.
 	
 	

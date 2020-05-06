@@ -10,24 +10,14 @@ Class {
 	#category : #CuOOra
 }
 
-{ #category : #initialization }
-Reaccion class >> nuevaDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto [
-	^ self new inicializarDelUsuario: unUsuario aPublicacion: unaPublicacion conVoto: unVoto
-]
-
 { #category : #'instance creation' }
-Reaccion class >> nuevaDelUsuario:unUsuario dislikesPublicacion: unaPublicacion [
+Reaccion class >> nuevaDelUsuario: unUsuario dislikesPublicacion: unaPublicacion [
 	^ self new inicializarDelUsuario: unUsuario dislikesPublicacion: unaPublicacion
-		
-		
-		
-
 ]
 
 { #category : #'instance creation' }
-Reaccion class >> nuevaDelusuario:unUsuario likesPublicacion: unaPublicacion [
+Reaccion class >> nuevaDelusuario: unUsuario likesPublicacion: unaPublicacion [
 	^ self new inicializarDelUsuario: unUsuario likesPublicacion: unaPublicacion
-		
 ]
 
 { #category : #deleting }
@@ -37,7 +27,7 @@ Reaccion >> borrarPublicacion [
 
 { #category : #accessing }
 Reaccion >> dislike [
-	estado := false.
+	estado := false
 ]
 
 { #category : #accessing }
@@ -55,18 +45,18 @@ Reaccion >> inicializarDelUsuario: unUsuario dislikesPublicacion: unaPublicacion
 { #category : #initialization }
 Reaccion >> inicializarDelUsuario: unUsuario likesPublicacion: unaPublicacion [
 	usuario := unUsuario.
-	publicacion := unaPublicacion.
+	publicacion := unaPublicacion
 ]
 
 { #category : #initialization }
 Reaccion >> initialize [
-	estado  := true.
-	fechaHora := DateAndTime today
+	fechaHora := DateAndTime today.
+	estado := true
 ]
 
 { #category : #accessing }
 Reaccion >> like [
-	estado := true.
+	estado := true
 ]
 
 { #category : #accessing }

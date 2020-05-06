@@ -121,7 +121,7 @@ CuOOraTestCase >> testRegistrarReaccionDelUsuario [
 		buscarReaccionDelUsuario: usuarioCatherine.
 	self assert: reaccionDeCatherine estado equals: true.
 	respuestaAPreguntaDeProgramacion
-		registrarDisLikeDelUsuario: usuarioCatherine.
+		registrarDislikeDelUsuario: usuarioCatherine.
 	self assert: reaccionDeCatherine estado equals: false
 ]
 

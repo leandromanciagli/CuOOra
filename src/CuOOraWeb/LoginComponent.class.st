@@ -32,14 +32,8 @@ LoginComponent >> contrasena: anObject [
 	contrasena := anObject
 ]
 
-{ #category : #initialization }
-LoginComponent >> initialize [
-	super initialize.
-	self instanciarCuOOra
-]
-
 { #category : #'instance initialization' }
-LoginComponent >> instanciarCuOOra [
+LoginComponent >> inicializarCuOOra [
 	| usuarioPedro usuarioDiego usuarioJuan topico1 topico2 topico3 preguntaDePedro preguntaDeDiego RespuestaAPreguntaDePedro RespuestaAPreguntaDeDiego |
 	
 	cuoora := CuOOra instancia.
@@ -70,6 +64,12 @@ LoginComponent >> instanciarCuOOra [
 	"- Respuesta de Pedro:"
 	RespuestaAPreguntaDeDiego := cuoora crearRespuestaConTexto: 'Significa que el objeto que recibió el mensaje no encontró ningún método para ejecutar en respuesta.' aPregunta: preguntaDeDiego porUsuario: usuarioPedro.
 		   
+]
+
+{ #category : #initialization }
+LoginComponent >> initialize [
+	super initialize.
+	self inicializarCuOOra
 ]
 
 { #category : #callbacks }

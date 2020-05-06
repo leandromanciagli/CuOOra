@@ -53,7 +53,7 @@ PreguntaDetalleComponent >> renderContentOn: html [
 		callback: [ pregunta registrarLikeDelUsuario: usuarioLogueado  ];
 		with: 'like  '.
 	html anchor
-		callback: [ pregunta registrarDisLikeDelUsuario: usuarioLogueado ];
+		callback: [ pregunta registrarDislikeDelUsuario: usuarioLogueado ];
 		with: 'dislike'.
 	html tag: 'hr'.
 	pregunta obtenerRespuestasPorPuntaje
@@ -72,7 +72,7 @@ PreguntaDetalleComponent >> renderContentOn: html [
 				callback: [ r registrarLikeDelUsuario: usuarioLogueado  ];
 				with: 'like  '.
 			html anchor
-				callback: [ r registrarDisLikeDelUsuario: usuarioLogueado ];
+				callback: [ r registrarDislikeDelUsuario: usuarioLogueado ];
 				with: 'dislike'.
 			html tag: 'hr' ].
 	html anchor
