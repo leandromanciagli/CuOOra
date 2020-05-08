@@ -40,7 +40,7 @@ CuOOra >> crearPreguntaConTitulo: unTitulo descripcion: unaDescripcion porUsuari
 		descripcion: unaDescripcion
 		porUsuario: unUsuario
 		yTopicos: unosTopicos.	"La creación es realizada por la clase Pregunta"
-	unUsuario agregarPublicacion: pregunta.	"La pregunta creada se agrega a la coleccion de preguntas del usuario"
+	unUsuario agregarPregunta: pregunta.	"La pregunta creada se agrega a la coleccion de preguntas del usuario"
 	unosTopicos do: [ :top | top agregarPregunta: pregunta ].	"La pregunta creada se agrega a la coleccion de preguntas de un/os topico/s"
 	^ pregunta
 ]
@@ -52,7 +52,6 @@ CuOOra >> crearRespuestaConTexto: unTexto aPregunta: unaPregunta porUsuario: unU
 		nuevaConTexto: unTexto
 		aPregunta: unaPregunta
 		porUsuario: unUsuario.	"La creación es realizada por la clase Respuesta"
-	unUsuario agregarPublicacion: respuesta.	"La respuesta creada se agrega a la coleccion de publicaciones(respuestas) del usuario"
 	unaPregunta agregarRespuesta: respuesta.	"La respuesta creada se agrega a la coleccion de respuestas de la pregunta"
 	^ respuesta
 ]

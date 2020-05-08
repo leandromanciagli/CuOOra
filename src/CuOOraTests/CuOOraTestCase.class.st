@@ -31,7 +31,7 @@ CuOOraTestCase >> setUp [
 	"Los usuarios registran topicos de su interes"
 	usuarioCatherine agregarTopicoDeInteres: topicoProgramacion.
 	usuarioLeandro agregarTopicoDeInteres: topicoCocina.
-	
+	usuarioLeandro agregarTopicoDeInteres: topicoProgramacion.
 	"Se crea una pregunta"
 	preguntaDeProgramacion := cuoora crearPreguntaConTitulo: '¿Que es la POO?' descripcion: 'Funcionamiento del paradigma' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion with: topicoPOO).
 	
@@ -70,7 +70,7 @@ CuOOraTestCase >> testBuscarTopicoConNombre [
 CuOOraTestCase >> testCrearPregunta [
 	self
 		assert:
-			(usuarioCatherine preguntasRealizadas
+			(usuarioCatherine preguntas
 				detect: [ :p | p titulo = '¿Que es la POO?' ]) notNil.	"La pregunta se agrego a la coleccion de preguntas del usuario usuarioCatherine"
 	self
 		assert:

@@ -33,9 +33,9 @@ UsuarioDetalleComponent >> renderContentOn: html [
 						callback: [ usuarioLogueado seguirAlUsuario: usuario ];
 						"el  2do usuario es el usuario cuyo perfil estoy viendo"
 							with: 'Seguir' ] ].
-	self usuario preguntasRealizadas isEmpty
+	self usuario preguntas isEmpty
 		ifTrue: [ html paragraph with: 'No hay preguntas' ]
-		ifFalse: [ self usuario preguntasRealizadas
+		ifFalse: [ self usuario preguntas
 				do: [ :p | 
 					html div.
 					html anchor

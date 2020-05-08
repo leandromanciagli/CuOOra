@@ -85,7 +85,7 @@ PreguntaTestCase >> testDelete [
 		porUsuario: usuarioCatherine
 		yTopicos: (OrderedCollection with: topicoProgramacion).
 		
-	pregunta := usuarioCatherine preguntasRealizadas
+	pregunta := usuarioCatherine preguntas
 		detect: [ :p | p titulo = '¿Como multiplicar matrices?' ]
 		ifNone: [ nil ].
 		
@@ -93,7 +93,7 @@ PreguntaTestCase >> testDelete [
 	
 	pregunta delete.	"Se borra la pregunta"
 		
-	pregunta := usuarioCatherine preguntasRealizadas
+	pregunta := usuarioCatherine preguntas
 		detect: [ :p | p titulo = '¿Como multiplicar matrices?' ]
 		ifNone: [ nil ].
 		

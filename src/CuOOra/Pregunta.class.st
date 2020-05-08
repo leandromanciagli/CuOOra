@@ -27,11 +27,9 @@ Pregunta >> agregarRespuesta: unaRespuesta [
 
 { #category : #'submorphs-add/remove' }
 Pregunta >> delete [
-	usuario quitarPublicacion: self.	"La pregunta se quita de la coleccion de publicaciones del usuario"
+	usuario quitarPregunta: self.	"La pregunta se quita de la coleccion de publicaciones del usuario"
 	topicos do: [ :top | top quitarPregunta: self ]. "La pregunta se quita de cada topico al que pertenece"
-	respuestas do: [ :resp | resp delete ]. "Cada respuesta de la pregunta se quita de la coleccion de publicaciones del usuario"
 	respuestas := nil. "Se borran todas las respuestas asociadas a la pregunta"
-	reacciones do: [ :reaccion | reaccion borrarPublicacion ]. "La pregunta se quita de cada reaccion a la que pertenece"
 	reacciones := nil "Se borran todas las reacciones asociadas a la pregunta"
 ]
 

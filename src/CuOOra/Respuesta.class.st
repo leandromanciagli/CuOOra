@@ -46,8 +46,8 @@ Respuesta >> pregunta: unaPregunta [
 ]
 
 { #category : #accessing }
-Respuesta >> preguntaEsDelUsuario: unUsuario [
-	^ pregunta usuario == unUsuario
+Respuesta >> respuestaEsDelUsuario:unUsuario [
+	^ self usuario == unUsuario
 ]
 
 { #category : #accessing }

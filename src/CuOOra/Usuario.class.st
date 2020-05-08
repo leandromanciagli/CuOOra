@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'nombre',
 		'contrasena',
+		'preguntas',
 		'publicaciones',
 		'topicosDeInteres',
 		'fechaHora',
@@ -24,8 +25,8 @@ Usuario class >> nuevoConNombre: unNombre yContrasena: unaContrasena [
 ]
 
 { #category : #adding }
-Usuario >> agregarPublicacion: unaPublicacion [
-	publicaciones add: unaPublicacion
+Usuario >> agregarPregunta: unaPregunta [
+	preguntas add: unaPregunta 
 ]
 
 { #category : #adding }
@@ -36,10 +37,10 @@ Usuario >> agregarTopicoDeInteres: unTopico [
 { #category : #calculating }
 Usuario >> calcularPuntaje [
 	| puntajePorPreguntas puntajePorRespuestas puntajePorVotacion |
-	puntajePorPreguntas := self preguntasRealizadas size * 20.
+	puntajePorPreguntas := self preguntas size * 20.
 	puntajePorRespuestas := self respuestasAPreguntasDeOtrosUsuarios size * 50.
-	puntajePorVotacion := self publicaciones inject: 0 into: [ :sum :p | sum + p puntaje ].
-	^ puntajePorPreguntas + puntajePorRespuestas + puntajePorVotacion
+	puntajePorVotacion := self publicaciones inject: 0 into: [ :sum :p | sum + p puntaje ]. "ver este"
+	^ puntajePorPreguntas + puntajePorRespuestas + puntajePorVotacion 
 ]
 
 { #category : #accessing }
@@ -58,7 +59,19 @@ Usuario >> initialize [
 	fechaHora := DateAndTime today.
 	topicosDeInteres := OrderedCollection new.
 	seguidos := OrderedCollection new.
-	publicaciones := OrderedCollection new
+	preguntas := OrderedCollection new
+]
+
+{ #category : #'search and filtering' }
+Usuario >> misRespuestasAMisPreguntas [ "Me quedo con las respuestas hechas por mí a preguntas mías"
+	|respuestas|
+	respuestas:=  self preguntas flatCollect: [ :preg | preg obtenerRespuestasPorPuntaje ].
+	
+	^ respuestas select: [ :respuesta | respuesta respuestaEsDelUsuario:self ].
+
+
+
+	
 ]
 
 { #category : #accessing }
@@ -76,6 +89,11 @@ Usuario >> obtenerPreguntasRelevantes [
 	^ preguntasRelevantes
 ]
 
+{ #category : #accessing }
+Usuario >> preguntas [
+	^ preguntas
+]
+
 { #category : #'search and filtering' }
 Usuario >> preguntasDeInteres [
 	^ self topicosDeInteres flatCollect: [ :each | each preguntas ]
@@ -83,35 +101,37 @@ Usuario >> preguntasDeInteres [
 
 { #category : #'search and filtering' }
 Usuario >> preguntasDeSeguidos [
-	^ self seguidos flatCollect: [ :each | each preguntasRealizadas ]
-]
-
-{ #category : #'search and filtering' }
-Usuario >> preguntasRealizadas [
-	^ publicaciones select: [ :p | p esPregunta ].
-
+	^ self seguidos flatCollect: [ :each | each preguntas ]
 ]
 
 { #category : #accessing }
 Usuario >> publicaciones [
-	^ publicaciones
+	^ (self respuestasRealizadas 
+		, self preguntas) asSet
 ]
 
 { #category : #deleting }
-Usuario >> quitarPublicacion: unaPublicacion [
-	^ publicaciones remove: unaPublicacion ifAbsent: [ false ]
+Usuario >> quitarPregunta: unaPregunta [
+	preguntas remove: unaPregunta ifAbsent: [ ^ false ].
+	^ true.
+	
 ]
 
 { #category : #'search and filtering' }
 Usuario >> respuestasAPreguntasDeOtrosUsuarios [
-	^ self respuestasRealizadas
-		reject: [ :respuesta | respuesta preguntaEsDelUsuario:self ].
+	| respuestas |
+	respuestas := self obtenerPreguntasRelevantes
+		flatCollect: [ :pre | pre obtenerRespuestasPorPuntaje ].
+	^ respuestas
+		select: [ :respuesta | respuesta respuestaEsDelUsuario: self ]
 ]
 
 { #category : #'search and filtering' }
 Usuario >> respuestasRealizadas [
-	^ publicaciones select: [ :p | p esRespuesta ].
+	"Conocer las respuestas que dió un usuario."
 
+	^ (self misRespuestasAMisPreguntas
+		, self respuestasAPreguntasDeOtrosUsuarios) asSet
 ]
 
 { #category : #accessing }
