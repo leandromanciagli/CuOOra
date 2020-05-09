@@ -18,8 +18,6 @@ Respuesta class >> nuevaConTexto: unTexto aPregunta: unaPregunta porUsuario: unU
 
 { #category : #deleting }
 Respuesta >> delete [
-	usuario quitarPublicacion: self. "La respuesta se quita de la coleccion de publicaciones del usuario"
-	reacciones do: [ :reaccion | reaccion borrarPublicacion ]. "La respuesta se quita de cada reaccion a la que pertenece"
 	reacciones := nil "Se borran todas las reacciones asociadas a la respuesta"
 ]
 
