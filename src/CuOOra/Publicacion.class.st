@@ -33,7 +33,7 @@ Publicacion >> delete [
 
 { #category : #'search and filtering' }
 Publicacion >> dislikes [
-	^ self reacciones reject: [ :each | each estado ] "reject devuelve todos los false"
+	^ self reacciones reject: [ :reaccion | reaccion estado ] "reject devuelve todos los false"
 ]
 
 { #category : #accessing }
@@ -49,7 +49,7 @@ Publicacion >> initialize [
 
 { #category : #'search and filtering' }
 Publicacion >> likes [
-	^ self reacciones select: [ :each | each estado ] "select devuelve todos los true"
+	^ self reacciones select: [ :reaccion | reaccion estado ] "select devuelve todos los true"
 ]
 
 { #category : #calculating }
