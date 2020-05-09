@@ -77,7 +77,7 @@ UsuarioTestCase >> setUp [
 UsuarioTestCase >> testAgregarPublicacion [
 	self
 		assert:
-			(usuarioCatherine preguntas
+			(usuarioCatherine preguntasRealizadas
 				detect: [ :p | p titulo = '¿Alguien sabe test de unidad?' ])
 				notNil.	"La pregunta se encuentra entre las publicaciones del usuario"
 	self
@@ -85,7 +85,7 @@ UsuarioTestCase >> testAgregarPublicacion [
 			(usuarioLeandro respuestasRealizadas
 				detect: [ :r | r texto = 'Si, yo!' ]) notNil.	"La respuesta se encuentra entre las publicaciones del usuario"
 	self
-		should: [ usuarioLeandro preguntas
+		should: [ usuarioLeandro preguntasRealizadas
 				detect: [ :p | p titulo = '¿Cual es la capital de Italia?' ] ]
 		raise: Error.	"La pregunta no debería encontrarse entre las publicaciones del usuario"
 	self
@@ -163,7 +163,7 @@ UsuarioTestCase >> testQuitarPregunta [
 		assert: (usuarioCatherine quitarPregunta: preguntaDeProgramacion)
 		equals: true.	"La pregunta se encuentra dentro de la coleccion de publicaciones entonces se quita de la misma y se retorna"
 	self
-		assert: (usuarioCatherine preguntas includes: preguntaDeProgramacion)
+		assert: (usuarioCatherine preguntasRealizadas includes: preguntaDeProgramacion)
 		equals: false.	"La pregunta no deberia encontrarse dentro de las publicaciones del usuario"
 	self
 		assert: (usuarioCatherine quitarPregunta: preguntaDeGeografia)

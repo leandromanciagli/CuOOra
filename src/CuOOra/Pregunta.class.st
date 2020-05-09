@@ -33,11 +33,6 @@ Pregunta >> delete [
 	reacciones := nil "Se borran todas las reacciones asociadas a la pregunta"
 ]
 
-{ #category : #overrided }
-Pregunta >> esPregunta [
-	^ true
-]
-
 { #category : #'instance initialization' }
 Pregunta >> inicializarConTitulo: unTitulo descripcion: unaDescripcion porUsuario: unUsuario yTopicos: unosTopicos [
 	titulo := unTitulo.

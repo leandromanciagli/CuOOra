@@ -23,11 +23,6 @@ Respuesta >> delete [
 	reacciones := nil "Se borran todas las reacciones asociadas a la respuesta"
 ]
 
-{ #category : #overrided }
-Respuesta >> esRespuesta [
-	^ true
-]
-
 { #category : #'instance initialization' }
 Respuesta >> inicializarConTexto: unTexto aPregunta: unaPregunta porUsuario: unUsuario [
 	pregunta := unaPregunta.
@@ -46,7 +41,7 @@ Respuesta >> pregunta: unaPregunta [
 ]
 
 { #category : #accessing }
-Respuesta >> respuestaEsDelUsuario:unUsuario [
+Respuesta >> respuestaEsDelUsuario: unUsuario [
 	^ self usuario == unUsuario
 ]
 

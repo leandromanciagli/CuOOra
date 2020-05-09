@@ -16,6 +16,8 @@ Publicacion >> agregarReaccion: unaReaccion [
 
 { #category : #'search and filtering' }
 Publicacion >> buscarReaccionDelUsuario: unUsuario [
+	"^ reacciones detect: [ :reaccion | reaccion usuario equals: unUsuario ]"
+	
 	| reaccion |
 	reacciones
 		do: [ :r | 
@@ -32,16 +34,6 @@ Publicacion >> delete [
 { #category : #'search and filtering' }
 Publicacion >> dislikes [
 	^ self reacciones reject: [ :each | each estado ] "reject devuelve todos los false"
-]
-
-{ #category : #overridden }
-Publicacion >> esPregunta [
-	^ false
-]
-
-{ #category : #overridden }
-Publicacion >> esRespuesta [
-	^ false
 ]
 
 { #category : #accessing }

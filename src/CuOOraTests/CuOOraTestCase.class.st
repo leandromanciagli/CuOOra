@@ -70,7 +70,7 @@ CuOOraTestCase >> testBuscarTopicoConNombre [
 CuOOraTestCase >> testCrearPregunta [
 	self
 		assert:
-			(usuarioCatherine preguntas
+			(usuarioCatherine preguntasRealizadas
 				detect: [ :p | p titulo = '¿Que es la POO?' ]) notNil.	"La pregunta se agrego a la coleccion de preguntas del usuario usuarioCatherine"
 	self
 		assert:

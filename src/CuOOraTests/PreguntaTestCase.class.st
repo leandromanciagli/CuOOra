@@ -85,7 +85,7 @@ PreguntaTestCase >> testDelete [
 		porUsuario: usuarioCatherine
 		yTopicos: (OrderedCollection with: topicoProgramacion).
 		
-	pregunta := usuarioCatherine preguntas
+	pregunta := usuarioCatherine preguntasRealizadas
 		detect: [ :p | p titulo = '¿Como multiplicar matrices?' ]
 		ifNone: [ nil ].
 		
@@ -93,13 +93,13 @@ PreguntaTestCase >> testDelete [
 	
 	pregunta delete.	"Se borra la pregunta"
 		
-	pregunta := usuarioCatherine preguntas
+	pregunta := usuarioCatherine preguntasRealizadas
 		detect: [ :p | p titulo = '¿Como multiplicar matrices?' ]
 		ifNone: [ nil ].
 		
 	self assert: pregunta isNil.	"La pregunta ya no debería existir en la coleccion de publicaciones del usuario"
 		
-	pregunta := topicoProgramacion preguntas 
+	pregunta := topicoProgramacion preguntas
 		detect: [ :p | p titulo = '¿Como multiplicar matrices?' ]
 		ifNone: [ nil ].
 		
