@@ -25,22 +25,30 @@ HeaderComponent >> padre: unPadre [
 
 { #category : #rendering }
 HeaderComponent >> renderContentOn: html [
-	| usuarioLogueado |
-	usuarioLogueado := self session usuario.
 	html heading
 		level: 2;
 		with: 'CuOOra'.
-	html anchor
-		callback: [ self renderPerfil: usuarioLogueado ];
-		with: usuarioLogueado nombre.
+	self renderPerfilUsuarioButtonOn: html.
 	html break.
-	html anchor
-		callback: [ self logout ];
-		with: 'logOut'.
+	self renderLogoutButtonOn: html.
 	html horizontalRule
 ]
 
 { #category : #rendering }
-HeaderComponent >> renderPerfil: unUsuario [
-	padre call: (UsuarioDetalleComponent new: unUsuario)
+HeaderComponent >> renderLogoutButtonOn: html [
+	html anchor
+		callback: [ self logout ];
+		with: [ html button with: 'LogOut' ]
+]
+
+{ #category : #rendering }
+HeaderComponent >> renderPerfilUsuarioButtonOn: html [
+	html anchor
+		callback: [ self renderUsuarioDetalle: self session usuario ];
+		with: self session usuario nombre
+]
+
+{ #category : #rendering }
+HeaderComponent >> renderUsuarioDetalle: unUsuario [
+	padre call: (UsuarioDetalleComponent newConUsuario: unUsuario)
 ]

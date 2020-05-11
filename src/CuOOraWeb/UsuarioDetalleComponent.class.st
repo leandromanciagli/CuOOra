@@ -2,71 +2,67 @@ Class {
 	#name : #UsuarioDetalleComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'header',
+		'headerComponent',
+		'preguntaComponent',
 		'usuario'
 	],
 	#category : #CuOOraWeb
 }
 
 { #category : #'instance creation' }
-UsuarioDetalleComponent class >> new: unUsuario [
+UsuarioDetalleComponent class >> newConUsuario: unUsuario [
 	^ self new usuario: unUsuario
+]
+
+{ #category : #comparing }
+UsuarioDetalleComponent >> esUsuarioLogueado [
+	^ usuario == self session usuario
 ]
 
 { #category : #initialization }
 UsuarioDetalleComponent >> initialize [
 	super initialize.
-	header := HeaderComponent newConPadre: self
+	headerComponent := HeaderComponent newConPadre: self
 ]
 
 { #category : #rendering }
 UsuarioDetalleComponent >> renderContentOn: html [
-	| usuarioLogueado |
-	html render: header.
-	usuarioLogueado := self session usuario.	"Para obtener el usuario logueado"
-	html heading: 'Preguntas de ' , self usuario nombre.
-	self usuario == usuarioLogueado
-		ifFalse: [ "el usuario logueado es el usuario del que se ve su perfil?"
-			(usuarioLogueado seguidos includes: self usuario)
-				ifTrue: [ html text: 'Ya sigues a este usuario' ]
-				ifFalse: [ html anchor
-						callback: [ usuarioLogueado seguirAlUsuario: usuario ];
-						"el  2do usuario es el usuario cuyo perfil estoy viendo"
-							with: 'Seguir' ] ].
-	self usuario preguntasRealizadas isEmpty
-		ifTrue: [ html paragraph with: 'No hay preguntas' ]
-		ifFalse: [ self usuario preguntasRealizadas
-				do: [ :p | 
-					html div.
-					html anchor
-						callback: [ self renderPregunta: p ];
-						with: [ html heading
-								level: 3;
-								with: p titulo ].
-					html paragraph with: 'topicos: ' , p topicos.
-					html paragraph
-						with: 'respuestas:' , p obtenerRespuestasPorPuntaje size asString.
-					html paragraph
-						with:
-							'Likes: ' , p likes size asString , '| Dislikes: '
-								, p dislikes size asString.
-					html anchor
-						callback: [ p registrarLikeDelUsuario: usuarioLogueado];
-						with: 'like  '.
-					html anchor
-						callback: [ p registrarDislikeDelUsuario: usuarioLogueado];
-						with: 'dislike'.
-					html tag: 'hr' ] ].
-	html tag: 'br'.
-	"redireccionar al home"
-	html anchor
-		callback: [ self volver ];
-		with: 'volver'
+	html render: headerComponent.
+	html heading: 'Preguntas de ' , usuario nombre.
+	self renderEsSeguidoOn: html.
+	self renderPreguntasOn: html.
+	self renderVolverButtonOn: html
 ]
 
 { #category : #rendering }
-UsuarioDetalleComponent >> renderPregunta: unaPregunta [
-	self call: (PreguntaDetalleComponent new: unaPregunta)
+UsuarioDetalleComponent >> renderEsSeguidoOn: html [
+	self esUsuarioLogueado
+		ifFalse: [ (self session usuario seguidos includes: usuario)
+				ifTrue: [ html text: 'Ya sigues a este usuario' ]
+				ifFalse: [ self renderSeguirUsuarioButtonOn: html ] ]
+]
+
+{ #category : #rendering }
+UsuarioDetalleComponent >> renderPreguntasOn: html [
+	usuario preguntasRealizadas isEmpty
+		ifTrue: [ html paragraph with: 'No hay preguntas' ]
+		ifFalse: [ self usuario preguntasRealizadas
+				do:
+					[ :pregunta | html render: (PreguntaComponent newConPadre: self yPregunta: pregunta) ] ]
+]
+
+{ #category : #rendering }
+UsuarioDetalleComponent >> renderSeguirUsuarioButtonOn: html [
+	html anchor
+		callback: [ self session usuario seguirAlUsuario: usuario ];
+		with: 'Seguir'
+]
+
+{ #category : #rendering }
+UsuarioDetalleComponent >> renderVolverButtonOn: html [
+	html anchor
+		callback: [ self answer ];
+		with: [ html button with: 'Volver' ]
 ]
 
 { #category : #accessing }
@@ -75,11 +71,6 @@ UsuarioDetalleComponent >> usuario [
 ]
 
 { #category : #accessing }
-UsuarioDetalleComponent >> usuario: anObject [
-	usuario := anObject
-]
-
-{ #category : #rendering }
-UsuarioDetalleComponent >> volver [
-	self answer
+UsuarioDetalleComponent >> usuario: unUsuario [
+	usuario := unUsuario
 ]

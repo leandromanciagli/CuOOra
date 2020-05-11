@@ -2,100 +2,57 @@ Class {
 	#name : #RespuestaComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'header',
-		'pregunta',
-		'newTexto'
+		'padre',
+		'respuesta'
 	],
 	#category : #CuOOraWeb
 }
 
 { #category : #'instance creation' }
-RespuestaComponent class >> pregunta: unaPregunta [
-	^ self new pregunta: unaPregunta
+RespuestaComponent class >> newConPadre: unPadre yRespuesta: unaRespuesta [
+	^ self new inicializarConPadre: unPadre yRespuesta: unaRespuesta
 ]
 
-{ #category : #callbacks }
-RespuestaComponent >> agregarRespuesta [
-	CuOOra instancia
-		crearRespuestaConTexto: newTexto
-		aPregunta: pregunta
-		porUsuario: self session usuario.
-	self volver
-]
-
-{ #category : #callbacks }
-RespuestaComponent >> cancelar [
-	newTexto := nil.
-	
-]
-
-{ #category : #initialization }
-RespuestaComponent >> initialize [
-	super initialize.
-	header := HeaderComponent newConPadre: self
-]
-
-{ #category : #accessing }
-RespuestaComponent >> newTexto [
-	^ newTexto
-]
-
-{ #category : #accessing }
-RespuestaComponent >> newTexto: unTexto [
-	newTexto := unTexto
-]
-
-{ #category : #accessing }
-RespuestaComponent >> pregunta: unaPregunta [
-	pregunta := unaPregunta
+{ #category : #'instance initialization' }
+RespuestaComponent >> inicializarConPadre: unPadre yRespuesta: unaRespuesta [
+	padre := unPadre.
+	respuesta := unaRespuesta
 ]
 
 { #category : #rendering }
-RespuestaComponent >> renderContentOn: aCanvas [
-	| usuarioLogueado |
-	usuarioLogueado := self session usuario.
-	aCanvas render: header.
-	aCanvas div.
-	aCanvas heading
-		level: 1;
-		with: pregunta titulo.
-	aCanvas paragraph with: 'Tópicos: ' , pregunta topicos.
-	aCanvas text: 'Realizada por: '.
-	aCanvas anchor
-		callback: [ self renderUsuario: pregunta usuario ];
-		with: pregunta usuario nombre.
-	aCanvas paragraph
-		with:
-			'Likes: ' , pregunta likes size asString , '| Dislikes: '
-				, pregunta dislikes size asString.
-	aCanvas anchor
-		callback: [ pregunta registrarLikeDelUsuario: usuarioLogueado];
-		with: 'like  '.
-	aCanvas anchor
-		callback: [ pregunta registrarDislikeDelUsuario: usuarioLogueado ];
-		with: 'dislike'.
-	aCanvas tag: 'hr'.
-	aCanvas paragraph with: 'RESPONDER'.
-	aCanvas
-		form: [ aCanvas textArea on: #newTexto of: self.
-			aCanvas button
-				callback: [ self cancelar ];
-				value: 'Cancelar'.
-			aCanvas submitButton
-				callback: [ self agregarRespuesta ];
-				value: 'Guardar' ].
-	aCanvas anchor
-		callback: [ self volver ];
-		with: 'Volver'
+RespuestaComponent >> renderContentOn: html [
+	html text: 'Respuesta de: '.
+	self renderPerfilUsuarioButtonOn: html.
+	html paragraph: respuesta texto.
+	html paragraph: 'Likes: ' , (respuesta likes size asString) , 
+	                   ' | Dislikes: ', (respuesta dislikes size asString).
+	html paragraph: [ self renderLikeButtonOn: html.
+	                     self renderDislikeButtonOn: html ].
+	html tag: 'hr'
 ]
 
 { #category : #rendering }
-RespuestaComponent >> renderUsuario: unUsuario [
-	self call: (UsuarioDetalleComponent new: unUsuario)
+RespuestaComponent >> renderDislikeButtonOn: html [
+	html anchor
+		callback: [ respuesta registrarDislikeDelUsuario: self session usuario ];
+		with: [ html button with: 'Dislike' ]
 ]
 
-{ #category : #callbacks }
-RespuestaComponent >> volver [
-	self cancelar.
-	self answer
+{ #category : #rendering }
+RespuestaComponent >> renderLikeButtonOn: html [
+	html anchor
+		callback: [ respuesta registrarLikeDelUsuario: self session usuario ];
+		with: [ html button with: 'Like' ]
+]
+
+{ #category : #rendering }
+RespuestaComponent >> renderPerfilUsuarioButtonOn: html [
+	html anchor
+		callback: [ self renderUsuarioDetalle: respuesta usuario ];
+		with: respuesta usuario nombre
+]
+
+{ #category : #rendering }
+RespuestaComponent >> renderUsuarioDetalle: unUsuario [
+	padre call: (UsuarioDetalleComponent newConUsuario: unUsuario)
 ]

@@ -2,7 +2,7 @@ Class {
 	#name : #HomeComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'header'
+		'headerComponent'
 	],
 	#category : #CuOOraWeb
 }
@@ -10,61 +10,33 @@ Class {
 { #category : #initialization }
 HomeComponent >> initialize [
 	super initialize.
-	header := HeaderComponent newConPadre: self
+	headerComponent := HeaderComponent newConPadre: self
+]
+
+{ #category : #rendering }
+HomeComponent >> renderAgregarPreguntaButtonOn: html [
+	html
+		paragraph: [ html anchor
+				callback: [ self renderCrearPregunta ];
+				with: [ html button with: 'Agrega nueva pregunta' ] ]
 ]
 
 { #category : #rendering }
 HomeComponent >> renderContentOn: html [
-	| preg usuarioLogueado |
-	usuarioLogueado := self session usuario.
-	html render: header.
-	html heading
-		level: 1;
-		with: 'Ultimas preguntas'.
-	preg := usuarioLogueado obtenerPreguntasRelevantes takeFirst: 5.
-	preg
-		do: [ :p | 
-			html div.
-			html anchor
-				callback: [ self renderPregunta: p ];
-				with: [ html heading
-						level: 3;
-						with: p titulo ].
-			html paragraph with: 'topicos: ' , p topicos.
-			html text: 'Realizada por: '.
-			html anchor
-				callback: [ self renderUsuario: p usuario ];
-				with: p usuario nombre.
-			html paragraph
-				with: 'respuestas: ' , p obtenerRespuestasPorPuntaje size asString.
-			html paragraph
-				with:
-					'Likes: ' , p likes size asString , '| Dislikes: '
-						, p dislikes size asString.
-			html anchor
-				callback: [ p registrarLikeDelUsuario: usuarioLogueado ];
-				with: 'like  '.
-			html anchor
-				callback: [ p registrarDislikeDelUsuario: usuarioLogueado];
-				with: 'dislike'.
-			html tag: 'hr' ].
-	html break.
-	html anchor
-		callback: [ self renderPregunta ];
-		with: 'Agrega una nueva pregunta'
+	html render: headerComponent.
+	html heading: 'Ultimas preguntas'.
+	self renderPreguntas: (self session usuario obtenerPreguntasRelevantes takeFirst: 5) on: html.
+	self renderAgregarPreguntaButtonOn: html.
 ]
 
 { #category : #rendering }
-HomeComponent >> renderPregunta [
-	self call: PreguntaComponent new
+HomeComponent >> renderCrearPregunta [
+	self call: CrearPreguntaComponent new
 ]
 
 { #category : #rendering }
-HomeComponent >> renderPregunta: unaPregunta [
-	self call: (PreguntaDetalleComponent new: unaPregunta)
-]
-
-{ #category : #rendering }
-HomeComponent >> renderUsuario: unUsuario [
-	self call: (UsuarioDetalleComponent new: unUsuario)
+HomeComponent >> renderPreguntas: unasPreguntas on: html [
+	unasPreguntas
+		do:
+			[ :pregunta | html render: (PreguntaComponent newConPadre: self yPregunta: pregunta) ]
 ]

@@ -28,13 +28,13 @@ LoginComponent >> contrasena [
 ]
 
 { #category : #accessing }
-LoginComponent >> contrasena: anObject [
-	contrasena := anObject
+LoginComponent >> contrasena: unaContrasena [
+	contrasena := unaContrasena
 ]
 
 { #category : #'instance initialization' }
 LoginComponent >> inicializarCuOOra [
-	| usuarioPedro usuarioDiego usuarioJuan topico1 topico2 topico3 preguntaDePedro preguntaDeDiego RespuestaAPreguntaDePedro RespuestaAPreguntaDeDiego |
+	| usuarioPedro usuarioDiego usuarioJuan topico1 topico2 topico3 preguntaDePedro preguntaDeDiego respuestaAPreguntaDePedro respuestaAPreguntaDeDiego |
 	
 	cuoora := CuOOra instancia.
 	
@@ -56,13 +56,13 @@ LoginComponent >> inicializarCuOOra [
 	preguntaDePedro := cuoora crearPreguntaConTitulo: '¿Para qué sirve el método SetUp? ' descripcion: '¿Para qué sirve el método SetUp?' porUsuario: usuarioPedro yTopicos:(OrderedCollection with: topico1 with: topico2).
 		 
 	"- Respuesta de Diego: "
-	RespuestaAPreguntaDePedro := cuoora crearRespuestaConTexto: 'Sirve para instanciar los objetos que  son evaluados por el test en un único método y que se ejecute siempre antes de cada test.' aPregunta: preguntaDePedro porUsuario: usuarioDiego.
+	respuestaAPreguntaDePedro := cuoora crearRespuestaConTexto: 'Sirve para instanciar los objetos que  son evaluados por el test en un único método y que se ejecute siempre antes de cada test.' aPregunta: preguntaDePedro porUsuario: usuarioDiego.
 
 	"- Pregunta de Diego:"
 	preguntaDeDiego := cuoora crearPreguntaConTitulo: '¿Qué significa #messageNotUnderstood? ' descripcion: '¿Para qué sirve el método SetUp?' porUsuario: usuarioDiego yTopicos:(OrderedCollection with: topico1 with: topico3).
 
 	"- Respuesta de Pedro:"
-	RespuestaAPreguntaDeDiego := cuoora crearRespuestaConTexto: 'Significa que el objeto que recibió el mensaje no encontró ningún método para ejecutar en respuesta.' aPregunta: preguntaDeDiego porUsuario: usuarioPedro.
+	respuestaAPreguntaDeDiego := cuoora crearRespuestaConTexto: 'Significa que el objeto que recibió el mensaje no encontró ningún método para ejecutar en respuesta.' aPregunta: preguntaDeDiego porUsuario: usuarioPedro.
 		   
 ]
 
@@ -74,8 +74,6 @@ LoginComponent >> initialize [
 
 { #category : #callbacks }
 LoginComponent >> loginUsuario [
-	"Este método loguea un usuario en cuoora"
-
 	| usuario |
 	usuario := CuOOra instancia validarUsuarioConNombre: nombre yContrasena: contrasena.
 	usuario
@@ -92,8 +90,8 @@ LoginComponent >> nombre [
 ]
 
 { #category : #accessing }
-LoginComponent >> nombre: anObject [
-	nombre := anObject
+LoginComponent >> nombre: unNombre [
+	nombre := unNombre
 ]
 
 { #category : #rendering }
@@ -102,6 +100,24 @@ LoginComponent >> renderContentOn: html [
 	html heading
 		level: 1;
 		with: 'Bienvenido'.
+	self renderLoginFormOn: html.
+	self renderMensajeDeErrorOn: html
+]
+
+{ #category : #rendering }
+LoginComponent >> renderHome [
+	self call: HomeComponent new
+]
+
+{ #category : #rendering }
+LoginComponent >> renderLoginButtonOn: html [
+	html submitButton
+		callback: [ self loginUsuario ];
+		value: 'Login'
+]
+
+{ #category : #rendering }
+LoginComponent >> renderLoginFormOn: html [
 	html
 		form: [ html text: 'Usuario: '.
 			html textInput on: #nombre of: self.
@@ -109,18 +125,15 @@ LoginComponent >> renderContentOn: html [
 			html text: 'Contrasena: '.
 			html textInput on: #contrasena of: self.
 			html break.
-			html submitButton
-				callback: [ self loginUsuario ];
-				value: 'Login' ].
+			self renderLoginButtonOn: html ]
+]
+
+{ #category : #rendering }
+LoginComponent >> renderMensajeDeErrorOn: html [
 	errorLogin isNotNil
 		ifFalse: [ ^ self ].
 	html div
 		style: 'color:red;font-weight:bold;';
 		with: errorLogin.
 	errorLogin := nil
-]
-
-{ #category : #rendering }
-LoginComponent >> renderHome [
-	self call: HomeComponent new
 ]

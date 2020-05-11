@@ -2,107 +2,74 @@ Class {
 	#name : #PreguntaComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'header',
-		'titulo',
-		'descripcion',
-		'topicos'
+		'padre',
+		'pregunta'
 	],
 	#category : #CuOOraWeb
 }
 
-{ #category : #callbacks }
-PreguntaComponent >> agregarPregunta [
-	CuOOra instancia
-		crearPreguntaConTitulo: titulo
-		descripcion: descripcion
-		porUsuario: self session usuario
-		yTopicos: self topicosIngresados.
-	self volver
+{ #category : #'instance creation' }
+PreguntaComponent class >> newConPadre: unPadre yPregunta: unaPregunta [
+	^ self new inicializarConPadre: unPadre yPregunta: unaPregunta
 ]
 
-{ #category : #callbacks }
-PreguntaComponent >> cancelar [
-	titulo := nil.
-	descripcion := nil.
-	topicos := nil
-]
-
-{ #category : #accessing }
-PreguntaComponent >> descripcion [
-	^ descripcion
-]
-
-{ #category : #accessing }
-PreguntaComponent >> descripcion: anObject [
-	descripcion := anObject
-]
-
-{ #category : #initialization }
-PreguntaComponent >> initialize [
-	super initialize.
-	header := HeaderComponent newConPadre: self
+{ #category : #'instance initialization' }
+PreguntaComponent >> inicializarConPadre: unPadre yPregunta: unaPregunta [
+	padre := unPadre.
+	pregunta := unaPregunta
 ]
 
 { #category : #rendering }
 PreguntaComponent >> renderContentOn: html [
-	html render: header.
-	html heading: 'Haga una pregunta'.
-	html
-		form: [ html text: 'Título: '.
-			html textInput on: #titulo of: self.
-			html break.
-			html tag: 'br'.
-			html text: 'Descripción: '.
-			html textArea on: #descripcion of: self.
-			html break.
-			html tag: 'br'.
-			html text: 'Tópicos: '.
-			html textInput on: #topicos of: self.
-			html break.
-			html button
-				callback: [ self cancelar ];
-				value: 'Cancelar'.
-			"Llamar al metodo que agrega la pregunta"
-			html submitButton
-				callback: [ self agregarPregunta ];
-				value: 'Agregar' ].
+	html div.
+	self renderTituloButtonOn: html.
+	html paragraph: 'Topicos: ' , pregunta topicos.
+	html text: 'Realizada por: '. self renderPerfilUsuarioButtonOn: html.
+	html paragraph: 'Respuestas: ' , (pregunta obtenerRespuestasPorPuntaje size asString).
+	html paragraph: 'Likes: ' , (pregunta likes size asString) , 
+	                ' | Dislikes: ', (pregunta dislikes size asString).
+	html paragraph: [ self renderLikeButtonOn: html.
+				         html space.
+	                  self renderDislikeButtonOn: html ].
+	html tag: 'hr'
+]
+
+{ #category : #rendering }
+PreguntaComponent >> renderDislikeButtonOn: html [
 	html anchor
-		callback: [ self volver ];
-		with: 'volver'
+		callback: [ pregunta registrarDislikeDelUsuario: self session usuario ];
+		with: [ html button with: 'Dislike' ]
 ]
 
-{ #category : #accessing }
-PreguntaComponent >> titulo [
-	^ titulo
+{ #category : #rendering }
+PreguntaComponent >> renderLikeButtonOn: html [
+	html anchor
+		callback: [ pregunta registrarLikeDelUsuario: self session usuario ];
+		with: [ html button with: 'Like' ]
 ]
 
-{ #category : #accessing }
-PreguntaComponent >> titulo: anObject [
-	titulo := anObject
+{ #category : #rendering }
+PreguntaComponent >> renderPerfilUsuarioButtonOn: html [
+	html anchor
+		callback: [ self renderUsuarioDetalle: pregunta usuario ];
+		with: pregunta usuario nombre
 ]
 
-{ #category : #accessing }
-PreguntaComponent >> topicos [
-	^ topicos
+{ #category : #rendering }
+PreguntaComponent >> renderPreguntaDetalle [
+	padre call: (PreguntaDetalleComponent newConPregunta: pregunta)
 ]
 
-{ #category : #accessing }
-PreguntaComponent >> topicos: anObject [
-	topicos := anObject
+{ #category : #rendering }
+PreguntaComponent >> renderTituloButtonOn: html [
+	html anchor
+		callback: [ self renderPreguntaDetalle ];
+		with: [ html heading
+				level: 2;
+				with: pregunta titulo ]
 ]
 
-{ #category : #accessing }
-PreguntaComponent >> topicosIngresados [
-	| t |
-	t := self topicos splitOn: ','.
-	^ t
-		collect: [ :topico | CuOOra instancia buscarTopicoConNombre: topico ]
-
-	"buscarTopicoConNombre: esta en el model de cuoora y busca si los topicos ingresados existen. En caso de no existir, lo crea"
-]
-
-{ #category : #callbacks }
-PreguntaComponent >> volver [
-	self cancelar.
-	self answer
+{ #category : #rendering }
+PreguntaComponent >> renderUsuarioDetalle: unUsuario [
+	padre call: (UsuarioDetalleComponent newConUsuario: unUsuario)
 ]
