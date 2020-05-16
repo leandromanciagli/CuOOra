@@ -1,17 +1,8 @@
 Class {
 	#name : #HomeComponent,
-	#superclass : #WAComponent,
-	#instVars : [
-		'headerComponent'
-	],
+	#superclass : #LoggerComponent,
 	#category : #CuOOraWeb
 }
-
-{ #category : #initialization }
-HomeComponent >> initialize [
-	super initialize.
-	headerComponent := HeaderComponent newConPadre: self
-]
 
 { #category : #rendering }
 HomeComponent >> renderAgregarPreguntaButtonOn: html [

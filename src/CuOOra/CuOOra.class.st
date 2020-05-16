@@ -16,20 +16,56 @@ CuOOra class >> clearInstancia [
 	instancia := nil.
 ]
 
+{ #category : #'instance initialization' }
+CuOOra class >> inicializarInstancia [
+	| usuarioPedro usuarioDiego usuarioJuan topico1 topico2 topico3 preguntaDePedro preguntaDeDiego |
+	
+	"Usuarios:" 	
+	usuarioPedro := instancia crearUsuarioConNombre: 'pedro@cuoora.com' yContrasena: 'pedro@cuoora.com'.
+	usuarioDiego := instancia crearUsuarioConNombre: 'diego@cuoora.com' yContrasena: 'diego@cuoora.com'.
+	usuarioJuan := instancia crearUsuarioConNombre: 'juan@cuoora.com' yContrasena: 'juan@cuoora.com'.
+
+	"- Las relaciones entre ellos son:"
+	"Juan sigue a Diego :" usuarioJuan seguirAlUsuario: usuarioDiego.
+	"Pedro sigue a Juan :" usuarioPedro seguirAlUsuario: usuarioJuan.
+
+	"- Preguntas y respuestas: - "
+	topico1 := instancia crearTopicoConNombre: 'OO1' yDescripcion: 'Objetos 1'.
+	topico2 := instancia crearTopicoConNombre: 'Test de unidad' yDescripcion: 'Test de unidad'.
+	topico3 := instancia crearTopicoConNombre: 'Smalltalk' yDescripcion: 'Smalltalk'.
+
+	"Pregunta de Pedro:  "
+	preguntaDePedro := instancia crearPreguntaConTitulo: '¿Para qué sirve el método SetUp? ' descripcion: '¿Para qué sirve el método SetUp?' porUsuario: usuarioPedro yTopicos:(OrderedCollection with: topico1 with: topico2).
+		 
+	"- Respuesta de Diego: "
+	instancia crearRespuestaConTexto: 'Sirve para instanciar los objetos que  son evaluados por el test en un único método y que se ejecute siempre antes de cada test.' aPregunta: preguntaDePedro porUsuario: usuarioDiego.
+
+	"- Pregunta de Diego:"
+	preguntaDeDiego := instancia crearPreguntaConTitulo: '¿Qué significa #messageNotUnderstood? ' descripcion: '¿Para qué sirve el método SetUp?' porUsuario: usuarioDiego yTopicos:(OrderedCollection with: topico1 with: topico3).
+
+	"- Respuesta de Pedro:"
+	instancia crearRespuestaConTexto: 'Significa que el objeto que recibió el mensaje no encontró ningún método para ejecutar en respuesta.' aPregunta: preguntaDeDiego porUsuario: usuarioPedro.
+		   
+]
+
 { #category : #accessing }
 CuOOra class >> instancia [
-	^ instancia ifNil: [ instancia := self new ] ifNotNil: [ instancia ]
+	instancia
+		ifNil: [ instancia := self new.
+			self inicializarInstancia ].
+	^ instancia
 ]
 
 { #category : #accessing }
 CuOOra >> buscarTopicoConNombre: unNombre [
-	| unTopico |
-	unTopico := (topicos
-		anySatisfy: [ :topico | topico nombre = unNombre ])
-		ifTrue: [ topicos detect: [ :top | top nombre = unNombre ] ]
-		ifFalse: [ self crearTopicoConNombre: unNombre yDescripcion: 'Sin descripcion' ].
-	^ unTopico
-	"Verifica que el nombre del topico ingresado al agregar una pregunta exista, sino se crea"
+	^ topicos detect: [ :topico | topico nombre = unNombre ] ifNone: [ nil ]
+]
+
+{ #category : #accessing }
+CuOOra >> buscarYCrearTopico: unNombre [
+	^ (self buscarTopicoConNombre: unNombre)
+		ifNil:
+			[ self crearTopicoConNombre: unNombre yDescripcion: 'Sin descripcion' ]
 ]
 
 { #category : #adding }
@@ -39,9 +75,9 @@ CuOOra >> crearPreguntaConTitulo: unTitulo descripcion: unaDescripcion porUsuari
 		nuevaConTitulo: unTitulo
 		descripcion: unaDescripcion
 		porUsuario: unUsuario
-		yTopicos: unosTopicos.	"La creación es realizada por la clase Pregunta"
-	unUsuario agregarPregunta: pregunta.	"La pregunta creada se agrega a la coleccion de preguntas del usuario"
-	unosTopicos do: [ :top | top agregarPregunta: pregunta ].	"La pregunta creada se agrega a la coleccion de preguntas de un/os topico/s"
+		yTopicos: unosTopicos.
+	unUsuario agregarPregunta: pregunta.
+	unosTopicos do: [ :topico | topico agregarPregunta: pregunta ].
 	^ pregunta
 ]
 
@@ -51,8 +87,9 @@ CuOOra >> crearRespuestaConTexto: unTexto aPregunta: unaPregunta porUsuario: unU
 	respuesta := Respuesta
 		nuevaConTexto: unTexto
 		aPregunta: unaPregunta
-		porUsuario: unUsuario.	"La creación es realizada por la clase Respuesta"
-	unaPregunta agregarRespuesta: respuesta.	"La respuesta creada se agrega a la coleccion de respuestas de la pregunta"
+		porUsuario: unUsuario.
+	unUsuario agregarRespuesta: respuesta.
+	unaPregunta agregarRespuesta: respuesta.
 	^ respuesta
 ]
 
@@ -88,8 +125,6 @@ CuOOra >> usuarios [
 { #category : #validating }
 CuOOra >> validarUsuarioConNombre: unNombre yContrasena: unaContrasena [
 	^ usuarios
-		detect: [ :usu | usu nombre = unNombre & (usu contrasena = unaContrasena) ]
+		detect: [ :usuario | usuario nombre = unNombre & (usuario contrasena = unaContrasena) ]
 		ifNone: [ nil ]
-		
-	"Se valida que el usuario que se quiere loguear exista en la coleccion de usuarios de CuOOra"
 ]

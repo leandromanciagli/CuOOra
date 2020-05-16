@@ -20,19 +20,14 @@ Reaccion class >> nuevaDelusuario: unUsuario likesPublicacion: unaPublicacion [
 	^ self new inicializarDelUsuario: unUsuario likesPublicacion: unaPublicacion
 ]
 
-{ #category : #deleting }
-Reaccion >> borrarPublicacion [
-	publicacion := nil
-]
-
 { #category : #accessing }
 Reaccion >> dislike [
-	estado := false
+	^ estado := false
 ]
 
 { #category : #accessing }
 Reaccion >> estado [
-	^ estado "voto"
+	^ estado
 ]
 
 { #category : #initialization }
@@ -56,7 +51,7 @@ Reaccion >> initialize [
 
 { #category : #accessing }
 Reaccion >> like [
-	estado := true
+	^ estado := true
 ]
 
 { #category : #accessing }

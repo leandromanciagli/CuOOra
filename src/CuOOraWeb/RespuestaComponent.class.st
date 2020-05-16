@@ -1,8 +1,7 @@
 Class {
 	#name : #RespuestaComponent,
-	#superclass : #WAComponent,
+	#superclass : #EmbeddedComponent,
 	#instVars : [
-		'padre',
 		'respuesta'
 	],
 	#category : #CuOOraWeb
@@ -25,9 +24,10 @@ RespuestaComponent >> renderContentOn: html [
 	self renderPerfilUsuarioButtonOn: html.
 	html paragraph: respuesta texto.
 	html paragraph: 'Likes: ' , (respuesta likes size asString) , 
-	                   ' | Dislikes: ', (respuesta dislikes size asString).
+	                ' | Dislikes: ', (respuesta dislikes size asString).
 	html paragraph: [ self renderLikeButtonOn: html.
-	                     self renderDislikeButtonOn: html ].
+							html space.
+	                  self renderDislikeButtonOn: html ].
 	html tag: 'hr'
 ]
 
@@ -50,9 +50,4 @@ RespuestaComponent >> renderPerfilUsuarioButtonOn: html [
 	html anchor
 		callback: [ self renderUsuarioDetalle: respuesta usuario ];
 		with: respuesta usuario nombre
-]
-
-{ #category : #rendering }
-RespuestaComponent >> renderUsuarioDetalle: unUsuario [
-	padre call: (UsuarioDetalleComponent newConUsuario: unUsuario)
 ]

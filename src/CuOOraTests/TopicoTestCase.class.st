@@ -2,9 +2,6 @@ Class {
 	#name : #TopicoTestCase,
 	#superclass : #TestCase,
 	#instVars : [
-		'cuoora',
-		'usuarioCatherine',
-		'usuarioLeandro',
 		'topicoProgramacion',
 		'topicoGeografia',
 		'preguntaDeProgramacion',
@@ -16,28 +13,17 @@ Class {
 { #category : #running }
 TopicoTestCase >> setUp [ 
 	super setUp.
-	cuoora := CuOOra new.
-	
-	"Se crean 2 usuarios"
-	usuarioCatherine := cuoora crearUsuarioConNombre: 'Catherine' yContrasena: 'laContrasenaDeCatherine'.
-	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' 	yContrasena: 'laContrasenaDeLeandro'.
 	
 	"Se crean 2 topicos"
-	topicoProgramacion := cuoora crearTopicoConNombre: 'Programacion' yDescripcion: 'Preguntas referidas a la programación en informática'.
-	topicoGeografia := cuoora crearTopicoConNombre: 'Geografia' yDescripcion: 'Preguntas referidas a geografia'.
+	topicoProgramacion := Topico nuevoConNombre: 'Programacion' yDescripcion: 'Preguntas referidas a la programación en informática'.
+	topicoGeografia := Topico nuevoConNombre: 'Geografia' yDescripcion: 'Preguntas referidas a geografia'.
 	
 	"Se crean 2 preguntas"
-	preguntaDeProgramacion := cuoora crearPreguntaConTitulo: '¿Alguien sabe test de unidad?' descripcion: 'Test para OO2' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
+	preguntaDeProgramacion := Pregunta nuevaConTitulo: '¿Alguien sabe test de unidad?' descripcion: 'Test para OO2' porUsuario: nil yTopicos:(OrderedCollection with: topicoProgramacion).
+	topicoProgramacion agregarPregunta: preguntaDeProgramacion.
 	
-	preguntaDeGeografia := cuoora crearPreguntaConTitulo:'¿Cual es la capital de Italia?' descripcion:'Del topico geografia' porUsuario: usuarioLeandro yTopicos:(OrderedCollection with: topicoGeografia ).
-	
-
-
-
-
-
-
-
+	preguntaDeGeografia := Pregunta nuevaConTitulo:'¿Cual es la capital de Italia?' descripcion:'Del topico geografia' porUsuario: nil yTopicos:(OrderedCollection with: topicoGeografia ).
+	topicoGeografia agregarPregunta: preguntaDeGeografia.
 ]
 
 { #category : #tests }
@@ -45,16 +31,16 @@ TopicoTestCase >> testAgregarPregunta [
 	self
 		assert:
 			(topicoProgramacion preguntas
-				detect: [ :p | p titulo = '¿Alguien sabe test de unidad?' ])
+				detect: [ :pregunta | pregunta titulo = '¿Alguien sabe test de unidad?' ])
 				notNil.	"La pregunta se encuentra entre las preguntas del topico"
 	self
 		assert:
 			(topicoGeografia preguntas
-				detect: [ :p | p titulo = '¿Cual es la capital de Italia?' ])
+				detect: [ :pregunta | pregunta titulo = '¿Cual es la capital de Italia?' ])
 				notNil.	"La pregunta se encuentra entre las preguntas del topico"
 	self
 		should: [ topicoProgramacion preguntas
-				detect: [ :p | p titulo = '¿Cual es la capital de Italia?' ] ]
+				detect: [ :pregunta | pregunta titulo = '¿Cual es la capital de Italia?' ] ]
 		raise: Error	"La pregunta se agregó al topico que se le indico y no a otro"
 ]
 

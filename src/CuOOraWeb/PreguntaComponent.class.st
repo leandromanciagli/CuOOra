@@ -1,8 +1,7 @@
 Class {
 	#name : #PreguntaComponent,
-	#superclass : #WAComponent,
+	#superclass : #EmbeddedComponent,
 	#instVars : [
-		'padre',
 		'pregunta'
 	],
 	#category : #CuOOraWeb
@@ -67,9 +66,4 @@ PreguntaComponent >> renderTituloButtonOn: html [
 		with: [ html heading
 				level: 2;
 				with: pregunta titulo ]
-]
-
-{ #category : #rendering }
-PreguntaComponent >> renderUsuarioDetalle: unUsuario [
-	padre call: (UsuarioDetalleComponent newConUsuario: unUsuario)
 ]

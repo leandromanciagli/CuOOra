@@ -14,26 +14,21 @@ Publicacion >> agregarReaccion: unaReaccion [
 	reacciones add: unaReaccion
 ]
 
-{ #category : #'search and filtering' }
-Publicacion >> buscarReaccionDelUsuario: unUsuario [
-	"^ reacciones detect: [ :reaccion | reaccion usuario equals: unUsuario ]"
-	
-	| reaccion |
-	reacciones
-		do: [ :r | 
-			r usuario = unUsuario
-				ifTrue: [ reaccion := r ] ].
-	^ reaccion
+{ #category : #removing }
+Publicacion >> borrarReacciones [
+	reacciones := nil
 ]
 
-{ #category : #'submorphs-add/remove' }
-Publicacion >> delete [ 
-	self subclassResponsibility.
+{ #category : #'search and filtering' }
+Publicacion >> buscarReaccionDelUsuario: unUsuario [
+	^ reacciones
+		detect: [ :reaccion | reaccion usuario = unUsuario ]
+		ifNone: [ nil ]
 ]
 
 { #category : #'search and filtering' }
 Publicacion >> dislikes [
-	^ self reacciones reject: [ :reaccion | reaccion estado ] "reject devuelve todos los false"
+	^ self reacciones reject: [ :reaccion | reaccion estado ]
 ]
 
 { #category : #accessing }
@@ -49,7 +44,7 @@ Publicacion >> initialize [
 
 { #category : #'search and filtering' }
 Publicacion >> likes [
-	^ self reacciones select: [ :reaccion | reaccion estado ] "select devuelve todos los true"
+	^ self reacciones select: [ :reaccion | reaccion estado ]
 ]
 
 { #category : #calculating }

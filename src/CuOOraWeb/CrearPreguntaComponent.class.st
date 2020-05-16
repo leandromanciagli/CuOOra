@@ -1,8 +1,7 @@
 Class {
 	#name : #CrearPreguntaComponent,
-	#superclass : #WAComponent,
+	#superclass : #LoggerComponent,
 	#instVars : [
-		'headerComponent',
 		'titulo',
 		'descripcion',
 		'topicos'
@@ -35,12 +34,6 @@ CrearPreguntaComponent >> descripcion [
 { #category : #accessing }
 CrearPreguntaComponent >> descripcion: unaDescripcion [ 
 	descripcion := unaDescripcion
-]
-
-{ #category : #initialization }
-CrearPreguntaComponent >> initialize [
-	super initialize.
-	headerComponent := HeaderComponent newConPadre: self
 ]
 
 { #category : #rendering }
@@ -113,12 +106,10 @@ CrearPreguntaComponent >> topicos: unosTopicos [
 
 { #category : #accessing }
 CrearPreguntaComponent >> topicosIngresados [
-	| t |
-	t := self topicos splitOn: ','.
-	^ t
-		collect: [ :topico | CuOOra instancia buscarTopicoConNombre: topico ]
-
-	"buscarTopicoConNombre: esta en el model de cuoora y busca si los topicos ingresados existen. En caso de no existir, lo crea"
+	| topicosIngresados |
+	topicosIngresados := self topicos splitOn: ','.
+	^ topicosIngresados
+		collect: [ :topico | CuOOra instancia buscarYCrearTopico: topico ]
 ]
 
 { #category : #callbacks }

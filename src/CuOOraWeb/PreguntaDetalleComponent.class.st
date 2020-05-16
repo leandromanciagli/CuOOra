@@ -1,8 +1,7 @@
 Class {
 	#name : #PreguntaDetalleComponent,
-	#superclass : #WAComponent,
+	#superclass : #LoggerComponent,
 	#instVars : [
-		'headerComponent',
 		'pregunta'
 	],
 	#category : #CuOOraWeb
@@ -21,12 +20,6 @@ PreguntaDetalleComponent >> agregarRespuesta: unaPregunta [
 { #category : #accessing }
 PreguntaDetalleComponent >> inicializarConPregunta: unaPregunta [
 	pregunta := unaPregunta
-]
-
-{ #category : #initialization }
-PreguntaDetalleComponent >> initialize [
-	super initialize.
-	headerComponent := HeaderComponent newConPadre: self
 ]
 
 { #category : #rendering }

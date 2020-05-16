@@ -2,7 +2,6 @@ Class {
 	#name : #UsuarioTestCase,
 	#superclass : #TestCase,
 	#instVars : [
-		'cuoora',
 		'usuarioCatherine',
 		'usuarioLeandro',
 		'usuarioMariano',
@@ -24,74 +23,76 @@ Class {
 { #category : #running }
 UsuarioTestCase >> setUp [ 
 	super setUp.
-	cuoora := CuOOra new.
-	
+
 	"Se crean 3 usuarios"
-	usuarioLeandro := cuoora crearUsuarioConNombre: 'Leandro' 	yContrasena: 'laContrasenaDeLeandro'.
-	usuarioCatherine := cuoora crearUsuarioConNombre: 'Catherine' yContrasena: 'laContrasenaDeCatherine'.
-	usuarioMariano := cuoora crearUsuarioConNombre: 'Mariano' 	yContrasena: 'laContrasenaDeMariano'.
+	usuarioLeandro := Usuario nuevoConNombre: 'Leandro' 	yContrasena: 'laContrasenaDeLeandro'.
+	usuarioCatherine := Usuario nuevoConNombre: 'Catherine' yContrasena: 'laContrasenaDeCatherine'.
+	usuarioMariano := Usuario nuevoConNombre: 'Mariano' 	yContrasena: 'laContrasenaDeMariano'.
 	
 	usuarioLeandro seguirAlUsuario: usuarioMariano.
 	
 	"Se crean 3 topicos"
-	topicoProgramacion := cuoora crearTopicoConNombre: 'Programacion' yDescripcion: 'Preguntas referidas a la programación en informática'.
-	topicoGeografia := cuoora crearTopicoConNombre: 'Geografia' yDescripcion: 'Preguntas referidas a geografia'.
-	topicoModa := cuoora crearTopicoConNombre: 'Moda' yDescripcion: 'Preguntas referidas a Moda'.
+	topicoProgramacion := Topico nuevoConNombre: 'Programacion' yDescripcion: 'Preguntas referidas a la programación en informática'.
+	topicoGeografia := Topico nuevoConNombre: 'Geografia' yDescripcion: 'Preguntas referidas a geografia'.
+	topicoModa := Topico nuevoConNombre: 'Moda' yDescripcion: 'Preguntas referidas a Moda'.
 	
 	usuarioLeandro agregarTopicoDeInteres: topicoProgramacion.
 	usuarioCatherine agregarTopicoDeInteres: topicoGeografia.
 	
 	"Se crean 3 preguntas"
-	preguntaDeProgramacion := cuoora crearPreguntaConTitulo: '¿Alguien sabe test de unidad?' descripcion: 'Test para OO2' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
+	preguntaDeProgramacion := Pregunta nuevaConTitulo: '¿Alguien sabe test de unidad?' descripcion: 'Test para OO2' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoProgramacion).
+	usuarioCatherine agregarPregunta: preguntaDeProgramacion.
+	topicoProgramacion agregarPregunta: preguntaDeProgramacion.
 	
-	preguntaDeGeografia := cuoora crearPreguntaConTitulo: '¿Cual es la capital de Italia?' descripcion: 'Del topico geografia' porUsuario: usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia).
+	preguntaDeGeografia := Pregunta nuevaConTitulo: '¿Cual es la capital de Italia?' descripcion: 'Del topico geografia' porUsuario: usuarioMariano yTopicos:(OrderedCollection with: topicoGeografia).
+	usuarioMariano agregarPregunta: preguntaDeGeografia.
+	topicoGeografia agregarPregunta: preguntaDeGeografia.
 	
-	preguntaDeModa := cuoora crearPreguntaConTitulo: '¿Cómo caminar en tacones?' descripcion: 'Del topico moda' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoModa).
+	preguntaDeModa := Pregunta nuevaConTitulo: '¿Cómo caminar en tacones?' descripcion: 'Del topico moda' porUsuario: usuarioCatherine yTopicos:(OrderedCollection with: topicoModa).
+	usuarioCatherine agregarPregunta: preguntaDeModa.
+	topicoModa agregarPregunta: preguntaDeModa.
 	
 	"Se crean 5 respuestas"
-	respuesta1PreguntaProgramacion := cuoora crearRespuestaConTexto: 'Si, yo!' aPregunta: preguntaDeProgramacion porUsuario: usuarioLeandro.
-	respuesta2PreguntaProgramacion := cuoora crearRespuestaConTexto: 'Idem' aPregunta: preguntaDeProgramacion porUsuario: usuarioMariano.
-	respuesta1PreguntaGeografia := cuoora crearRespuestaConTexto: 'Roma' aPregunta: preguntaDeGeografia porUsuario: usuarioCatherine.
-	respuesta1PreguntaModa := cuoora crearRespuestaConTexto: 'No lo sé' aPregunta: preguntaDeModa porUsuario: usuarioLeandro.
-	respuesta2PreguntaModa := cuoora crearRespuestaConTexto: 'Yo tampoco' aPregunta: preguntaDeModa porUsuario: usuarioMariano.
+	respuesta1PreguntaProgramacion := Respuesta nuevaConTexto: 'Si, yo!' aPregunta: preguntaDeProgramacion porUsuario: usuarioLeandro.
+	respuesta2PreguntaProgramacion := Respuesta nuevaConTexto: 'Idem' aPregunta: preguntaDeProgramacion porUsuario: usuarioMariano.
+	respuesta1PreguntaGeografia := Respuesta nuevaConTexto: 'Roma' aPregunta: preguntaDeGeografia porUsuario: usuarioCatherine.
+	respuesta1PreguntaModa := Respuesta nuevaConTexto: 'No lo sé' aPregunta: preguntaDeModa porUsuario: usuarioLeandro.
+	respuesta2PreguntaModa := Respuesta nuevaConTexto: 'Yo tampoco' aPregunta: preguntaDeModa porUsuario: usuarioMariano.
 	
+	preguntaDeProgramacion agregarRespuesta: respuesta1PreguntaProgramacion.
+	preguntaDeProgramacion agregarRespuesta: respuesta2PreguntaProgramacion.
+	preguntaDeGeografia agregarRespuesta: respuesta1PreguntaGeografia.
+	preguntaDeModa agregarRespuesta: respuesta1PreguntaModa.
+	preguntaDeModa agregarRespuesta: respuesta2PreguntaModa.
+	
+	usuarioLeandro agregarRespuesta: respuesta1PreguntaProgramacion.
+	usuarioMariano agregarRespuesta: respuesta2PreguntaProgramacion.
+	usuarioCatherine agregarRespuesta: respuesta1PreguntaGeografia.
+	usuarioLeandro agregarRespuesta: respuesta1PreguntaModa.
+	usuarioMariano agregarRespuesta: respuesta2PreguntaModa.
+		
 	"Se registran reacciones de los usuarios a las preguntas y respuestas"
 	preguntaDeProgramacion registrarDislikeDelUsuario: usuarioLeandro.
 	preguntaDeProgramacion registrarDislikeDelUsuario: usuarioMariano.
-	respuesta1PreguntaGeografia registrarLikeDelUsuario: usuarioLeandro.
-	respuesta1PreguntaGeografia registrarLikeDelUsuario: usuarioMariano.
+	preguntaDeGeografia registrarLikeDelUsuario: usuarioCatherine.
 	preguntaDeModa registrarDislikeDelUsuario: usuarioLeandro.
 	preguntaDeModa registrarDislikeDelUsuario: usuarioMariano.
-	preguntaDeGeografia registrarLikeDelUsuario: usuarioCatherine.
-	
-	
-	
-	
-		
-	
-	
+	respuesta1PreguntaGeografia registrarLikeDelUsuario: usuarioLeandro.
+	respuesta1PreguntaGeografia registrarLikeDelUsuario: usuarioMariano.
 	
 ]
 
 { #category : #tests }
-UsuarioTestCase >> testAgregarPublicacion [
+UsuarioTestCase >> testAgregarPregunta [
 	self
 		assert:
 			(usuarioCatherine preguntasRealizadas
-				detect: [ :p | p titulo = '¿Alguien sabe test de unidad?' ])
-				notNil.	"La pregunta se encuentra entre las publicaciones del usuario"
-	self
-		assert:
-			(usuarioLeandro respuestasRealizadas
-				detect: [ :r | r texto = 'Si, yo!' ]) notNil.	"La respuesta se encuentra entre las publicaciones del usuario"
+				detect: [ :pregunta | pregunta titulo = '¿Alguien sabe test de unidad?' ])
+				notNil.	"La pregunta se encuentra entre las preguntas del usuario"
 	self
 		should: [ usuarioLeandro preguntasRealizadas
-				detect: [ :p | p titulo = '¿Cual es la capital de Italia?' ] ]
-		raise: Error.	"La pregunta no debería encontrarse entre las publicaciones del usuario"
-	self
-		should: [ usuarioLeandro respuestasRealizadas
-				detect: [ :r | r texto = 'Idem' ] ]
-		raise: Error	"La respuesta no debería encontrarse entre las publicaciones del usuario"
+				detect: [ :pregunta | pregunta titulo = '¿Cual es la capital de Italia?' ] ]
+		raise: Error	"La pregunta no debería encontrarse entre las publicaciones del usuario"
 ]
 
 { #category : #tests }
@@ -99,11 +100,45 @@ UsuarioTestCase >> testAgregarTopicoDeInteres [
 	self
 		assert:
 			(usuarioLeandro topicosDeInteres
-				detect: [ :top | top nombre = 'Programacion' ]) notNil.	"El topico se encuentra entre los topicos de interes del usuario"
+				detect: [ :topico | topico nombre = 'Programacion' ]) notNil.	"El topico se encuentra entre los topicos de interes del usuario"
 	self
 		should:
-			[ usuarioLeandro topicosDeInteres detect: [ :top | top nombre = 'Geografia' ] ]
+			[ usuarioLeandro topicosDeInteres detect: [ :topico | topico nombre = 'Geografia' ] ]
 		raise: Error	"El topico no debería encontrarse entre los topicos de interes del usuario"
+]
+
+{ #category : #tests }
+UsuarioTestCase >> testBorrarPregunta [
+	| preguntaDeCatherine |
+	
+	preguntaDeCatherine := Pregunta 
+		nuevaConTitulo: '¿Como multiplicar matrices?' 
+	   descripcion: 'En Pascal' 
+	   porUsuario: usuarioCatherine 
+	   yTopicos: (OrderedCollection with: topicoProgramacion).
+	usuarioCatherine agregarPregunta: preguntaDeCatherine.
+	
+	preguntaDeCatherine := usuarioCatherine preguntasRealizadas
+		detect: [ :pregunta | pregunta titulo = '¿Como multiplicar matrices?' ]
+		ifNone: [ nil ].
+		
+	self assert: preguntaDeCatherine notNil.	"La pregunta debería existir"
+	
+	usuarioCatherine borrarPregunta: preguntaDeCatherine.	"Se borra la pregunta"
+		
+	preguntaDeCatherine := usuarioCatherine preguntasRealizadas
+		detect: [ :pregunta | pregunta titulo = '¿Como multiplicar matrices?' ]
+		ifNone: [ nil ].
+		
+	self assert: preguntaDeCatherine isNil.	"La pregunta ya no debería existir en la coleccion de preguntas del usuario"
+		
+	preguntaDeCatherine := topicoProgramacion preguntas
+		detect: [ :pregunta | pregunta titulo = '¿Como multiplicar matrices?' ]
+		ifNone: [ nil ].
+		
+	self assert: preguntaDeCatherine isNil.	"La pregunta ya no debería existir en la coleccion de preguntas del topico"
+
+
 ]
 
 { #category : #tests }
@@ -124,16 +159,16 @@ UsuarioTestCase >> testObtenerPreguntasRelevantes [
 	self
 		assert:
 			(usuarioLeandro obtenerPreguntasRelevantes
-				detect: [ :p | p titulo = '¿Alguien sabe test de unidad?' ])
+				detect: [ :pregunta | pregunta titulo = '¿Alguien sabe test de unidad?' ])
 				notNil.	"La pregunta se encuentra entre las preguntas relevantes del usuario porque le interesa el topico"
 	self
 		assert:
 			(usuarioLeandro obtenerPreguntasRelevantes
-				detect: [ :p | p titulo = '¿Cual es la capital de Italia?' ])
+				detect: [ :pregunta | pregunta titulo = '¿Cual es la capital de Italia?' ])
 				notNil.	"La pregunta se encuentra entre las preguntas relevantes del usuario porque sigue al usuario que la realizo"
 	self
 		should: [ usuarioLeandro obtenerPreguntasRelevantes
-				detect: [ :p | p titulo = '¿Cómo caminar en tacones?' ] ]
+				detect: [ :pregunta | pregunta titulo = '¿Cómo caminar en tacones?' ] ]
 		raise: Error	."La pregunta no pertenece a un topico de su interes ni fue realizada por un usuario al que sigue"
 			
 		
@@ -144,7 +179,7 @@ UsuarioTestCase >> testPreguntasDeInteres [
 	self
 		assert:
 			(usuarioLeandro preguntasDeInteres
-				detect: [ :p | p titulo = '¿Alguien sabe test de unidad?' ])
+				detect: [ :pregunta | pregunta titulo = '¿Alguien sabe test de unidad?' ])
 				notNil	"La pregunta es de interes para el usuario Leandro porque pertenece al topico que le interesa"
 ]
 
@@ -153,8 +188,8 @@ UsuarioTestCase >> testPreguntasDeSeguidos [
 	self
 		assert:
 			(usuarioLeandro preguntasDeSeguidos 
-				detect: [ :p | p titulo = '¿Cual es la capital de Italia?' ])
-				notNil	"La pregunta es de interes para el usuario Leandro porque pertenece al usuario que sigue"
+				detect: [ :pregunta | pregunta titulo = '¿Cual es la capital de Italia?' ])
+				notNil "La pregunta es de interes para el usuario Leandro porque pertenece al usuario que sigue"
 ]
 
 { #category : #tests }

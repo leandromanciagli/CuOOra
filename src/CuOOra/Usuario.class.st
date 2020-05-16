@@ -5,6 +5,7 @@ Class {
 		'nombre',
 		'contrasena',
 		'preguntas',
+		'respuestas',
 		'topicosDeInteres',
 		'fechaHora',
 		'seguidos'
@@ -24,8 +25,13 @@ Usuario class >> nuevoConNombre: unNombre yContrasena: unaContrasena [
 ]
 
 { #category : #adding }
-Usuario >> agregarPregunta: unaPregunta [
-	preguntas add: unaPregunta 
+Usuario >> agregarPregunta: unaRespuesta [
+	preguntas add: unaRespuesta 
+]
+
+{ #category : #adding }
+Usuario >> agregarRespuesta: unaRespuesta [
+	respuestas add: unaRespuesta
 ]
 
 { #category : #adding }
@@ -33,12 +39,20 @@ Usuario >> agregarTopicoDeInteres: unTopico [
 	topicosDeInteres add: unTopico
 ]
 
+{ #category : #deleting }
+Usuario >> borrarPregunta: unaPregunta [
+	self quitarPregunta: unaPregunta.
+	unaPregunta quitarseDeLosTopicos.
+	unaPregunta borrarRespuestas.
+	unaPregunta borrarReacciones
+]
+
 { #category : #calculating }
 Usuario >> calcularPuntaje [
 	| puntajePorPreguntas puntajePorRespuestas puntajePorVotacion |
 	puntajePorPreguntas := self preguntasRealizadas size * 20.
 	puntajePorRespuestas := self respuestasAPreguntasDeOtrosUsuarios size * 50.
-	puntajePorVotacion := self publicaciones inject: 0 into: [ :sum :p | sum + p puntaje ]. "ver este"
+	puntajePorVotacion := self publicaciones inject: 0 into: [ :acumulador :publicacion | acumulador + publicacion puntaje ].
 	^ puntajePorPreguntas + puntajePorRespuestas + puntajePorVotacion 
 ]
 
@@ -56,9 +70,10 @@ Usuario >> inicializarConNombre: unNombre yContrasena: unaContrasena [
 { #category : #initialization }
 Usuario >> initialize [
 	fechaHora := DateAndTime today.
+	preguntas := OrderedCollection new.
+	respuestas := OrderedCollection new.
 	topicosDeInteres := OrderedCollection new.
-	seguidos := OrderedCollection new.
-	preguntas := OrderedCollection new
+	seguidos := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -71,7 +86,7 @@ Usuario >> obtenerPreguntasRelevantes [
 	| preguntasRelevantes |
 	preguntasRelevantes := (self preguntasDeInteres, self preguntasDeSeguidos) asSet.
 	preguntasRelevantes := preguntasRelevantes
-		asSortedCollection: [ :pr1 :pr2 | pr1 fechaHora > pr2 fechaHora ].
+		asSortedCollection: [ :pregunta1 :pregunta2 | pregunta1 fechaHora > pregunta2 fechaHora ].
 	^ preguntasRelevantes
 ]
 
@@ -92,39 +107,30 @@ Usuario >> preguntasRealizadas [
 
 { #category : #accessing }
 Usuario >> publicaciones [
-	^ (self respuestasRealizadas , self preguntasRealizadas) asSet
+	^ (self preguntasRealizadas , self respuestasRealizadas) asSet
 ]
 
-{ #category : #deleting }
+{ #category : #removing }
 Usuario >> quitarPregunta: unaPregunta [
 	preguntas remove: unaPregunta ifAbsent: [ ^ false ].
 	^ true
 ]
 
-{ #category : #'search and filtering' }
-Usuario >> respuestasALasPreguntas: unasPreguntas [
-	| respuestas |
-	respuestas := unasPreguntas
-		flatCollect: [ :pregunta | pregunta obtenerRespuestasPorPuntaje ].
-	^ respuestas
-		select: [ :respuesta | respuesta respuestaEsDelUsuario: self ]
+{ #category : #removing }
+Usuario >> quitarRespuesta: unaRespuesta [
+	respuestas remove: unaRespuesta ifAbsent: [ ^ false ].
+	^ true
 ]
 
 { #category : #'search and filtering' }
 Usuario >> respuestasAPreguntasDeOtrosUsuarios [
-	^ self respuestasALasPreguntas: self obtenerPreguntasRelevantes
-]
-
-{ #category : #'search and filtering' }
-Usuario >> respuestasAPreguntasPropias [
-	^ self respuestasALasPreguntas: self preguntasRealizadas
+	^ respuestas
+		reject: [ :respuesta | respuesta preguntaEsDelUsuario: self ]
 ]
 
 { #category : #'search and filtering' }
 Usuario >> respuestasRealizadas [
-	^ (self respuestasAPreguntasPropias, self respuestasAPreguntasDeOtrosUsuarios) asSet
-
-	"Todas las respuestas que dió un usuario."
+	^ respuestas
 ]
 
 { #category : #accessing }

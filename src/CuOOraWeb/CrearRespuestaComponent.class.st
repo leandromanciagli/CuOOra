@@ -1,8 +1,7 @@
 Class {
 	#name : #CrearRespuestaComponent,
-	#superclass : #WAComponent,
+	#superclass : #LoggerComponent,
 	#instVars : [
-		'headerComponent',
 		'newTexto',
 		'pregunta'
 	],
@@ -27,12 +26,6 @@ CrearRespuestaComponent >> agregarRespuesta [
 CrearRespuestaComponent >> cancelar [
 	newTexto := nil.
 	
-]
-
-{ #category : #initialization }
-CrearRespuestaComponent >> initialize [
-	super initialize.
-	headerComponent := HeaderComponent newConPadre: self
 ]
 
 { #category : #accessing }

@@ -16,11 +16,6 @@ Respuesta class >> nuevaConTexto: unTexto aPregunta: unaPregunta porUsuario: unU
 		porUsuario: unUsuario
 ]
 
-{ #category : #deleting }
-Respuesta >> delete [
-	reacciones := nil "Se borran todas las reacciones asociadas a la respuesta"
-]
-
 { #category : #'instance initialization' }
 Respuesta >> inicializarConTexto: unTexto aPregunta: unaPregunta porUsuario: unUsuario [
 	pregunta := unaPregunta.
@@ -39,8 +34,8 @@ Respuesta >> pregunta: unaPregunta [
 ]
 
 { #category : #accessing }
-Respuesta >> respuestaEsDelUsuario: unUsuario [
-	^ self usuario == unUsuario
+Respuesta >> preguntaEsDelUsuario: unUsuario [
+	^ self pregunta usuario == unUsuario
 ]
 
 { #category : #accessing }

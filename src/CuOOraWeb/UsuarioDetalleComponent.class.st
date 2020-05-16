@@ -1,9 +1,7 @@
 Class {
 	#name : #UsuarioDetalleComponent,
-	#superclass : #WAComponent,
+	#superclass : #LoggerComponent,
 	#instVars : [
-		'headerComponent',
-		'preguntaComponent',
 		'usuario'
 	],
 	#category : #CuOOraWeb
@@ -17,12 +15,6 @@ UsuarioDetalleComponent class >> newConUsuario: unUsuario [
 { #category : #comparing }
 UsuarioDetalleComponent >> esUsuarioLogueado [
 	^ usuario == self session usuario
-]
-
-{ #category : #initialization }
-UsuarioDetalleComponent >> initialize [
-	super initialize.
-	headerComponent := HeaderComponent newConPadre: self
 ]
 
 { #category : #rendering }
